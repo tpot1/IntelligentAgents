@@ -1,0 +1,391 @@
+09/11 10:16:01 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.InitialCampaignMessage[1192512778,5882,1,5,5882,[YOUNG, MALE],2.301337132725541,1.9479132970385398,demand,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleInitialCampaignMessage(SimpleAdNetwork.java:213)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:132)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.ClassNotFoundException: SimpleAdNetwork$CampaignData
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 6 more
+09/11 10:16:01 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1002466440,1034,2,11,[YOUNG, HIGH_INCOME, MALE],2.0891712398692563,2.128761651711721,0,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:01 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[0,1338,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:12 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=1, serviceLevel=0.47829690000000014, price=0.0, qualityScore=1.0, campaignId=1002466440, winner=DummyAdnetwork-2, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:12 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[59770199,11180,3,12,[YOUNG, FEMALE],2.546329410967433,2.445119711282487,1,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:12 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[1,2590,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:21 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,(CampaignReport CampaignReportEntry [tgt imps=0.0, ntg imps=0.0, cost=0.0])]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleCampaignReport(SimpleAdNetwork.java:415)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:136)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:21 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=2, serviceLevel=0.47829690000000014, price=0.0, qualityScore=1.0, campaignId=59770199, winner=DummyAdnetwork-2, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:21 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1271675990,14524,4,8,[LOW_INCOME, MALE],2.330116445380233,2.257543269861222,2,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:21 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[2,1499,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:16:55 INFO agentware.SimClient|next simulation 11 has already started
+09/11 10:17:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,(CampaignReport CampaignReportEntry [tgt imps=0.0, ntg imps=0.0, cost=0.0])]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleCampaignReport(SimpleAdNetwork.java:415)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:136)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.ClassNotFoundException: SimpleAdNetwork$CampaignData
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 6 more
+09/11 10:17:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=6, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=2059356542, winner=DummyAdnetwork-4, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1668862673,7434,8,10,[MALE],2.6303604164921772,2.067688520674915,6,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[6,692,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:11 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=7, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=1668862673, winner=DummyAdnetwork-3, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:11 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1762734068,614,9,11,[HIGH_INCOME, YOUNG, FEMALE],2.279616796457585,2.2664811587951985,7,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:11 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[7,660,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:20 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=8, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=1762734068, winner=DummyAdnetwork-4, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:20 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[937971933,1192,10,12,[HIGH_INCOME],2.1409556005636983,2.153940732215551,8,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:20 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[8,679,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:30 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=9, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=937971933, winner=DummyAdnetwork-3, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:30 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[204442455,4040,11,20,[MALE, HIGH_INCOME, OLD],2.133621462697982,1.9505026966525765,9,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:30 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[9,595,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:40 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=10, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=204442455, winner=DummyAdnetwork-3, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:40 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1451283610,1440,12,14,[LOW_INCOME, OLD, FEMALE],2.0634821482444377,1.995492092198381,10,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:40 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[10,608,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:50 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=11, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=1451283610, winner=DummyAdnetwork-7, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:50 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[706693703,3816,13,17,[LOW_INCOME, YOUNG],2.437217995491018,1.525914823866877,11,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:17:50 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[11,634,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=12, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=706693703, winner=DummyAdnetwork-7, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1961050617,7920,14,18,[LOW_INCOME, YOUNG, FEMALE],2.456541846349943,1.648730399662757,12,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:00 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[12,601,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:10 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=13, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=1961050617, winner=DummyAdnetwork, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:10 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1607978390,4196,15,19,[LOW_INCOME, OLD],2.752546148368097,1.8698975495517802,13,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:10 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[13,696,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:20 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=14, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=1607978390, winner=DummyAdnetwork-7, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:20 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[563512895,7020,16,20,[OLD, FEMALE],2.2971199846753443,1.6849233362260967,14,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:20 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[14,656,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:30 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=15, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=563512895, winner=DummyAdnetwork, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:30 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1519264266,35048,17,26,[LOW_INCOME, FEMALE],2.046705697959915,1.6680895089170398,15,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:30 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[15,660,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:40 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,AdNetworkDailyNotification [effectiveDay=16, serviceLevel=0.47829690000000014, price=0.0, qualityScore=0.4, campaignId=1519264266, winner=DummyAdnetwork, costMillis=0]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleAdNetworkDailyNotification(SimpleAdNetwork.java:290)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:138)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:40 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,tau.tac.adx.report.demand.CampaignOpportunityMessage[1660703186,244,18,20,[HIGH_INCOME, OLD, FEMALE],2.314089834665507,2.0753168489722515,16,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.handleICampaignOpportunityMessage(SimpleAdNetwork.java:237)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:134)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:40 SEVERE agentware.AgentServiceImpl|agent could not handle message Message[coordinator,adv1,simulationStatus[16,644,false,[]]]
+java.lang.NoClassDefFoundError: SimpleAdNetwork$CampaignData
+	at SimpleAdNetwork.sendBidAndAds(SimpleAdNetwork.java:352)
+	at SimpleAdNetwork.handleSimulationStatus(SimpleAdNetwork.java:316)
+	at SimpleAdNetwork.messageReceived(SimpleAdNetwork.java:142)
+	at se.sics.tasim.aw.AgentService.deliverToAgent(AgentService.java:130)
+	at tau.tac.adx.agentware.AgentServiceImpl.deliverToAgent(AgentServiceImpl.java:135)
+	at tau.tac.adx.agentware.SimClient.run(SimClient.java:437)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:49 SEVERE agentware.ServerConnection|(1) could not read
+java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.io.DataInputStream.readInt(Unknown Source)
+	at tau.tac.adx.agentware.ServerConnection.run(ServerConnection.java:221)
+	at java.lang.Thread.run(Unknown Source)
+09/11 10:18:49 SEVERE agentware.SimClient|************************************************************
+09/11 10:18:49 SEVERE agentware.SimClient|* Connection Lost
+09/11 10:18:49 SEVERE agentware.SimClient|* Lost connection to localhost (will reconnect in 30 seconds)
+09/11 10:18:49 SEVERE agentware.SimClient|************************************************************
