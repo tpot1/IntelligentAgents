@@ -1,5 +1,3 @@
-package adxagent; //tests
-
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -114,7 +112,7 @@ public class testAdNetwork extends Agent {
 	 * Unused variable used to hold the daily publisher report.
 	 */
 	private AdxPublisherReport pubReport;
-	private boolean verbose_printing = true;
+	private boolean verbose_printing = false;
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
 	 */
