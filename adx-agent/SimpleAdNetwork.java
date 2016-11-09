@@ -319,14 +319,6 @@ public class SimpleAdNetwork extends Agent {
 		    System.out.println("CAMPAIGN: " + entry.getKey() + " - WINNER: " + entry.getValue());
 		}
 
-		/*Iterator entries = campaignWinners.entrySet().iterator();
-		while (entries.hasNext()) {
-			Map.Entry thisEntry = (Map.Entry) entries.next();
-			Object key = thisEntry.getKey();
-			Object value = thisEntry.getValue();
-			System.out.println("CAMPAIGN: " + key + " - WINNER: " + value);
-		}*/
-
 		System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
 				+ " at price " + notificationMessage.getPrice()
