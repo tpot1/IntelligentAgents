@@ -1,3 +1,4 @@
+package adxagent; //tests
 
 import java.util.*;
 import java.util.logging.Level;
@@ -109,8 +110,14 @@ public class testAdNetwork extends Agent {
 	private String[] publisherNames;
 	private CampaignData currCampaign;
 
+	/**
+	 * Unused variable used to hold the daily publisher report.
+	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = true;
+	/**
+	 * Keeps list of all currently running campaigns allocated to any agent.
+	 */
 	private List<CampaignData> postedCampaigns;
 
 
@@ -127,40 +134,28 @@ public class testAdNetwork extends Agent {
 			// log.fine(message.getContent().getClass().toString());
 
 			if (content instanceof InitialCampaignMessage) {
-				System.out.println("init campaign:" + content.toString());
 				handleInitialCampaignMessage((InitialCampaignMessage) content);
 			} else if (content instanceof CampaignOpportunityMessage) {
-				System.out.println("camp op:" + content.toString());
 				handleICampaignOpportunityMessage((CampaignOpportunityMessage) content);
 			} else if (content instanceof CampaignReport) {
-				System.out.println("camp report:" + content.toString());
 				handleCampaignReport((CampaignReport) content);
 			} else if (content instanceof AdNetworkDailyNotification) {
-				System.out.println("ad daily:" + content.toString());
 				handleAdNetworkDailyNotification((AdNetworkDailyNotification) content);
 			} else if (content instanceof AdxPublisherReport) {
-				System.out.println("pub rep:" + content.toString());
 				handleAdxPublisherReport((AdxPublisherReport) content);
 			} else if (content instanceof SimulationStatus) {
-				System.out.println("sim status:" + content.toString());
 				handleSimulationStatus((SimulationStatus) content);
 			} else if (content instanceof PublisherCatalog) {
-				System.out.println("pub catal:" + ((PublisherCatalog) content).reservePriceType);
 				handlePublisherCatalog((PublisherCatalog) content);
 			} else if (content instanceof AdNetworkReport) {
-				System.out.println("ad net rep:" + content.toString());
 				handleAdNetworkReport((AdNetworkReport) content);
 			} else if (content instanceof StartInfo) {
-				System.out.println("start info:" + content.toString());
 				handleStartInfo((StartInfo) content);
 			} else if (content instanceof BankStatus) {
-				System.out.println("bank status:" + content.toString());
 				handleBankStatus((BankStatus) content);
 			} else if(content instanceof CampaignAuctionReport) {
-				System.out.println("camp auction rep:" + content.toString());
 				hadnleCampaignAuctionReport((CampaignAuctionReport) content);
 			} else if (content instanceof ReservePriceInfo) {
-				System.out.println("reserve price infpo:" + content.toString());
 				 ((ReservePriceInfo)content).getReservePriceType();
 			} else {
 				System.out.println("UNKNOWN Message Received: " + content);
@@ -258,7 +253,8 @@ public class testAdNetwork extends Agent {
 		Random random = new Random();
 		long cmpimps = com.getReachImps();
 		//long cmpBidMillis = random.nextInt((int)cmpimps);	//XXX bid for new campaign
-		long cmpBidMillis = cmpimps/4; //XXX some campaign eval function here before setting bid price
+		//long cmpBidMillis = cmpimps/4; //XXX some campaign eval function here before setting bid price
+		long cmpBidMillis = evaluateCampaignOp(com);
 
 		if (verbose_printing) { System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis); }
 
@@ -332,8 +328,8 @@ public class testAdNetwork extends Agent {
 		++day;
 	}
 
-	/*
-	 *	XXX more bid stuff? Impressions bidding
+	/**
+	 *	Handles bidding for impressions - creating and sending bid bundle
 	 */
 	protected void sendBidAndAds() {
 
@@ -342,7 +338,6 @@ public class testAdNetwork extends Agent {
 		/*
 		 *
 		 */
-
 		int dayBiddingFor = day + 1;
 
 		Random random = new Random();
@@ -355,7 +350,7 @@ public class testAdNetwork extends Agent {
 
 		//double rbid = 10.0*random.nextDouble();
 		//System.out.println("Bidding:");
-		double rbid = 0.5; // XXX impressions bid
+		double rbid = 1*random.nextDouble(); // XXX impressions bid
 
 
 		/*
@@ -371,8 +366,14 @@ public class testAdNetwork extends Agent {
 
 			int entCount = 0;
 
+			/* Example of AdxQuery:
+			*	AdxQuery [publisher=ehow, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
+			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=pc, adType=text]
+			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=mobile, adType=video]
+			*	AdxQuery [publisher=bestbuy, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
+			*/
 			for (AdxQuery query : currCampaign.campaignQueries) { //all possible targets  for each publisher
-				if (currCampaign.impsTogo() - entCount > 0) {
+				if (currCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
 					/*
 					 * among matching entries with the same campaign id, the AdX
 					 * randomly chooses an entry according to the designated
@@ -395,7 +396,7 @@ public class testAdNetwork extends Agent {
 					}
 
 					bidBundle.addQuery(query, rbid, new Ad(null),
-							currCampaign.id, 1);
+							currCampaign.id, 1, currCampaign.budget);
 
 				}
 			}
@@ -549,8 +550,9 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
-	/*genarates an array of the publishers names
-	 * */
+	/**
+	 * generates an array of the publishers names
+	 */
 	private void getPublishersNames() { // (randomly?) chosen 5
 		if (null == publisherNames && publisherCatalog != null) {
 			ArrayList<String> names = new ArrayList<String>();
@@ -562,8 +564,9 @@ public class testAdNetwork extends Agent {
 			names.toArray(publisherNames);
 		}
 	}
-	/*
-	 * genarates the campaign queries relevant for the specific campaign, and assign them as the campaigns campaignQueries field
+
+	/**
+	 * generates the campaign queries relevant for the specific campaign, and assign them as the campaigns campaignQueries field
 	 */
 	private void genCampaignQueries(CampaignData campaignData) {
 		Set<AdxQuery> campaignQueriesSet = new HashSet<AdxQuery>();
@@ -583,6 +586,10 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) { System.out.println("!!!!!!!!!!!!!!!!!!!!!!"+Arrays.toString(campaignData.campaignQueries)+"!!!!!!!!!!!!!!!!"); }
 	}
 
+	/**
+	 * Determines if this agent has any campaigns active
+	 * @return true if there is active campaign
+	 */
 	private boolean have_active_campigns() {
 		for (Map.Entry<Integer, CampaignData> entry : myCampaigns.entrySet()) {
 			CampaignData data = entry.getValue();
@@ -593,6 +600,9 @@ public class testAdNetwork extends Agent {
 		return false;
 	}
 
+	/**
+	 * Removes any finished campaigns from the postedCampaign list
+	 */
 	private void cleanPostedCampaignList() {
 		for (int iCampaign = postedCampaigns.size() -1; iCampaign>=0; iCampaign--) {
 			if (postedCampaigns.get(iCampaign).dayEnd < day) {
@@ -601,32 +611,120 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
-	double rCampaignMax = 0.001;
-	double rCampaignMin = 0.0001;
+	/**
+	 * Evaluates the campaign opportunity given and returns the suggested bid
+	 *	@param com Campaign op message
+	 *  @return long finBid - the suggested bid
+	 */
+	private long evaluateCampaignOp(CampaignOpportunityMessage com) {
+		long reach = com.getReachImps();
+ 		double vidCoeff = com.getVideoCoef();
+		double mobileCoeff = com.getMobileCoef();
+		long dur = com.getDayEnd() - com.getDayStart();
+		long finBid = reach;
 
-	private double[] getCampaignBidRange(long range) {
-		return new double[] {range*rCampaignMin, range*rCampaignMax};
-	}
+		//Get stats on clashes with posted campaigns
+		ClashObject clashes = numClashingCampaigns(new CampaignData(com));
+		List<CampaignData> clashingCamps = clashes.getClashCamps();
+		List<Integer> clashingExtents = clashes.getClashExtents();
 
-	double rReserveInit = 0.005;
-	double rVariance = 0.02;
+		System.out.println("Number of clashing campaigns:" + clashingCamps.size());
+		System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
 
-	private double estReservePrice(String priceType, double currBaseline) {
-		if (priceType.equals(new String("None"))) {
-			return 0.0;
-		} else if (priceType.equals(new String("Adjustable"))) {
+		double reachCoeff = 0.3;
+		long impsPerDay = reach/dur;
+		int sum = 0; boolean bigClash = false;
 
-		} else if (priceType.equals(new String("DC"))) {
-			double eta = 0.2;
-
-			double r = currBaseline + rVariance;
-			return eta * currBaseline + (1-eta)*r;
+		for (int i : clashingExtents) {
+			sum += i;
+			if (i >= 2) {
+				bigClash = true;
+			}
 		}
-		return 0;
+
+		if (impsPerDay <= 1000 ||
+				(clashingCamps.size() == 0 && impsPerDay <= 2000) ||
+				(sum < 3 && impsPerDay <= 2000) ||
+				(bigClash == false && impsPerDay <= 2000)) {
+			finBid = (long)(reach*reachCoeff);
+		}
+
+		return finBid;
 	}
 
+	/**
+	 * Determines how many running campaigns clash with the given campaign and by how much
+	 * @param c campaign data object
+	 * @return int[] {number of clashing campaigns, extent of total clashing}
+	 */
+	private ClashObject numClashingCampaigns(CampaignData c) {
+		Set<MarketSegment> targSeg = c.targetSegment;
+
+		List<CampaignData> clashingCamps = new ArrayList<CampaignData>();
+		List<Integer> clashCampExtent = new ArrayList<Integer>();
+
+		int clashExtent = 0;
+
+		//Looks at each posted campaign, determines if they clash with posted campaign and by how much
+		for (CampaignData camp : postedCampaigns) {
+			boolean clashed = false;
+			for (MarketSegment seg : camp.targetSegment) {
+				if (targSeg.contains(seg)) { //TODO: Check if this compares properly
+					if (!clashed) {
+						clashingCamps.add(camp);
+						clashed = true;
+					}
+					clashExtent++;
+				}
+			}
+			clashCampExtent.add(clashExtent);
+			clashExtent = 0;
+		}
+		return new ClashObject(clashingCamps, clashCampExtent);
+	}
+
+	/**
+	 * Evaulates the bid to be made for a given query
+	 * @param query - specific site/target
+	 * @return bid - value to bid on specific query
+	 */
+	private long evaluateCampaignBid(AdxQuery query) {
+		int itg = currCampaign.impsTogo();
+		long dur = currCampaign.dayEnd-day;
+		long bid = 0;
+
+		//TODO: This
 
 
+		return bid;
+	}
+
+	/**
+	 * Class represents a pair of lists:
+	 * clashCamps - The campaigns that clash with campaign op
+	 * clashExtents - The number of segments it has the same as campaign op
+	 */
+	private class ClashObject {
+		List<CampaignData> clashCamps;
+		List<Integer> clashExtents;
+
+		public ClashObject(List<CampaignData> camps, List<Integer> extents) {
+			this.clashCamps = camps;
+			this.clashExtents = extents;
+		}
+
+		public List<CampaignData> getClashCamps() {
+			return clashCamps;
+		}
+
+		public List<Integer> getClashExtents() {
+			return clashExtents;
+		}
+	}
+
+	/**
+	 * Class storing data on a single campaign.
+	 */
 	private class CampaignData {
 		/* campaign attributes as set by server */
 		Long reachImps;
@@ -698,3 +796,9 @@ public class testAdNetwork extends Agent {
 	}
 
 }
+
+
+/*
+Note: Seem to easily achieve 1000 imps per day when there is no competition.
+	So if getting less than that, obv have competition and need to raise bid.
+ */
