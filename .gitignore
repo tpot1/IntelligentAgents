@@ -3,3 +3,6 @@
 *.classpath
 *.iml
 *.idea
+*.jar
+*.class
+*.bat
