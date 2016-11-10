@@ -1,4 +1,5 @@
 
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -337,6 +338,8 @@ public class testAdNetwork extends Agent {
 		 */
 		int dayBiddingFor = day + 1;
 
+		int pop = 1; //defaults to 1 if no pop value found
+
 		Random random = new Random();
 
 		/* A random bid, fixed for all queries of the campaign */
@@ -389,11 +392,30 @@ public class testAdNetwork extends Agent {
 						}
 					}
 
-					
+					//Searches publisher report for the publisher in the query and updates popularity var
+					String publisherStr = query.getPublisher();
+					if (pubReport != null) {
+						for (PublisherCatalogEntry key : pubReport.keys()) {
+							try { //XXX TODO: can get the baseline price here...
+								//Get current website pop and update max pop
+								if (key != null) {
+									if (key.getPublisherName().equals(publisherStr)) {
+										pop = pubReport.getEntry(key).getPopularity();
+										System.out.println("Pub key:" + key.getPublisherName() + "Pub pop: " + pop);
+									}
+								}
+							} catch (Exception e) {
+								System.out.println(e);
+							}
+						}
+					}
 
-					bidBundle.addQuery(query, rbid, new Ad(null),
-							currCampaign.id, 1, currCampaign.budget);
+                    //int pubpop = pubReport.getPublisherReportEntry(publisherStr).getPopularity();
+                    //System.out.println("Pop: " + pubpop);
 
+					//Weight the bids based on popularity of the publisher
+					bidBundle.addQuery(query, rbid, new Ad(null), currCampaign.id, pop, currCampaign.budget);
+					System.out.println("Bid bundle: " + bidBundle);
 				}
 			}
 
