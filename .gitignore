@@ -1,2 +1,5 @@
 *.log
 *.dat
+*.classpath
+*.iml
+*.idea

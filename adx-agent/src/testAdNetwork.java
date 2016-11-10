@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,7 +118,6 @@ public class testAdNetwork extends Agent {
 	 * Keeps list of all currently running campaigns allocated to any agent.
 	 */
 	private List<CampaignData> postedCampaigns;
-
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -247,7 +247,6 @@ public class testAdNetwork extends Agent {
 		 * therefore the total number of impressions may be treated as a reserve
 		 * (upper bound) price for the auction.
 		 */
-
 		Random random = new Random();
 		long cmpimps = com.getReachImps();
 		//long cmpBidMillis = random.nextInt((int)cmpimps);	//XXX bid for new campaign
@@ -263,7 +262,7 @@ public class testAdNetwork extends Agent {
 		if (adNetworkDailyNotification != null) {
 			double ucsLevel = adNetworkDailyNotification.getServiceLevel();
 			if (have_active_campigns()) {
-				ucsBid = 0.3 + random.nextDouble() / 10.0; //XXX UCS bid
+				ucsBid = 0.3 + random.nextDouble() / 10.0; //XXX UCS bid 0.3 wins against random ops
 			} else {
 				ucsBid = 0.0;
 			}
@@ -347,9 +346,7 @@ public class testAdNetwork extends Agent {
 		 */
 
 		//double rbid = 10.0*random.nextDouble();
-		//System.out.println("Bidding:");
 		double rbid = 1*random.nextDouble(); // XXX impressions bid
-
 
 		/*
 		 * add bid entries w.r.t. each active campaign with remaining contracted
@@ -390,8 +387,9 @@ public class testAdNetwork extends Agent {
 						} else {
 							entCount += currCampaign.videoCoef + currCampaign.mobileCoef;
 						}
-
 					}
+
+					
 
 					bidBundle.addQuery(query, rbid, new Ad(null),
 							currCampaign.id, 1, currCampaign.budget);
@@ -524,7 +522,6 @@ public class testAdNetwork extends Agent {
 
 					querySet.add(new AdxQuery(publishersName,
 							singleMarketSegment, Device.pc, AdType.video));
-
 				}
 
 				/**
@@ -626,24 +623,27 @@ public class testAdNetwork extends Agent {
 		List<CampaignData> clashingCamps = clashes.getClashCamps();
 		List<Integer> clashingExtents = clashes.getClashExtents();
 
-		System.out.println("Number of clashing campaigns:" + clashingCamps.size());
-		System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
+		if (verbose_printing) {
+			System.out.println("Number of clashing campaigns:" + clashingCamps.size());
+			System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
+		}
 
 		double reachCoeff = 0.3;
 		long impsPerDay = reach/dur;
-		int sum = 0; boolean bigClash = false;
+		int sum = 0; boolean fullClash = false;
 
 		for (int i : clashingExtents) {
 			sum += i;
 			if (i >= 2) {
-				bigClash = true;
+				fullClash = true;
 			}
 		}
 
+		//Rudimentary evaluation of campaign
 		if (impsPerDay <= 1000 ||
 				(clashingCamps.size() == 0 && impsPerDay <= 2000) ||
 				(sum < 3 && impsPerDay <= 2000) ||
-				(bigClash == false && impsPerDay <= 2000)) {
+				(fullClash == false && impsPerDay <= 2000)) {
 			finBid = (long)(reach*reachCoeff);
 		}
 
