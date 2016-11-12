@@ -1,5 +1,3 @@
-
-
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -262,7 +260,7 @@ public class testAdNetwork extends Agent {
 		 */
 		if (adNetworkDailyNotification != null) {
 			double ucsLevel = adNetworkDailyNotification.getServiceLevel();
-			if (have_active_campigns()) {
+			if (have_active_campaigns()) {
 				ucsBid = 0.3 + random.nextDouble() / 10.0; //XXX UCS bid 0.3 wins against random ops
 			} else {
 				ucsBid = 0.0;
@@ -339,17 +337,28 @@ public class testAdNetwork extends Agent {
 		int dayBiddingFor = day + 1;
 
 		int pop = 1; //defaults to 1 if no pop value found
+		double reservePrice = 0.0;
 
 		Random random = new Random();
 
-		/* A random bid, fixed for all queries of the campaign */
 		/*
+		 * A random bid, fixed for all queries of the campaign
 		 * Note: bidding per 1000 imps (CPM) - no more than average budget
 		 * revenue per imp
 		 */
 
 		//double rbid = 10.0*random.nextDouble();
 		double rbid = 1*random.nextDouble(); // XXX impressions bid
+
+		for (int campKey : myCampaigns.keySet()) {
+			CampaignData thisCampaign = myCampaigns.get(campKey);
+			if (thisCampaign.dayEnd < day) { //TODO: <= ???
+				//Inactive campaign
+				continue;
+			}
+
+
+
 
 		/*
 		 * add bid entries w.r.t. each active campaign with remaining contracted
@@ -358,11 +367,11 @@ public class testAdNetwork extends Agent {
 		 * for now, a single entry per active campaign is added for queries of
 		 * matching target segment.
 		 */
-		if ((dayBiddingFor >= currCampaign.dayStart)
-				&& (dayBiddingFor <= currCampaign.dayEnd)
-				&& (currCampaign.impsTogo() > 0)) {
+			if ((dayBiddingFor >= thisCampaign.dayStart)
+					&& (dayBiddingFor <= thisCampaign.dayEnd)
+					&& (thisCampaign.impsTogo() > 0)) {
 
-			int entCount = 0;
+				int entCount = 0;
 
 			/* Example of AdxQuery:
 			*	AdxQuery [publisher=ehow, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
@@ -370,63 +379,68 @@ public class testAdNetwork extends Agent {
 			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=mobile, adType=video]
 			*	AdxQuery [publisher=bestbuy, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
 			*/
-			for (AdxQuery query : currCampaign.campaignQueries) { //all possible targets  for each publisher
-				if (currCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
+				for (AdxQuery query : thisCampaign.campaignQueries) { //all possible targets  for each publisher
+					if (thisCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
 					/*
 					 * among matching entries with the same campaign id, the AdX
 					 * randomly chooses an entry according to the designated
 					 * weight. by setting a constant weight 1, we create a
 					 * uniform probability over active campaigns(irrelevant because we are bidding only on one campaign)
 					 */
-					if (query.getDevice() == Device.pc) {
-						if (query.getAdType() == AdType.text) {
-							entCount++;
+						if (query.getDevice() == Device.pc) {
+							if (query.getAdType() == AdType.text) {
+								entCount++;
+							} else {
+								entCount += thisCampaign.videoCoef;
+							}
 						} else {
-							entCount += currCampaign.videoCoef;
-						}
-					} else {
-						if (query.getAdType() == AdType.text) {
-							entCount+=currCampaign.mobileCoef;
-						} else {
-							entCount += currCampaign.videoCoef + currCampaign.mobileCoef;
-						}
-					}
-
-					//Searches publisher report for the publisher in the query and updates popularity var
-					String publisherStr = query.getPublisher();
-					if (pubReport != null) {
-						for (PublisherCatalogEntry key : pubReport.keys()) {
-							try { //XXX TODO: can get the baseline price here...
-								//Get current website pop and update max pop
-								if (key != null) {
-									if (key.getPublisherName().equals(publisherStr)) {
-										pop = pubReport.getEntry(key).getPopularity();
-										System.out.println("Pub key:" + key.getPublisherName() + "Pub pop: " + pop);
-									}
-								}
-							} catch (Exception e) {
-								System.out.println(e);
+							if (query.getAdType() == AdType.text) {
+								entCount += thisCampaign.mobileCoef;
+							} else {
+								entCount += thisCampaign.videoCoef + thisCampaign.mobileCoef;
 							}
 						}
+
+						//Searches publisher report for the publisher in the query and updates popularity var
+						String publisherStr = query.getPublisher();
+						if (pubReport != null) {
+							for (PublisherCatalogEntry pubKey : pubReport.keys()) {
+								try { //XXX TODO: Determine if the reserve price actually is 0 or not
+									//Get current website pop and update max pop
+									if (pubKey != null) {
+										if (pubKey.getPublisherName().equals(publisherStr)) {
+											reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
+											pop = pubReport.getEntry(pubKey).getPopularity();
+											//System.out.println("Pub key:" + pubKey.getPublisherName() + "Pub pop: " + pop);
+										}
+									}
+								} catch (Exception e) {
+									System.out.println(e.toString());
+								}
+							}
+						}
+
+						//System.out.println("Reserve Price: " + reservePrice);
+
+						//Weight the bids based on popularity of the publisher
+						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
+						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + rbid + " - site: " + query.getPublisher());}
 					}
+				}
 
-                    //int pubpop = pubReport.getPublisherReportEntry(publisherStr).getPopularity();
-                    //System.out.println("Pop: " + pubpop);
+				double impressionLimit = thisCampaign.impsTogo();
+				double budgetLimit = thisCampaign.budget;
+				bidBundle.setCampaignDailyLimit(thisCampaign.id,
+						(int) impressionLimit, budgetLimit);
 
-					//Weight the bids based on popularity of the publisher
-					bidBundle.addQuery(query, rbid, new Ad(null), currCampaign.id, pop, currCampaign.budget);
-					System.out.println("Bid bundle: " + bidBundle);
+				if (verbose_printing) {
+					System.out.println("Day " + day + ": Updated " + entCount
+							+ " Bid Bundle entries for Campaign id " + thisCampaign.id);
 				}
 			}
 
-			double impressionLimit = currCampaign.impsTogo();
-			double budgetLimit = currCampaign.budget;
-			bidBundle.setCampaignDailyLimit(currCampaign.id,
-					(int) impressionLimit, budgetLimit);
-
-			if (verbose_printing) { System.out.println("Day " + day + ": Updated " + entCount
-					+ " Bid Bundle entries for Campaign id " + currCampaign.id); }
 		}
+		//end looping over campaigns
 
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
@@ -546,7 +560,7 @@ public class testAdNetwork extends Agent {
 							singleMarketSegment, Device.pc, AdType.video));
 				}
 
-				/**
+				/*
 				 * An empty segments set is used to indicate the "UNKNOWN"
 				 * segment such queries are matched when the UCS fails to
 				 * recover the user's segments.
@@ -607,7 +621,7 @@ public class testAdNetwork extends Agent {
 	 * Determines if this agent has any campaigns active
 	 * @return true if there is active campaign
 	 */
-	private boolean have_active_campigns() {
+	private boolean have_active_campaigns() {
 		for (Map.Entry<Integer, CampaignData> entry : myCampaigns.entrySet()) {
 			CampaignData data = entry.getValue();
 			if (day < data.dayEnd) {
@@ -650,7 +664,7 @@ public class testAdNetwork extends Agent {
 			System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
 		}
 
-		double reachCoeff = 0.3;
+		double reachCoeff = 0.1;
 		long impsPerDay = reach/dur;
 		int sum = 0; boolean fullClash = false;
 
@@ -708,13 +722,12 @@ public class testAdNetwork extends Agent {
 	 * @param query - specific site/target
 	 * @return bid - value to bid on specific query
 	 */
-	private long evaluateCampaignBid(AdxQuery query) {
+	private long evaluateImpressionsBid(AdxQuery query) {
 		int itg = currCampaign.impsTogo();
 		long dur = currCampaign.dayEnd-day;
 		long bid = 0;
 
 		//TODO: This
-
 
 		return bid;
 	}
@@ -822,3 +835,6 @@ public class testAdNetwork extends Agent {
 Note: Seem to easily achieve 1000 imps per day when there is no competition.
 	So if getting less than that, obv have competition and need to raise bid.
  */
+
+//TODO: Change bid weights be based on pop value and days left in campaign
+//TODO: Factor in the popularity of market seg into campaign op bids
