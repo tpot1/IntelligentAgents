@@ -8,7 +8,6 @@ import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
-import tau.tac.adx.auction.tracker.AdxBidTrackerImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
 import tau.tac.adx.props.AdxBidBundle;
@@ -113,10 +112,14 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = false;
+
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
 	 */
 	private List<CampaignData> postedCampaigns;
+
+	private double meanVidCoeff;
+	private double meanMobCoeff;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -206,14 +209,20 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) { System.out.println(campaignMessage.toString()); }
 		day = 0;
 
+		//initialise globals
 		initialCampaignMessage = campaignMessage;
 		demandAgentAddress = campaignMessage.getDemandAgentAddress();
 		adxAgentAddress = campaignMessage.getAdxAgentAddress();
 
+		//intialise currCampaign
 		CampaignData campaignData = new CampaignData(initialCampaignMessage);
 		campaignData.setBudget(initialCampaignMessage.getBudgetMillis()/1000.0);
 		currCampaign = campaignData;
 		genCampaignQueries(currCampaign);
+
+		//Initialise coeff means
+		meanMobCoeff = campaignMessage.getMobileCoef();
+		meanVidCoeff = campaignMessage.getVideoCoef();
 
 		/*
 		 * The initial campaign is already allocated to our agent so we add it
@@ -233,6 +242,9 @@ public class testAdNetwork extends Agent {
 			CampaignOpportunityMessage com) {
 
 		day = com.getDay();
+
+		meanVidCoeff = (meanVidCoeff + com.getVideoCoef())/2; //TODO: Also store variances for use when deciding if good or not
+		meanMobCoeff = (meanMobCoeff + com.getMobileCoef())/2;
 
 		pendingCampaign = new CampaignData(com);
 		postedCampaigns.add(new CampaignData(com)); cleanPostedCampaignList(); //XXX maybe not best place?
@@ -260,7 +272,7 @@ public class testAdNetwork extends Agent {
 		 */
 		if (adNetworkDailyNotification != null) {
 			double ucsLevel = adNetworkDailyNotification.getServiceLevel();
-			if (have_active_campaigns()) {
+			if (haveActiveCampaigns()) {
 				ucsBid = 0.3 + random.nextDouble() / 10.0; //XXX UCS bid 0.3 wins against random ops
 			} else {
 				ucsBid = 0.0;
@@ -339,6 +351,17 @@ public class testAdNetwork extends Agent {
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
 
+		int tempsum = 0;
+
+		if (pubReport != null) {
+			for (PublisherCatalogEntry temppubKey : pubReport.keys()) {
+				tempsum = tempsum + pubReport.getEntry(temppubKey).getPopularity();
+			}
+		}
+		//TODO: Determine what is going on here - this changes each day. Maybe to do with how many users visit each day?
+		System.out.println("Total Pop Value: " + tempsum);
+
+
 		Random random = new Random();
 
 		/*
@@ -352,13 +375,10 @@ public class testAdNetwork extends Agent {
 
 		for (int campKey : myCampaigns.keySet()) {
 			CampaignData thisCampaign = myCampaigns.get(campKey);
-			if (thisCampaign.dayEnd < day) { //TODO: <= ???
+			if (thisCampaign.dayEnd < day) { //TODO: Should be <= ?
 				//Inactive campaign
 				continue;
 			}
-
-
-
 
 		/*
 		 * add bid entries w.r.t. each active campaign with remaining contracted
@@ -419,8 +439,6 @@ public class testAdNetwork extends Agent {
 								}
 							}
 						}
-
-						//System.out.println("Reserve Price: " + reservePrice);
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
@@ -621,7 +639,7 @@ public class testAdNetwork extends Agent {
 	 * Determines if this agent has any campaigns active
 	 * @return true if there is active campaign
 	 */
-	private boolean have_active_campaigns() {
+	private boolean haveActiveCampaigns() {
 		for (Map.Entry<Integer, CampaignData> entry : myCampaigns.entrySet()) {
 			CampaignData data = entry.getValue();
 			if (day < data.dayEnd) {
@@ -651,8 +669,16 @@ public class testAdNetwork extends Agent {
 		long reach = com.getReachImps();
  		double vidCoeff = com.getVideoCoef();
 		double mobileCoeff = com.getMobileCoef();
-		long dur = com.getDayEnd() - com.getDayStart();
-		long finBid = reach;
+		long dur = com.getDayEnd() - com.getDayStart(); //Duration of campaign
+		long finBid = reach; 							//Final bid size
+
+		//Population size of target market segment as a number relative to 10,000
+		int campSegPop = getSegmentPopularity(com.getTargetSegment());
+
+		//Intermediate vars required
+		double reachCoeff = 0.3; //Some coeff to multiply reach by for final bid
+		long impsPerDay = reach/dur; //impressions per day required
+		int sum = 0; boolean fullClash = false;
 
 		//Get stats on clashes with posted campaigns
 		ClashObject clashes = numClashingCampaigns(new CampaignData(com));
@@ -662,12 +688,11 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) {
 			System.out.println("Number of clashing campaigns:" + clashingCamps.size());
 			System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
+			System.out.println("Size of target segment: " + campSegPop);
 		}
 
-		double reachCoeff = 0.1;
-		long impsPerDay = reach/dur;
-		int sum = 0; boolean fullClash = false;
-
+		//TODO: Determine if this full clash campaign is already ours? May not want to bid anyway, depends on length? Maybe check how long they are for
+		//Determines if there is a already running campaign that has exactly the same target
 		for (int i : clashingExtents) {
 			sum += i;
 			if (i >= 2) {
@@ -675,12 +700,14 @@ public class testAdNetwork extends Agent {
 			}
 		}
 
+		//TODO: Factor in the popularity of market seg into campaign op bids
+
 		//Rudimentary evaluation of campaign
 		if (impsPerDay <= 1000 ||
 				(clashingCamps.size() == 0 && impsPerDay <= 2000) ||
 				(sum < 3 && impsPerDay <= 2000) ||
-				(fullClash == false && impsPerDay <= 2000)) {
-			finBid = (long)(reach*reachCoeff);
+				(!fullClash && impsPerDay <= 2000)) {
+			finBid = (long)(reach*reachCoeff); //Maybe some lincomb of reach other stuff eg market seg pop?
 		}
 
 		return finBid;
@@ -703,8 +730,8 @@ public class testAdNetwork extends Agent {
 		for (CampaignData camp : postedCampaigns) {
 			boolean clashed = false;
 			for (MarketSegment seg : camp.targetSegment) {
-				if (targSeg.contains(seg)) { //TODO: Check if this compares properly
-					if (!clashed) {
+				if (targSeg.contains(seg)) { //TODO: Check if this compares properly and if this should be Set<MarketSegment>
+					if (!clashed) { //Clashes with at least one segment
 						clashingCamps.add(camp);
 						clashed = true;
 					}
@@ -727,9 +754,13 @@ public class testAdNetwork extends Agent {
 		long dur = currCampaign.dayEnd-day;
 		long bid = 0;
 
-		//TODO: This
+		//TODO: Work out how we want to determine impressions bid
 
 		return bid;
+	}
+
+	private int getSegmentPopularity(Set<MarketSegment> seg) {
+		return MarketSegment.marketSegmentSize(seg);
 	}
 
 	/**
@@ -827,7 +858,6 @@ public class testAdNetwork extends Agent {
 		}
 
 	}
-
 }
 
 
@@ -837,4 +867,3 @@ Note: Seem to easily achieve 1000 imps per day when there is no competition.
  */
 
 //TODO: Change bid weights be based on pop value and days left in campaign
-//TODO: Factor in the popularity of market seg into campaign op bids

@@ -9,3 +9,4 @@
 *.slg
 *.dat.*
 log.txt
+*.lck
