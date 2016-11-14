@@ -15,7 +15,9 @@ import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
 import tau.tac.adx.props.PublisherCatalogEntry;
 import tau.tac.adx.props.ReservePriceInfo;
+import tau.tac.adx.report.adn.AdNetworkKey;
 import tau.tac.adx.report.adn.AdNetworkReport;
+import tau.tac.adx.report.adn.AdNetworkReportEntry;
 import tau.tac.adx.report.adn.MarketSegment;
 import tau.tac.adx.report.demand.AdNetBidMessage;
 import tau.tac.adx.report.demand.AdNetworkDailyNotification;
@@ -117,6 +119,11 @@ public class testAdNetwork extends Agent {
 	 * Keeps list of all currently running campaigns allocated to any agent.
 	 */
 	private List<CampaignData> postedCampaigns;
+	private Map<Integer, Long> campaignWinningBids;
+	private List<UcsBidObject> ucsBidHistory;
+	private List<AdxBidBundle> impBidHistory;
+
+	private double currQuality;
 
 	private double meanVidCoeff;
 	private double meanMobCoeff;
@@ -124,6 +131,9 @@ public class testAdNetwork extends Agent {
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
 		postedCampaigns = new ArrayList<CampaignData>();
+		campaignWinningBids = new HashMap<>();
+		ucsBidHistory = new ArrayList<>();
+		impBidHistory = new ArrayList<>();
 	}
 
 	@Override
@@ -259,9 +269,6 @@ public class testAdNetwork extends Agent {
 		 * (upper bound) price for the auction.
 		 */
 		Random random = new Random();
-		long cmpimps = com.getReachImps();
-		//long cmpBidMillis = random.nextInt((int)cmpimps);	//XXX bid for new campaign
-		//long cmpBidMillis = cmpimps/4; //XXX some campaign eval function here before setting bid price
 		long cmpBidMillis = evaluateCampaignOp(com);
 
 		if (verbose_printing) { System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis); }
@@ -318,6 +325,15 @@ public class testAdNetwork extends Agent {
 					+ notificationMessage.getCostMillis();
 		}
 
+		//Stores the winning bid for each campaign
+		campaignWinningBids.put(notificationMessage.getCampaignId(), notificationMessage.getCostMillis());
+
+		//Stores our current quality rating
+		currQuality = notificationMessage.getQualityScore();
+
+		//Update ucs bid history with new result
+		ucsBidHistory.add(new UcsBidObject(notificationMessage.getPrice(), notificationMessage.getQualityScore()));
+
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
 				+ " at price " + notificationMessage.getPrice()
@@ -343,16 +359,13 @@ public class testAdNetwork extends Agent {
 
 		bidBundle = new AdxBidBundle();
 
-		/*
-		 *
-		 */
 		int dayBiddingFor = day + 1;
 
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
 
+		//TODO: Remove this stuff
 		int tempsum = 0;
-
 		if (pubReport != null) {
 			for (PublisherCatalogEntry temppubKey : pubReport.keys()) {
 				tempsum = tempsum + pubReport.getEntry(temppubKey).getPopularity();
@@ -392,6 +405,8 @@ public class testAdNetwork extends Agent {
 					&& (thisCampaign.impsTogo() > 0)) {
 
 				int entCount = 0;
+
+				//TODO: Determine how to handle the empty market segment calls when the ucs service doesnt give us answer
 
 			/* Example of AdxQuery:
 			*	AdxQuery [publisher=ehow, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
@@ -456,9 +471,11 @@ public class testAdNetwork extends Agent {
 							+ " Bid Bundle entries for Campaign id " + thisCampaign.id);
 				}
 			}
-
 		}
 		//end looping over campaigns
+
+		//Store bid bundle in history
+		impBidHistory.add(bidBundle);
 
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
@@ -481,6 +498,7 @@ public class testAdNetwork extends Agent {
 			int cmpId = campaignKey.getCampaignId();
 			CampaignStats cstats = campaignReport.getCampaignReportEntry(
 					campaignKey).getCampaignStats();
+
 			myCampaigns.get(cmpId).setStats(cstats);
 
 			if (verbose_printing) { System.out.println("Day " + day + ": Updating campaign " + cmpId + " stats: "
@@ -504,6 +522,8 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
+
+	//TODO: Determine what is what in here
 	/**
 	 *
 	 * //@param AdNetworkReport
@@ -511,13 +531,14 @@ public class testAdNetwork extends Agent {
 	private void handleAdNetworkReport(AdNetworkReport adnetReport) {
 
 		if (verbose_printing) { System.out.println("Day " + day + " : AdNetworkReport"); }
-		/*
-		 * for (AdNetworkKey adnetKey : adnetReport.keys()) {
-		 *
-		 * double rnd = Math.random(); if (rnd > 0.95) { AdNetworkReportEntry
-		 * entry = adnetReport .getAdNetworkReportEntry(adnetKey);
-		 * System.out.println(adnetKey + " " + entry); } }
-		 */
+			 for (AdNetworkKey adnetKey : adnetReport.keys()) {
+
+			 	double rnd = Math.random();
+				 if (rnd > 0.0) {
+					 AdNetworkReportEntry entry = adnetReport .getAdNetworkReportEntry(adnetKey);
+					 System.out.println(adnetKey + " " + entry);
+				 }
+			 }
 	}
 
 	@Override
@@ -787,6 +808,29 @@ public class testAdNetwork extends Agent {
 	}
 
 	/**
+	 * Class represents a single Ucs bid history item with variables:
+	 * bid		- The bid value for the day
+	 * ucsLevel - The ucs level achieved
+	 */
+	private class UcsBidObject {
+		double bid;
+		double ucsLevel;
+
+		public UcsBidObject(double bid, double ucsLevel) {
+			this.bid = bid;
+			this.ucsLevel = ucsLevel;
+		}
+
+		public double getBid() {
+			return this.bid;
+		}
+
+		public double getUcsLevel() {
+			return this.ucsLevel;
+		}
+	}
+
+	/**
 	 * Class storing data on a single campaign.
 	 */
 	private class CampaignData {
@@ -867,3 +911,4 @@ Note: Seem to easily achieve 1000 imps per day when there is no competition.
  */
 
 //TODO: Change bid weights be based on pop value and days left in campaign
+//TODO: Add in tracking for bid bundles and work out how to tell if bid was won
