@@ -1,0 +1,8 @@
+bin/
+*.slg
+*.class
+*.txt
+*.log
+.classpath
+.metadata
+.project
