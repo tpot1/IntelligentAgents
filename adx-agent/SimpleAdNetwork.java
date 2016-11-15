@@ -303,8 +303,8 @@ public class SimpleAdNetwork extends Agent {
 					+ notificationMessage.getCostMillis();
 		}
 		else{
-			System.out.println("ID " + adNetworkDailyNotification.getCampaignId());
-			System.out.println("WINNER " + notificationMessage.getWinner());
+			//System.out.println("ID " + adNetworkDailyNotification.getCampaignId());
+			//System.out.println("WINNER " + notificationMessage.getWinner());
 			campaignWinners.put((Integer)adNetworkDailyNotification.getCampaignId(), (String)notificationMessage.getWinner());
 		}
 
