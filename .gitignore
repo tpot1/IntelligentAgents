@@ -1,7 +1,4 @@
 bin/
-adx-agent/logs/
-adx-server/logs/
-adx-server/infodb/
 *.slg
 *.class
 *.txt
@@ -10,4 +7,3 @@ adx-server/infodb/
 .metadata
 .project
 *.lck
-*.jar

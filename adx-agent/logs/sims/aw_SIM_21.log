@@ -1,0 +1,28 @@
+09/11 11:25:12 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:25:21 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:25:31 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:25:40 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:25:50 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:26:00 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:26:10 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:26:20 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:26:30 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:26:40 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:26:50 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:27:00 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:27:10 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:27:20 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:27:30 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:27:40 SEVERE SimpleAdNetwork|Exception thrown while trying to parse message.java.lang.NullPointerException
+09/11 11:27:49 SEVERE agentware.ServerConnection|(1) could not read
+java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.io.DataInputStream.readInt(Unknown Source)
+	at tau.tac.adx.agentware.ServerConnection.run(ServerConnection.java:221)
+	at java.lang.Thread.run(Unknown Source)
+09/11 11:27:49 SEVERE agentware.SimClient|************************************************************
+09/11 11:27:49 SEVERE agentware.SimClient|* Connection Lost
+09/11 11:27:49 SEVERE agentware.SimClient|* Lost connection to localhost (will reconnect in 30 seconds)
+09/11 11:27:49 SEVERE agentware.SimClient|************************************************************

@@ -1,0 +1,153 @@
+09/11 11:13:00 FINE sim.Admin|Log for simulation 19 started
+************************************************************
+* Log for simulation 19 started
+************************************************************
+
+
+09/11 11:13:00 INFO sim.TACAdxSimulation|TACAA Simulation 19 is setting up...
+09/11 11:13:00 INFO sim.TACAdxSimulation|Created Adx Agent
+09/11 11:13:00 INFO sim.TACAdxSimulation|Created Demand Agent
+09/11 11:13:00 FINE generators.PopulationUserGenerator|Generated 10000 tau.tac.adx.users.AdxUsers
+09/11 11:13:00 FINE sim.ExternalAgent|sample setup with address adv1
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork simulationSetup
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-2 simulationSetup
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-3 simulationSetup
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-4 simulationSetup
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-5 simulationSetup
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-6 simulationSetup
+09/11 11:13:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-7 simulationSetup
+09/11 11:13:00 INFO publisher.AdxPublisherReportManagerImpl|AdxQueryReportManager created.
+09/11 11:13:00 INFO adn.AdNetworkReportManagerImpl|AdxQueryReportManager created.
+09/11 11:13:00 INFO agents.DemandAgent|setting up...
+09/11 11:13:00 FINE agents.DemandAgent|Finished setup
+09/11 11:13:01 INFO sim.Simulation|***** START OF TIME 0 *****
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1360472173, reachImps=9077, dayStart=1, dayEnd=5, targetSegment=[LOW_INCOME, MALE], videoCoef=2.4829353419465345, mobileCoef=1.9225198879148615, budgetMillis=9077, advertiser=adv1]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@7299b5f5
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1049183152, reachImps=7020, dayStart=1, dayEnd=5, targetSegment=[OLD, FEMALE], videoCoef=2.400384789766113, mobileCoef=2.1618236721267214, budgetMillis=7020, advertiser=DummyAdnetwork]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@57a2d004
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=599952771, reachImps=6507, dayStart=1, dayEnd=5, targetSegment=[MALE, OLD], videoCoef=2.846856748641504, mobileCoef=2.3792084461440965, budgetMillis=6507, advertiser=DummyAdnetwork-2]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@7fde7bdd
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1224034017, reachImps=3037, dayStart=1, dayEnd=5, targetSegment=[OLD, HIGH_INCOME], videoCoef=2.4230557717347865, mobileCoef=1.6678333252041613, budgetMillis=3037, advertiser=DummyAdnetwork-3]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@9968d0b
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1049601839, reachImps=9077, dayStart=1, dayEnd=5, targetSegment=[LOW_INCOME, MALE], videoCoef=2.050769890389387, mobileCoef=2.3698926464796357, budgetMillis=9077, advertiser=DummyAdnetwork-4]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@328333b0
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1344518479, reachImps=1657, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.4653986032533033, mobileCoef=1.9271793121369276, budgetMillis=1657, advertiser=DummyAdnetwork-5]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@6de09895
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=773192921, reachImps=3312, dayStart=1, dayEnd=5, targetSegment=[MALE, HIGH_INCOME], videoCoef=2.6527137041953353, mobileCoef=1.8310658703647067, budgetMillis=3312, advertiser=DummyAdnetwork-6]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@5205418
+09/11 11:13:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1216642098, reachImps=3312, dayStart=1, dayEnd=5, targetSegment=[MALE, HIGH_INCOME], videoCoef=2.7027030018944176, mobileCoef=2.3173780267018635, budgetMillis=3312, advertiser=DummyAdnetwork-7]
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@21c96187
+09/11 11:13:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@20bba253
+09/11 11:13:01 INFO agents.DemandAgent|Day 0 :Notifying new campaign opportunity: CampaignImpl [id=658285256, reachImps=3315, dayStart=2, dayEnd=11, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.66076070150311, mobileCoef=2.1539008424387123, budgetMillis=0, advertiser=null]
+09/11 11:13:01 INFO sim.Simulation|***** START OF TIME 0 COMPLETE *****
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.1397635521303957 Cmp ID: 658285256 Cmp Bid: 1080
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.16668047552125254 Cmp ID: 658285256 Cmp Bid: 74
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.14421358666293843 Cmp ID: 658285256 Cmp Bid: 2503
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.18262249692443494 Cmp ID: 658285256 Cmp Bid: 1395
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.19332901951948844 Cmp ID: 658285256 Cmp Bid: 1553
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.15914417947399334 Cmp ID: 658285256 Cmp Bid: 2224
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.1252512800866308 Cmp ID: 658285256 Cmp Bid: 2143
+09/11 11:13:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from adv1 : UCS Bid: 0.18869683730250253 Cmp ID: 658285256 Cmp Bid: 3245
+09/11 11:13:10 INFO sim.Simulation|***** START OF TIME 1 *****
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1049183152 at price 7.02
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1049183152 at price 7.02
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-2
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #599952771 at price 6.507
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #599952771 at price 6.507
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-3
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1224034017 at price 3.037
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1224034017 at price 3.037
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-4
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1049601839 at price 9.077
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1049601839 at price 9.077
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-5
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1344518479 at price 1.657
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1344518479 at price 1.657
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-6
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #773192921 at price 3.312
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #773192921 at price 3.312
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-7
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1216642098 at price 3.312
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1216642098 at price 3.312
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: adv1
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1360472173 at price 9.077
+09/11 11:13:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1360472173 at price 9.077
+09/11 11:13:10 INFO agents.DemandAgent|Day 1 : Auction pending campaign: CampaignImpl [id=658285256, reachImps=3315, dayStart=2, dayEnd=11, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.66076070150311, mobileCoef=2.1539008424387123, budgetMillis=0, advertiser=null]
+09/11 11:13:10 FINE agents.DemandAgent|Day 1 :Quality Ratings... Quality Retings DummyAdnetwork-5: 1.0DummyAdnetwork-4: 1.0DummyAdnetwork-3: 1.0adv1: 1.0DummyAdnetwork-2: 1.0DummyAdnetwork-7: 1.0DummyAdnetwork-6: 1.0DummyAdnetwork: 1.0
+09/11 11:13:10 FINE agents.DemandAgent|Day 1 :Reporting campaign auction results... CampaignImpl [id=658285256, reachImps=3315, dayStart=2, dayEnd=11, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.66076070150311, mobileCoef=2.1539008424387123, budgetMillis=2503, advertiser=DummyAdnetwork-3]
+09/11 11:13:10 FINE agents.DemandAgent|Day 1 :Reporting UCS auction results... DummyAdnetwork-5[efday=1, level=1.0, price=0.0] DummyAdnetwork-4[efday=1, level=1.0, price=0.0] DummyAdnetwork-3[efday=1, level=1.0, price=0.0] adv1[efday=1, level=1.0, price=0.0] DummyAdnetwork-2[efday=1, level=1.0, price=0.0] DummyAdnetwork-7[efday=1, level=1.0, price=0.0] DummyAdnetwork-6[efday=1, level=1.0, price=0.0] DummyAdnetwork[efday=1, level=1.0, price=0.0] 
+09/11 11:13:10 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@35d48f95
+09/11 11:13:10 INFO agents.DemandAgent|Day 1 :Notifying new campaign opportunity: CampaignImpl [id=1190405939, reachImps=4308, dayStart=3, dayEnd=5, targetSegment=[LOW_INCOME, MALE, OLD], videoCoef=2.853435111233038, mobileCoef=1.8091278176205994, budgetMillis=0, advertiser=null]
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnn
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for bestbuy
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for webmd
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for weather
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for nyt
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for target
+09/11 11:13:10 FINE agents.DefaultAdxUserManager|##################################### S-Invoking users activity
+09/11 11:13:10 SEVERE demand.CampaignImpl|Campaign #1216642098 impressed while over limit. Current cost: 3.318531852012404 Budget limit: 3.312
+09/11 11:13:10 SEVERE agents.DemandAgent|Day 1 :Campaign limit expired Impressed while over limit: 1216642098, daily limit was: 3312, 3.312 values are: 1246.6987374479568, 3.318531852012404, total limit was: 2147483647, Infinity total values are: 0.01246.6987374479568, 0.03.318531852012404
+09/11 11:13:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for CampaignLimitReached [campaignId=1216642098, AdNetwork=DummyAdnetwork-7] due to limit. My name is DummyAdnetwork-7
+09/11 11:13:11 SEVERE demand.CampaignImpl|Campaign #1344518479 impressed while over limit. Current cost: 1.6574132547054938 Budget limit: 1.657
+09/11 11:13:11 SEVERE agents.DemandAgent|Day 1 :Campaign limit expired Impressed while over limit: 1344518479, daily limit was: 1657, 1.657 values are: 968.4024206272487, 1.6574132547054938, total limit was: 2147483647, Infinity total values are: 0.0968.4024206272487, 0.01.6574132547054938
+09/11 11:13:11 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for CampaignLimitReached [campaignId=1344518479, AdNetwork=DummyAdnetwork-5] due to limit. My name is DummyAdnetwork-5
+09/11 11:13:12 SEVERE demand.CampaignImpl|Campaign #773192921 impressed while over limit. Current cost: 3.3148265094109917 Budget limit: 3.312
+09/11 11:13:12 SEVERE agents.DemandAgent|Day 1 :Campaign limit expired Impressed while over limit: 773192921, daily limit was: 3312, 3.312 values are: 2744.760886450107, 3.3148265094109917, total limit was: 2147483647, Infinity total values are: 0.02744.760886450107, 0.03.3148265094109917
+09/11 11:13:12 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for CampaignLimitReached [campaignId=773192921, AdNetwork=DummyAdnetwork-6] due to limit. My name is DummyAdnetwork-6
+09/11 11:13:12 SEVERE demand.CampaignImpl|Campaign #1049601839 impressed while over limit. Current cost: 7.134966826325566 Budget limit: 9.077
+09/11 11:13:12 SEVERE agents.DemandAgent|Day 1 :Campaign limit expired Impressed while over limit: 1049601839, daily limit was: 9077, 9.077 values are: 9080.0294436407, 7.134966826325566, total limit was: 2147483647, Infinity total values are: 0.09080.0294436407, 0.07.134966826325566
+09/11 11:13:12 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for CampaignLimitReached [campaignId=1049601839, AdNetwork=DummyAdnetwork-4] due to limit. My name is DummyAdnetwork-4
+09/11 11:13:12 FINE agents.DefaultAdxUserManager|##################################### E-Invoking users activity - total time in millis: 2511
+09/11 11:13:12 INFO sim.Simulation|***** START OF TIME 1 COMPLETE *****
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.19965346760435232 Cmp ID: 1190405939 Cmp Bid: 3336
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.1334479094436232 Cmp ID: 1190405939 Cmp Bid: 3791
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.1590483514882301 Cmp ID: 1190405939 Cmp Bid: 1098
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.15165994358347012 Cmp ID: 1190405939 Cmp Bid: 3888
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.15610717975164135 Cmp ID: 1190405939 Cmp Bid: 1602
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.10447869725827114 Cmp ID: 1190405939 Cmp Bid: 1917
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.14604822309289045 Cmp ID: 1190405939 Cmp Bid: 2422
+09/11 11:13:12 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from adv1 : UCS Bid: 0.14298230959367053 Cmp ID: 1190405939 Cmp Bid: 436
+09/11 11:13:20 INFO sim.Simulation|***** START OF TIME 2 *****
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1049183152 at price 7.02
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1049183152 at price 7.02
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #599952771 at price 6.507
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #599952771 at price 6.507
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #658285256 at price 2.503
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #658285256 at price 2.503
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1049601839 at price 9.077
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1049601839 at price 9.077
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1344518479 at price 1.657
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1344518479 at price 1.657
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #773192921 at price 3.312
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #773192921 at price 3.312
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1216642098 at price 3.312
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1216642098 at price 3.312
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1360472173 at price 9.077
+09/11 11:13:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1360472173 at price 9.077
+09/11 11:13:20 INFO agents.DemandAgent|Day 2 : Auction pending campaign: CampaignImpl [id=1190405939, reachImps=4308, dayStart=3, dayEnd=5, targetSegment=[LOW_INCOME, MALE, OLD], videoCoef=2.853435111233038, mobileCoef=1.8091278176205994, budgetMillis=0, advertiser=null]
+09/11 11:13:20 FINE agents.DemandAgent|Day 2 :Quality Ratings... Quality Retings DummyAdnetwork-5: 1.0DummyAdnetwork-4: 1.0DummyAdnetwork-3: 1.0adv1: 1.0DummyAdnetwork-2: 1.0DummyAdnetwork-7: 1.0DummyAdnetwork-6: 1.0DummyAdnetwork: 1.0
+09/11 11:13:20 FINE agents.DemandAgent|Day 2 :Reporting campaign auction results... CampaignImpl [id=1190405939, reachImps=4308, dayStart=3, dayEnd=5, targetSegment=[LOW_INCOME, MALE, OLD], videoCoef=2.853435111233038, mobileCoef=1.8091278176205994, budgetMillis=1098, advertiser=adv1]
+09/11 11:13:20 FINE agents.DemandAgent|Day 2 :Reporting UCS auction results... DummyAdnetwork-5[efday=2, level=1.0, price=0.18869683730250253] DummyAdnetwork-4[efday=2, level=0.81, price=0.13501118517221455] DummyAdnetwork-3[efday=2, level=0.5904900000000002, price=0.08252897989747739] adv1[efday=2, level=0.9, price=0.16436024723199144] DummyAdnetwork-2[efday=2, level=0.7290000000000001, price=0.11601610683654116] DummyAdnetwork-7[efday=2, level=0.47829690000000014, price=0.0] DummyAdnetwork-6[efday=2, level=0.6561000000000001, price=0.09461853420955392] DummyAdnetwork[efday=2, level=0.5314410000000002, price=0.06656366554051918] 
+09/11 11:13:20 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@748c9c73 event: tau.tac.adx.messages.UserClassificationServiceNotification@44daaa8
+09/11 11:13:20 INFO agents.DemandAgent|Day 2 :Notifying new campaign opportunity: CampaignImpl [id=1402587756, reachImps=10070, dayStart=4, dayEnd=6, targetSegment=[LOW_INCOME, OLD], videoCoef=2.387045556118469, mobileCoef=2.4272455846756205, budgetMillis=0, advertiser=null]
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnn
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for bestbuy
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for webmd
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for weather
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for nyt
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for target
+09/11 11:13:20 FINE agents.DefaultAdxUserManager|##################################### S-Invoking users activity
+09/11 11:13:20 SEVERE demand.CampaignImpl|Campaign #599952771 impressed while over limit. Current cost: 6.5081692564022795 Budget limit: 6.507
+09/11 11:13:20 SEVERE agents.DemandAgent|Day 2 :Campaign limit expired Impressed while over limit: 599952771, daily limit was: 6507, 6.507 values are: 4386.630985703181, 6.5081692564022795, total limit was: 2147483647, Infinity total values are: 0.04386.630985703181, 0.06.5081692564022795
+09/11 11:13:20 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for CampaignLimitReached [campaignId=599952771, AdNetwork=DummyAdnetwork-2] due to limit. My name is DummyAdnetwork-2
+09/11 11:13:21 FINE agents.DefaultAdxUserManager|##################################### E-Invoking users activity - total time in millis: 1405
+09/11 11:13:21 INFO sim.Simulation|***** START OF TIME 2 COMPLETE *****
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.11041894522898474 Cmp ID: 1402587756 Cmp Bid: 7364
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.17474439092399288 Cmp ID: 1402587756 Cmp Bid: 9284
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.11348421996596615 Cmp ID: 1402587756 Cmp Bid: 7584
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.19212586881186558 Cmp ID: 1402587756 Cmp Bid: 8323
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.1883398725402899 Cmp ID: 1402587756 Cmp Bid: 2144
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.1048306367979134 Cmp ID: 1402587756 Cmp Bid: 903
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.14597302209091684 Cmp ID: 1402587756 Cmp Bid: 3601
+09/11 11:13:21 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from adv1 : UCS Bid: 0.19882254011503306 Cmp ID: 1402587756 Cmp Bid: 5206
