@@ -10,3 +10,4 @@ adx-server/infodb/
 .metadata
 .project
 *.lck
+*.jar
