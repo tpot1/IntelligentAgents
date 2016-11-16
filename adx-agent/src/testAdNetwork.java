@@ -121,7 +121,8 @@ public class testAdNetwork extends Agent {
 	private List<CampaignData> postedCampaigns;
 	private Map<Integer, Long> campaignWinningBids;
 	private List<UcsBidObject> ucsBidHistory;
-	private List<AdxBidBundle> impBidHistory;
+	private List<ImpBidTrackingObject> impBidHistory;
+	private Map<Integer, List<CampaignStats>> myCampaignStatsHistory;
 
 	private double currQuality;
 
@@ -134,6 +135,7 @@ public class testAdNetwork extends Agent {
 		campaignWinningBids = new HashMap<>();
 		ucsBidHistory = new ArrayList<>();
 		impBidHistory = new ArrayList<>();
+		myCampaignStatsHistory = new HashMap<>();
 	}
 
 	@Override
@@ -358,32 +360,28 @@ public class testAdNetwork extends Agent {
 	protected void sendBidAndAds() {
 
 		bidBundle = new AdxBidBundle();
+		Random random = new Random();
 
 		int dayBiddingFor = day + 1;
 
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
 
-		//TODO: Remove this stuff
 		int tempsum = 0;
 		if (pubReport != null) {
 			for (PublisherCatalogEntry temppubKey : pubReport.keys()) {
 				tempsum = tempsum + pubReport.getEntry(temppubKey).getPopularity();
 			}
 		}
-		//TODO: Determine what is going on here - this changes each day. Maybe to do with how many users visit each day?
+//TODO: Determine what is going on here - this changes each day. Maybe to do with how many users visit each day? Remove soon
 		System.out.println("Total Pop Value: " + tempsum);
 
-
-		Random random = new Random();
 
 		/*
 		 * A random bid, fixed for all queries of the campaign
 		 * Note: bidding per 1000 imps (CPM) - no more than average budget
 		 * revenue per imp
 		 */
-
-		//double rbid = 10.0*random.nextDouble();
 		double rbid = 1*random.nextDouble(); // XXX impressions bid
 
 		for (int campKey : myCampaigns.keySet()) {
@@ -446,7 +444,6 @@ public class testAdNetwork extends Agent {
 										if (pubKey.getPublisherName().equals(publisherStr)) {
 											reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
 											pop = pubReport.getEntry(pubKey).getPopularity();
-											//System.out.println("Pub key:" + pubKey.getPublisherName() + "Pub pop: " + pop);
 										}
 									}
 								} catch (Exception e) {
@@ -454,6 +451,9 @@ public class testAdNetwork extends Agent {
 								}
 							}
 						}
+
+						//update the rbid here with reserve info?
+						evaluateImpressionsBid(query, reservePrice, pop);
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
@@ -474,8 +474,8 @@ public class testAdNetwork extends Agent {
 		}
 		//end looping over campaigns
 
-		//Store bid bundle in history
-		impBidHistory.add(bidBundle);
+		//Store bid bundle in history TODO: Populate the map
+		impBidHistory.add(new ImpBidTrackingObject(bidBundle, new HashMap<>()));
 
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
@@ -496,15 +496,21 @@ public class testAdNetwork extends Agent {
 		 */
 		for (CampaignReportKey campaignKey : campaignReport.keys()) {
 			int cmpId = campaignKey.getCampaignId();
-			CampaignStats cstats = campaignReport.getCampaignReportEntry(
-					campaignKey).getCampaignStats();
+			CampaignStats cstats = campaignReport.getCampaignReportEntry(campaignKey).getCampaignStats();
 
+			//Updates each campaign in myCampaigns with new stats
 			myCampaigns.get(cmpId).setStats(cstats);
+
+			//Updates the campaign stats history for each campaign
+			List<CampaignStats> newStatsList = myCampaignStatsHistory.get(cmpId);
+			newStatsList.add(cstats);
+			myCampaignStatsHistory.put(cmpId, newStatsList);
 
 			if (verbose_printing) { System.out.println("Day " + day + ": Updating campaign " + cmpId + " stats: "
 					+ cstats.getTargetedImps() + " tgtImps "
 					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
-					+ cstats.getCost()); }
+					+ cstats.getCost());
+			}
 		}
 	}
 
@@ -751,7 +757,7 @@ public class testAdNetwork extends Agent {
 		for (CampaignData camp : postedCampaigns) {
 			boolean clashed = false;
 			for (MarketSegment seg : camp.targetSegment) {
-				if (targSeg.contains(seg)) { //TODO: Check if this compares properly and if this should be Set<MarketSegment>
+				if (targSeg.contains(seg)) {
 					if (!clashed) { //Clashes with at least one segment
 						clashingCamps.add(camp);
 						clashed = true;
@@ -767,10 +773,12 @@ public class testAdNetwork extends Agent {
 
 	/**
 	 * Evaulates the bid to be made for a given query
-	 * @param query - specific site/target
+	 * @param query specific site/target
+	 * @param reservePrice reserve price for query publisher
+	 * @param pop population of query publisher
 	 * @return bid - value to bid on specific query
 	 */
-	private long evaluateImpressionsBid(AdxQuery query) {
+	private long evaluateImpressionsBid(AdxQuery query, double reservePrice, int pop) {
 		int itg = currCampaign.impsTogo();
 		long dur = currCampaign.dayEnd-day;
 		long bid = 0;
@@ -782,6 +790,33 @@ public class testAdNetwork extends Agent {
 
 	private int getSegmentPopularity(Set<MarketSegment> seg) {
 		return MarketSegment.marketSegmentSize(seg);
+	}
+
+	/**
+	 * Class represents a pair:
+	 * bidBundle - the bid bundle sent on a given day
+	 * bidMap - map of campaign id to bids won
+	 */
+	private class ImpBidTrackingObject {
+		AdxBidBundle bundle;
+		Map<Integer,Integer> bidMap;
+
+		public ImpBidTrackingObject(AdxBidBundle bundle, Map<Integer, Integer> bidMap) {
+			this.bundle = bundle;
+			this.bidMap = bidMap;
+		}
+
+		public int bidsWon(int campID) {
+			return bidMap.get(campID);
+		}
+
+		public AdxBidBundle getBundle() {
+			return this.bundle;
+		}
+
+		public Map<Integer, Integer> getBidMap() {
+			return bidMap;
+		}
 	}
 
 	/**
