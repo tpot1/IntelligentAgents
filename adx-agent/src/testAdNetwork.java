@@ -175,7 +175,7 @@ public class testAdNetwork extends Agent {
 
 		} catch (NullPointerException e) {
 			this.log.log(Level.SEVERE,
-					"Exception thrown while trying to parse message." + e);
+					"Exception thrown while trying to parse message." + e + "\n" + "Content:" + message.getContent());
 			return;
 		}
 	}
@@ -213,8 +213,7 @@ public class testAdNetwork extends Agent {
 	 * which bids regarding campaign opportunities may be sent in subsequent
 	 * days) are also reported in the initial campaign message
 	 */
-	private void handleInitialCampaignMessage(
-			InitialCampaignMessage campaignMessage) {
+	private void handleInitialCampaignMessage(InitialCampaignMessage campaignMessage) {
 		if (verbose_printing) { System.out.println(campaignMessage.toString()); }
 		day = 0;
 
@@ -434,8 +433,8 @@ public class testAdNetwork extends Agent {
 						String publisherStr = query.getPublisher();
 						if (pubReport != null) {
 							for (PublisherCatalogEntry pubKey : pubReport.keys()) {
-								try { //XXX TODO: Determine if the reserve price actually is 0 or not
-									//Get current website pop and update max pop
+								try {
+									//Get current website reserve and  pop
 									if (pubKey != null) {
 										if (pubKey.getPublisherName().equals(publisherStr)) {
 											reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
@@ -491,14 +490,21 @@ public class testAdNetwork extends Agent {
 		 * n-1 are reported
 		 */
 		for (CampaignReportKey campaignKey : campaignReport.keys()) {
+
+
 			int cmpId = campaignKey.getCampaignId();
 			CampaignStats cstats = campaignReport.getCampaignReportEntry(campaignKey).getCampaignStats();
 
 			//Updates each campaign in myCampaigns with new stats
 			myCampaigns.get(cmpId).setStats(cstats);
 
-			//Updates the campaign stats history for each campaign
-			List<CampaignStats> newStatsList = myCampaignStatsHistory.get(cmpId);
+			//Updates the campaign stats history for each campaign TODO: Null pointer
+			List<CampaignStats> newStatsList;
+			if (myCampaignStatsHistory.get(cmpId) != null) {
+				newStatsList = myCampaignStatsHistory.get(cmpId);
+			} else {
+				newStatsList = new ArrayList<>();
+			}
 			newStatsList.add(cstats);
 			myCampaignStatsHistory.put(cmpId, newStatsList);
 
@@ -524,8 +530,6 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
-
-	//TODO: Determine what is what in here
 	/**
 	 *
 	 * //@param AdNetworkReport
@@ -801,10 +805,12 @@ public class testAdNetwork extends Agent {
 			}
 		}
 
-		for (ImpBidTrackingObject bid : impBidHistory) {
-			if (bid.getDay() == day - 1) {
-				for (int campKey : bid.getImpsMap().keySet()) {
-					System.out.println("Camp: " + campKey + " - Imps won: " + bid.getBidsWon(campKey));
+		if (verbose_printing) {
+			for (ImpBidTrackingObject bid : impBidHistory) {
+				if (bid.getDay() == day - 1) {
+					for (int campKey : bid.getImpsMap().keySet()) {
+						System.out.println("Day: " + (day-1) + " - Camp: " + campKey + " - Imps won: " + bid.getBidsWon(campKey));
+					}
 				}
 			}
 		}
