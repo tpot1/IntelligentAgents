@@ -190,9 +190,7 @@ public class testAdNetwork extends Agent {
 
 	/**
 	 * Processes the start information.
-	 *
-	 * @param startInfo
-	 *            the start information.
+	 * @param startInfo the start information.
 	 */
 	protected void handleStartInfo(StartInfo startInfo) {
 		this.startInfo = startInfo;
@@ -200,7 +198,6 @@ public class testAdNetwork extends Agent {
 
 	/**
 	 * Process the reported set of publishers
-	 *
 	 * @param publisherCatalog
 	 */
 	private void handlePublisherCatalog(PublisherCatalog publisherCatalog) {
@@ -294,7 +291,6 @@ public class testAdNetwork extends Agent {
 		/* Note: Campaign bid is in millis */
 		AdNetBidMessage bids = new AdNetBidMessage(ucsBid, pendingCampaign.id, cmpBidMillis);
 		sendMessage(demandAgentAddress, bids);
-
 	}
 
 	/**
@@ -334,7 +330,7 @@ public class testAdNetwork extends Agent {
 		currQuality = notificationMessage.getQualityScore();
 
 		//Update ucs bid history with new result
-		ucsBidHistory.add(new UcsBidObject(notificationMessage.getPrice(), notificationMessage.getQualityScore()));
+		ucsBidHistory.add(new UcsBidObject(day, notificationMessage.getPrice(), notificationMessage.getQualityScore()));
 
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
@@ -475,7 +471,7 @@ public class testAdNetwork extends Agent {
 		//end looping over campaigns
 
 		//Store bid bundle in history TODO: Populate the map
-		impBidHistory.add(new ImpBidTrackingObject(bidBundle, new HashMap<>()));
+		impBidHistory.add(new ImpBidTrackingObject(day, bidBundle, new HashMap<>()));
 
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
@@ -537,14 +533,8 @@ public class testAdNetwork extends Agent {
 	private void handleAdNetworkReport(AdNetworkReport adnetReport) {
 
 		if (verbose_printing) { System.out.println("Day " + day + " : AdNetworkReport"); }
-			 for (AdNetworkKey adnetKey : adnetReport.keys()) {
 
-			 	double rnd = Math.random();
-				 if (rnd > 0.0) {
-					 AdNetworkReportEntry entry = adnetReport .getAdNetworkReportEntry(adnetKey);
-					 System.out.println(adnetKey + " " + entry);
-				 }
-			 }
+		updateBidHistory(adnetReport);
 	}
 
 	@Override
@@ -793,29 +783,71 @@ public class testAdNetwork extends Agent {
 	}
 
 	/**
-	 * Class represents a pair:
-	 * bidBundle - the bid bundle sent on a given day
-	 * bidMap - map of campaign id to bids won
+	 * Function updates the bid history list with a new number of impressions won
+	 * @param adnetReport - the network report that is issued on a given day
 	 */
-	private class ImpBidTrackingObject {
-		AdxBidBundle bundle;
-		Map<Integer,Integer> bidMap;
-
-		public ImpBidTrackingObject(AdxBidBundle bundle, Map<Integer, Integer> bidMap) {
-			this.bundle = bundle;
-			this.bidMap = bidMap;
+	private void updateBidHistory(AdNetworkReport adnetReport) {
+		//Loop over all entries in report (see example at bottom of file)
+		for (AdNetworkKey adnetKey : adnetReport.keys()) {
+			AdNetworkReportEntry entry = adnetReport.getEntry(adnetKey);
+			//Find the corresponding day in bid history
+			for (ImpBidTrackingObject bid : impBidHistory) {
+				if (bid.getDay() == day-1) {
+					//Update impressions won on that day
+					int newImpsWon = entry.getWinCount();
+					int currBidsWon = bid.getBidsWon(adnetKey.getCampaignId());
+					bid.setImpsWon(adnetKey.getCampaignId(), currBidsWon + newImpsWon);
+				}
+			}
 		}
 
-		public int bidsWon(int campID) {
-			return bidMap.get(campID);
+		for (ImpBidTrackingObject bid : impBidHistory) {
+			if (bid.getDay() == day - 1) {
+				for (int campKey : bid.getImpsMap().keySet()) {
+					System.out.println("Camp: " + campKey + " - Imps won: " + bid.getBidsWon(campKey));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Class represents a pair:
+	 * bidBundle - the bid bundle sent on a given day
+	 * impsMap - map of campaign id to imps won
+	 */
+	private class ImpBidTrackingObject {
+		int day;
+		AdxBidBundle bundle;
+		Map<Integer,Integer> impsMap;
+
+		public ImpBidTrackingObject(int day, AdxBidBundle bundle, Map<Integer, Integer> impsMap) {
+			this.day = day;
+			this.bundle = bundle;
+			this.impsMap = impsMap;
+		}
+
+		public int getBidsWon(int campID) {
+			if (impsMap.get(campID) != null) {
+				return impsMap.get(campID);
+			} else {
+				return 0;
+			}
 		}
 
 		public AdxBidBundle getBundle() {
 			return this.bundle;
 		}
 
-		public Map<Integer, Integer> getBidMap() {
-			return bidMap;
+		public Map<Integer, Integer> getImpsMap() {
+			return impsMap;
+		}
+
+		public int getDay() {
+			return this.day;
+		}
+
+		public void setImpsWon(int campID, int impsWon) {
+			impsMap.put(campID, impsWon);
 		}
 	}
 
@@ -848,10 +880,12 @@ public class testAdNetwork extends Agent {
 	 * ucsLevel - The ucs level achieved
 	 */
 	private class UcsBidObject {
+		int day;
 		double bid;
 		double ucsLevel;
 
-		public UcsBidObject(double bid, double ucsLevel) {
+		public UcsBidObject(int day, double bid, double ucsLevel) {
+			this.day = day;
 			this.bid = bid;
 			this.ucsLevel = ucsLevel;
 		}
@@ -947,3 +981,11 @@ Note: Seem to easily achieve 1000 imps per day when there is no competition.
 
 //TODO: Change bid weights be based on pop value and days left in campaign
 //TODO: Add in tracking for bid bundles and work out how to tell if bid was won
+
+		/*
+		*  AdNetworkKey
+		*  [age=Age_35_44, income=high, gender=male, publisher=weather, device=mobile, adType=video, campaignId=1963806382]
+		*  AdNetworkReportEntry AdNetworkKey
+		*  [age=Age_35_44, income=high, gender=male, publisher=weather, device=mobile, adType=video, campaignId=1963806382]
+		*  [bidCount=25, winCount=2, cost=0.0670725979432718]
+		*/
