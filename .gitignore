@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 bin/
 *.slg
 *.class
@@ -6,4 +7,10 @@ bin/
 .classpath
 .metadata
 .project
+*.dat
+*.iml
+*.idea
+*.jar
+*.bat
+log.txt
 *.lck
