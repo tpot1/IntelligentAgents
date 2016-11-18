@@ -401,7 +401,8 @@ public class testAdNetwork extends Agent {
 
 				//TODO: Determine how to handle the empty market segment calls when the ucs service doesnt give us answer
 
-			/* Example of AdxQuery:
+			/*
+			* 	Example of AdxQuery:
 			*	AdxQuery [publisher=ehow, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
 			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=pc, adType=text]
 			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=mobile, adType=video]
@@ -413,7 +414,7 @@ public class testAdNetwork extends Agent {
 					 * among matching entries with the same campaign id, the AdX
 					 * randomly chooses an entry according to the designated
 					 * weight. by setting a constant weight 1, we create a
-					 * uniform probability over active campaigns(irrelevant because we are bidding only on one campaign)
+					 * uniform probability over active campaigns (irrelevant because we are bidding only on one campaign)
 					 */
 						if (query.getDevice() == Device.pc) {
 							if (query.getAdType() == AdType.text) {
@@ -434,7 +435,7 @@ public class testAdNetwork extends Agent {
 						if (pubReport != null) {
 							for (PublisherCatalogEntry pubKey : pubReport.keys()) {
 								try {
-									//Get current website reserve and  pop
+									//Get current website reserve and pop
 									if (pubKey != null) {
 										if (pubKey.getPublisherName().equals(publisherStr)) {
 											reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
@@ -469,7 +470,7 @@ public class testAdNetwork extends Agent {
 		}
 		//end looping over campaigns
 
-		//Store bid bundle in history TODO: Populate the map
+		//Store bid bundle in history
 		impBidHistory.add(new ImpBidTrackingObject(day, bidBundle, new HashMap<>()));
 
 		if (bidBundle != null) {
@@ -498,13 +499,14 @@ public class testAdNetwork extends Agent {
 			//Updates each campaign in myCampaigns with new stats
 			myCampaigns.get(cmpId).setStats(cstats);
 
-			//Updates the campaign stats history for each campaign TODO: Null pointer
+			//Updates the campaign stats history for each campaign
 			List<CampaignStats> newStatsList;
 			if (myCampaignStatsHistory.get(cmpId) != null) {
 				newStatsList = myCampaignStatsHistory.get(cmpId);
 			} else {
 				newStatsList = new ArrayList<>();
 			}
+
 			newStatsList.add(cstats);
 			myCampaignStatsHistory.put(cmpId, newStatsList);
 
@@ -651,6 +653,8 @@ public class testAdNetwork extends Agent {
 					campaignData.targetSegment, Device.pc, AdType.video));
 		}
 
+		//TODO: Add in query with empty target segment map for imps where we dont know the user details - see generateAdxQuerySpace
+
 		campaignData.campaignQueries = new AdxQuery[campaignQueriesSet.size()];
 		campaignQueriesSet.toArray(campaignData.campaignQueries);
 		if (verbose_printing) { System.out.println("!!!!!!!!!!!!!!!!!!!!!!"+Arrays.toString(campaignData.campaignQueries)+"!!!!!!!!!!!!!!!!"); }
@@ -712,12 +716,16 @@ public class testAdNetwork extends Agent {
 			System.out.println("Size of target segment: " + campSegPop);
 		}
 
-		//TODO: Determine if this full clash campaign is already ours? May not want to bid anyway, depends on length? Maybe check how long they are for
 		//Determines if there is a already running campaign that has exactly the same target
 		for (int i : clashingExtents) {
 			sum += i;
 			if (i >= 2) {
-				fullClash = true;
+				//If our campaign
+				if (myCampaigns.containsKey(clashingCamps.get(i).id)) {
+					//TODO: What to do when its our campaign clash + test this
+				} else {
+					fullClash = true;
+				}
 			}
 		}
 
@@ -986,7 +994,6 @@ Note: Seem to easily achieve 1000 imps per day when there is no competition.
  */
 
 //TODO: Change bid weights be based on pop value and days left in campaign
-//TODO: Add in tracking for bid bundles and work out how to tell if bid was won
 
 		/*
 		*  AdNetworkKey
