@@ -6,5 +6,5 @@ cd ../adx-agent
 
 call compile.bat
 
-start cmd /k call runAgentTestAdNet.bat
+start cmd /k call runAgent.bat
 
