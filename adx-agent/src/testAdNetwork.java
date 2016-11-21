@@ -331,6 +331,18 @@ public class testAdNetwork extends Agent {
 		//Update ucs bid history with new result
 		ucsBidHistory.add(new UcsBidObject(day, notificationMessage.getPrice(), notificationMessage.getQualityScore()));
 
+		if (verbose_printing) {
+			for (MarketSegment s : MarketSegment.values()) {
+				double pop = getPIPPopAtomic(s, day+1);
+				System.out.println("Segment: " + s + " - Atomic pop: " + pop);
+
+			}
+			for (Set<MarketSegment> S : MarketSegment.marketSegments()) {
+				double pop = getPIPPop(S, day+2,day+1);
+				System.out.println("Seg: " + S.toString() + " - pop: " + pop);
+			}
+		}
+
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
 				+ " at price " + notificationMessage.getPrice()
@@ -449,7 +461,7 @@ public class testAdNetwork extends Agent {
 						}
 
 						//update the rbid here with reserve info?
-						evaluateImpressionsBid(query, reservePrice, pop);
+						rbid = evaluateImpressionsBid(thisCampaign, query, reservePrice, pop);
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
@@ -458,6 +470,12 @@ public class testAdNetwork extends Agent {
 				}
 
 				double impressionLimit = thisCampaign.impsTogo();
+				if (thisCampaign.impsTogo() == 0) {
+					impressionLimit = thisCampaign.reachImps*0.2;
+				} else if (thisCampaign.impsTogo() < 0) {
+					impressionLimit = 0;
+				}
+
 				double budgetLimit = thisCampaign.budget;
 				bidBundle.setCampaignDailyLimit(thisCampaign.id,
 						(int) impressionLimit, budgetLimit);
@@ -710,6 +728,7 @@ public class testAdNetwork extends Agent {
 		List<CampaignData> clashingCamps = clashes.getClashCamps();
 		List<Integer> clashingExtents = clashes.getClashExtents();
 
+
 		if (verbose_printing) {
 			System.out.println("Number of clashing campaigns:" + clashingCamps.size());
 			System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
@@ -721,18 +740,20 @@ public class testAdNetwork extends Agent {
 			sum += i;
 			if (i >= 2) {
 				//If our campaign
-				if (myCampaigns.containsKey(clashingCamps.get(i).id)) {
-					//TODO: What to do when its our campaign clash + test this
-				} else {
-					fullClash = true;
-				}
+				//if (clashingCamps.size() > 0) {
+					//if (myCampaigns.containsKey(clashingCamps.get(i).id)) {
+						//TODO: What to do when its our campaign clash + test this
+					//} else {
+						fullClash = true;
+					//}
+				//}
 			}
 		}
 
 		//TODO: Factor in the popularity of market seg into campaign op bids
 
 		//Rudimentary evaluation of campaign
-		if (impsPerDay <= 1000 ||
+		if (impsPerDay <= 1500 ||
 				(clashingCamps.size() == 0 && impsPerDay <= 2000) ||
 				(sum < 3 && impsPerDay <= 2000) ||
 				(!fullClash && impsPerDay <= 2000)) {
@@ -780,14 +801,25 @@ public class testAdNetwork extends Agent {
 	 * @param pop population of query publisher
 	 * @return bid - value to bid on specific query
 	 */
-	private long evaluateImpressionsBid(AdxQuery query, double reservePrice, int pop) {
+	private double evaluateImpressionsBid(CampaignData camp, AdxQuery query, double reservePrice, int pop) {
 		int itg = currCampaign.impsTogo();
 		long dur = currCampaign.dayEnd-day;
-		long bid = 0;
+		double budget = camp.budget;
+		double bid = 0;
 
-		//TODO: Work out how we want to determine impressions bid
+		//Coeff that decreses bid to make profit - 1 = no profit, <1 = profit
+		double profitCoeff = 0.75;
 
-		return bid;
+		bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
+		System.out.println("Bid Estimate: " + bid/camp.reachImps);
+		System.out.println("Budget: " + budget);
+
+		if (dur == 1) {
+			bid = bid*2;
+		}
+		//TODO: Too little budget and small reach
+
+		return (double)bid/camp.reachImps*1000*profitCoeff;
 	}
 
 	private int getSegmentPopularity(Set<MarketSegment> seg) {
@@ -822,6 +854,50 @@ public class testAdNetwork extends Agent {
 				}
 			}
 		}
+	}
+
+	private double getPIPPopAtomic(MarketSegment s, int t) {
+		double pop = 0.0;
+
+		cleanPostedCampaignList();
+
+		for (CampaignData camp : postedCampaigns) {
+			int campKey = camp.id;
+
+			if (camp.targetSegment.contains(s)) {
+				if (camp.dayEnd > t) {
+					pop = pop + (double)camp.reachImps / (double)(MarketSegment.marketSegmentSize(camp.targetSegment) * (camp.dayEnd - t));
+					//System.out.println("Day End: " + camp.dayEnd + " - t: " + t + " - Seg size: " + MarketSegment.marketSegmentSize(camp.targetSegment));
+					//System.out.println("Partial POP; " + pop);
+				}
+			}
+		}
+
+		//System.out.println(Arrays.toString(postedCampaigns.toArray()));
+		//System.out.println("Segment: " + s + " - Atomic pop: " + pop);
+
+		return pop;
+	}
+
+	private double getPIPPop(Set<MarketSegment> S, int dayEnd, int dayStart) {
+		double pop = 0.0;
+
+		List<Integer> T = new ArrayList<>();
+		for (int i=dayStart ; i<= dayEnd; i++) {
+			T.add(i);
+		}
+
+		for (MarketSegment s : S) {
+			for (int t : T) {
+				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
+				marketSet.add(s);
+				pop = pop + MarketSegment.marketSegmentSize(marketSet) * getPIPPopAtomic(s, t);
+			}
+		}
+
+		pop = pop / (T.size() * MarketSegment.marketSegmentSize(S));
+		//System.out.println("Seg: " + S.toString() + " - pop: " + pop);
+		return pop;
 	}
 
 	/**
