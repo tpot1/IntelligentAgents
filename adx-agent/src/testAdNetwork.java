@@ -8,8 +8,11 @@ import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
+import tau.tac.adx.demand.Campaign;
+import tau.tac.adx.demand.CampaignImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
+import tau.tac.adx.messages.Contract;
 import tau.tac.adx.props.AdxBidBundle;
 import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
@@ -406,8 +409,7 @@ public class testAdNetwork extends Agent {
 		 * matching target segment.
 		 */
 			if ((dayBiddingFor >= thisCampaign.dayStart)
-					&& (dayBiddingFor <= thisCampaign.dayEnd)
-					&& (thisCampaign.impsTogo() > 0)) {
+					&& (dayBiddingFor <= thisCampaign.dayEnd)) {
 
 				int entCount = 0;
 
@@ -470,8 +472,9 @@ public class testAdNetwork extends Agent {
 				}
 
 				double impressionLimit = thisCampaign.impsTogo();
+				System.out.println("Imps to go: " + thisCampaign.impsTogo());
 				if (thisCampaign.impsTogo() == 0) {
-					impressionLimit = thisCampaign.reachImps*0.2;
+					impressionLimit = thisCampaign.reachImps*1.2;
 				} else if (thisCampaign.impsTogo() < 0) {
 					impressionLimit = 0;
 				}
@@ -805,19 +808,25 @@ public class testAdNetwork extends Agent {
 		int itg = currCampaign.impsTogo();
 		long dur = currCampaign.dayEnd-day;
 		double budget = camp.budget;
-		double bid = 0;
+		double bid = 0.0;
 
 		//Coeff that decreses bid to make profit - 1 = no profit, <1 = profit
-		double profitCoeff = 0.75;
+		double profitCoeff = 0.8;
+
+		long low_budget = 500;
+		long low_reach = 500;
 
 		bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
-		System.out.println("Bid Estimate: " + bid/camp.reachImps);
-		System.out.println("Budget: " + budget);
+		//System.out.println("Bid Estimate: " + bid/camp.reachImps);
+		//System.out.println("Budget: " + budget);
 
-		if (dur == 1) {
+		if (budget < low_budget && camp.reachImps < low_reach) {
+			bid = 0.001*budget;
+		}
+
+		if (dur == 0) {
 			bid = bid*2;
 		}
-		//TODO: Too little budget and small reach
 
 		return (double)bid/camp.reachImps*1000*profitCoeff;
 	}
