@@ -799,6 +799,7 @@ public class testAdNetwork extends Agent {
 
 	/**
 	 * Evaulates the bid to be made for a given query
+	 * @param camp the campaign for which the impressions are to be bid for
 	 * @param query specific site/target
 	 * @param reservePrice reserve price for query publisher
 	 * @param pop population of query publisher
