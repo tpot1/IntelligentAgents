@@ -1,6 +1,8 @@
 
-javac -classpath "lib/*" SimpleAdNetwork.java
+javac -classpath "lib/*" testAdNetwork.java
 
-jar cvf SimpleAdNetwork.jar *.class
+jar cvf testAdNetwork.jar *.class
 
-move SimpleAdNetwork.jar lib/SimpleAdNetwork.jar
+move testAdNetwork.jar lib/testAdNetwork.jar
+
+pause
