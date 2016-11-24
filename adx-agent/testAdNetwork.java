@@ -8,8 +8,11 @@ import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
+import tau.tac.adx.demand.Campaign;
+import tau.tac.adx.demand.CampaignImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
+import tau.tac.adx.messages.Contract;
 import tau.tac.adx.props.AdxBidBundle;
 import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
@@ -96,6 +99,14 @@ public class testAdNetwork extends Agent {
 	 * The current bid level for the user classification service
 	 */
 	private double ucsBid;
+	
+	/*
+	 * Stores the previous POSITIVE UCS bid, to be used by the UCS Bidder 
+	 * to determine the next bid (since bids of 0 throw off the bidder)
+	 */
+	private double prevUcsBid;
+	
+	private double ucsLevel;
 
 	/**
 	 * The targeted service level for the user classification service
@@ -114,6 +125,8 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = false;
+	private boolean ucs_printing = true;
+	private boolean contract_printing = true;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -124,10 +137,16 @@ public class testAdNetwork extends Agent {
 	private List<ImpBidTrackingObject> impBidHistory;
 	private Map<Integer, List<CampaignStats>> myCampaignStatsHistory;
 
-	private double currQuality;
+	private double currQuality = 1.0;
 
 	private double meanVidCoeff;
 	private double meanMobCoeff;
+	
+	private double competing_index = 1.0;
+	private static double COMPETING_INDEX_MAX = 5.0;
+	private static double GREED = 1.2;
+	private static double UCSScaler = 0.2;
+	private long previous_campaign_bid = 0;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -267,7 +286,12 @@ public class testAdNetwork extends Agent {
 		 * (upper bound) price for the auction.
 		 */
 		Random random = new Random();
-		long cmpBidMillis = evaluateCampaignOp(com);
+		//long cmpBidMillis = evaluateCampaignOp(com);
+		ContractBidder bidder = new ContractBidder(com);
+		long cmpBidMillis = bidder.getContractBid();
+		previous_campaign_bid = cmpBidMillis;
+		
+		if (contract_printing) { System.out.println("CAMPAIGN BID: " + cmpBidMillis); }
 
 		if (verbose_printing) { System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis); }
 
@@ -276,9 +300,12 @@ public class testAdNetwork extends Agent {
 		 * user classification service is piggybacked
 		 */
 		if (adNetworkDailyNotification != null) {
-			double ucsLevel = adNetworkDailyNotification.getServiceLevel();
+			ucsLevel = adNetworkDailyNotification.getServiceLevel();
 			if (haveActiveCampaigns()) {
-				ucsBid = 0.3 + random.nextDouble() / 10.0; //XXX UCS bid 0.3 wins against random ops
+				UCSBidder ucsBidder = new UCSBidder(prevUcsBid, ucsLevel);
+				ucsBid = ucsBidder.getUCSBid();
+				prevUcsBid = ucsBid;
+				if(ucs_printing) { System.out.println("UCS BID: " + ucsBid); }
 			} else {
 				ucsBid = 0.0;
 			}
@@ -311,6 +338,15 @@ public class testAdNetwork extends Agent {
 
 		if ((pendingCampaign.id == adNetworkDailyNotification.getCampaignId())
 				&& (notificationMessage.getCostMillis() != 0)) {
+			
+			// If we won legit (when the the winning bid is NOT the same as our bid - it will be second-place's bid), lower the competing index
+			if(notificationMessage.getCostMillis() != previous_campaign_bid){
+				competing_index = competing_index/GREED;
+				if (contract_printing) { System.out.println("WE WON LEGIT. Competing Index = " + competing_index); }
+			}
+			else{
+				if (contract_printing) { System.out.println("WE WON BY LUCK. Competing Index = " + competing_index); }
+			}
 
 			/* add campaign to list of won campaigns */
 			pendingCampaign.setBudget(notificationMessage.getCostMillis()/1000.0);
@@ -321,6 +357,11 @@ public class testAdNetwork extends Agent {
 			campaignAllocatedTo = " WON at cost (Millis)"
 					+ notificationMessage.getCostMillis();
 		}
+		else {
+			// We lost, so increase the competing index
+			competing_index = (competing_index * GREED > COMPETING_INDEX_MAX) ? COMPETING_INDEX_MAX : competing_index * GREED;
+			if (contract_printing) { System.out.println("WE LOST. Competing Index = " + competing_index); }
+		}
 
 		//Stores the winning bid for each campaign
 		campaignWinningBids.put(notificationMessage.getCampaignId(), notificationMessage.getCostMillis());
@@ -330,6 +371,18 @@ public class testAdNetwork extends Agent {
 
 		//Update ucs bid history with new result
 		ucsBidHistory.add(new UcsBidObject(day, notificationMessage.getPrice(), notificationMessage.getQualityScore()));
+
+		if (verbose_printing) {
+			for (MarketSegment s : MarketSegment.values()) {
+				double pop = getPIPPopAtomic(s, day+1);
+				System.out.println("Segment: " + s + " - Atomic pop: " + pop);
+
+			}
+			for (Set<MarketSegment> S : MarketSegment.marketSegments()) {
+				double pop = getPIPPop(S, day+2,day+1);
+				System.out.println("Seg: " + S.toString() + " - pop: " + pop);
+			}
+		}
 
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
@@ -394,8 +447,7 @@ public class testAdNetwork extends Agent {
 		 * matching target segment.
 		 */
 			if ((dayBiddingFor >= thisCampaign.dayStart)
-					&& (dayBiddingFor <= thisCampaign.dayEnd)
-					&& (thisCampaign.impsTogo() > 0)) {
+					&& (dayBiddingFor <= thisCampaign.dayEnd)) {
 
 				int entCount = 0;
 
@@ -449,8 +501,8 @@ public class testAdNetwork extends Agent {
 						}
 
 						//update the rbid here with reserve info?
-						evaluateImpressionsBid(query, reservePrice, pop);
-
+						rbid = evaluateImpressionsBid(thisCampaign, query, reservePrice, pop);
+							
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
 						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + rbid + " - site: " + query.getPublisher());}
@@ -458,6 +510,13 @@ public class testAdNetwork extends Agent {
 				}
 
 				double impressionLimit = thisCampaign.impsTogo();
+				System.out.println("Imps to go: " + thisCampaign.impsTogo());
+				if (thisCampaign.impsTogo() == 0) {
+					impressionLimit = thisCampaign.reachImps*1.2;
+				} else if (thisCampaign.impsTogo() < 0) {
+					impressionLimit = 0;
+				}
+
 				double budgetLimit = thisCampaign.budget;
 				bidBundle.setCampaignDailyLimit(thisCampaign.id,
 						(int) impressionLimit, budgetLimit);
@@ -552,6 +611,7 @@ public class testAdNetwork extends Agent {
 
 		/* initial bid between 0.1 and 0.2 */
 		ucsBid = 0.2 + random.nextDouble()/10.0;
+		prevUcsBid = ucsBid;
 
 		myCampaigns = new HashMap<Integer, CampaignData>();
 		log.fine("AdNet " + getName() + " simulationSetup");
@@ -710,6 +770,7 @@ public class testAdNetwork extends Agent {
 		List<CampaignData> clashingCamps = clashes.getClashCamps();
 		List<Integer> clashingExtents = clashes.getClashExtents();
 
+
 		if (verbose_printing) {
 			System.out.println("Number of clashing campaigns:" + clashingCamps.size());
 			System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
@@ -721,18 +782,20 @@ public class testAdNetwork extends Agent {
 			sum += i;
 			if (i >= 2) {
 				//If our campaign
-				if (myCampaigns.containsKey(clashingCamps.get(i).id)) {
-					//TODO: What to do when its our campaign clash + test this
-				} else {
-					fullClash = true;
-				}
+				//if (clashingCamps.size() > 0) {
+					//if (myCampaigns.containsKey(clashingCamps.get(i).id)) {
+						//TODO: What to do when its our campaign clash + test this
+					//} else {
+						fullClash = true;
+					//}
+				//}
 			}
 		}
 
 		//TODO: Factor in the popularity of market seg into campaign op bids
 
 		//Rudimentary evaluation of campaign
-		if (impsPerDay <= 1000 ||
+		if (impsPerDay <= 1500 ||
 				(clashingCamps.size() == 0 && impsPerDay <= 2000) ||
 				(sum < 3 && impsPerDay <= 2000) ||
 				(!fullClash && impsPerDay <= 2000)) {
@@ -780,14 +843,31 @@ public class testAdNetwork extends Agent {
 	 * @param pop population of query publisher
 	 * @return bid - value to bid on specific query
 	 */
-	private long evaluateImpressionsBid(AdxQuery query, double reservePrice, int pop) {
+	private double evaluateImpressionsBid(CampaignData camp, AdxQuery query, double reservePrice, int pop) {
 		int itg = currCampaign.impsTogo();
 		long dur = currCampaign.dayEnd-day;
-		long bid = 0;
+		double budget = camp.budget;
+		double bid = 0.0;
 
-		//TODO: Work out how we want to determine impressions bid
+		//Coeff that decreses bid to make profit - 1 = no profit, <1 = profit
+		double profitCoeff = 0.8;
 
-		return bid;
+		long low_budget = 500;
+		long low_reach = 500;
+
+		bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
+		//System.out.println("Bid Estimate: " + bid/camp.reachImps);
+		//System.out.println("Budget: " + budget);
+
+		if (budget < low_budget && camp.reachImps < low_reach) {
+			bid = 0.001*budget;
+		}
+
+		if (dur == 0) {
+			bid = bid*2;
+		}
+
+		return (double)bid/camp.reachImps*1000*profitCoeff;
 	}
 
 	private int getSegmentPopularity(Set<MarketSegment> seg) {
@@ -822,6 +902,52 @@ public class testAdNetwork extends Agent {
 				}
 			}
 		}
+	}
+
+	private double getPIPPopAtomic(MarketSegment s, int t) {
+		double pop = 0.0;
+
+		cleanPostedCampaignList();
+
+		for (CampaignData camp : postedCampaigns) {
+			int campKey = camp.id;
+
+			if (camp.targetSegment.contains(s)) {
+				if (camp.dayEnd > t) {
+					pop = pop + (double)camp.reachImps / (double)(MarketSegment.marketSegmentSize(camp.targetSegment) * (camp.dayEnd - t));
+					//System.out.println("Day End: " + camp.dayEnd + " - t: " + t + " - Seg size: " + MarketSegment.marketSegmentSize(camp.targetSegment));
+					//System.out.println("Partial POP; " + pop);
+				}
+			}
+		}
+
+		//System.out.println(Arrays.toString(postedCampaigns.toArray()));
+		//System.out.println("Segment: " + s + " - Atomic pop: " + pop);
+
+		return pop;
+	}
+
+	private double getPIPPop(Set<MarketSegment> S, int dayEnd, int dayStart) {
+		double pop = 0.0;
+		int totalSize = 0;
+
+		List<Integer> T = new ArrayList<>();
+		for (int i=dayStart ; i<= dayEnd; i++) {
+			T.add(i);
+		}
+
+		for (MarketSegment s : S) {
+			for (int t : T) {
+				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
+				marketSet.add(s);
+				pop = pop + (MarketSegment.marketSegmentSize(marketSet) * getPIPPopAtomic(s, t));
+				totalSize = totalSize + MarketSegment.marketSegmentSize(marketSet);
+			}
+		}
+		
+		pop = pop / (T.size() * totalSize);
+		//System.out.println("Seg: " + S.toString() + " - pop: " + pop);
+		return pop;
 	}
 
 	/**
@@ -984,6 +1110,138 @@ public class testAdNetwork extends Agent {
 			this.campaignQueries = campaignQueries;
 		}
 
+	}
+	
+	
+	private class ContractBidder {
+		
+		private double quality_threshold = 0.8;
+		private double price_index_threshold = 1.5;
+		
+		/* campaign attributes as set by server */
+		Long reachImps;
+		long dayStart;
+		long dayEnd;
+		Set<MarketSegment> targetSegment;
+		double videoCoef;
+		double mobileCoef;
+		int id;
+		private AdxQuery[] campaignQueries;//array of queries relvent for the campaign.
+		
+		double price_index;
+
+		public ContractBidder(CampaignOpportunityMessage com) {
+			dayStart = com.getDayStart();
+			dayEnd = com.getDayEnd();
+			id = com.getId();
+			reachImps = com.getReachImps();
+			targetSegment = com.getTargetSegment();
+			mobileCoef = com.getMobileCoef();
+			videoCoef = com.getVideoCoef();
+			price_index = getPIPPop(targetSegment, (int) dayEnd, (int) dayStart);
+		}
+		
+		public long getContractBid(){			
+			if (currQuality < quality_threshold){
+				if (contract_printing) { System.out.println("QUALITY LOW at " + currQuality + ". BIDDING LOWEST VALID BID."); }
+				return lowestValidBid();
+			}
+			//TODO - determine when the price index is too high
+			else if (price_index > price_index_threshold){
+				if (contract_printing) { System.out.println("PRICE INDEX HIGH at " + price_index + ". BIDDING HIGHEST VALID BID."); }
+				return highestValidBid();
+			}
+			else{
+				if (contract_printing) { System.out.println("DEFAULT - BIDDING PRIVATE VALUE"); }
+				return privateValueBid();
+			}
+		}
+		
+		public long privateValueBid(){
+			//TODO - confirm this is the correct formula (since formula in article makes no sense)	
+			return (long) ((price_index * (double) reachImps) / competing_index);
+		}
+		
+		public long lowestValidBid(){
+			// Lower bound Reserve price is 0.1$ CPM
+			// TODO - check this always returns a valid bid
+			return (long) ((0.1 * (double) reachImps)/currQuality);
+		}
+		
+		public long highestValidBid(){
+			 // Upper bound Reserve price is 1$ CPM (i.e the total number of impressions)
+			// TODO - check this always returns a valid bid
+			 return (long) ((double) reachImps * currQuality);
+
+		}
+	}
+	
+	private class UCSBidder {
+		
+		double previousBid;
+		double previousLevel;
+		double minReach;
+		double impressionUnitPrice;
+		
+		public UCSBidder(double previousBid, double previousLevel){
+			this.previousBid = previousBid;
+			this.previousLevel = previousLevel;
+			
+			this.minReach = 0.75 * getTotalReach();
+			this.impressionUnitPrice = getAverageImpressionCost() * previousLevel;
+		}
+		
+		public double getUCSBid(){			
+			if (previousLevel > 0.9){
+				if(ucs_printing) { System.out.println("UCS LEVEL TOO HIGH! Lowering bid"); }
+				return previousBid / (1 + UCSScaler); 
+			}
+			else if (previousLevel < 0.81 && (minReach / previousBid) >= (20.0/3.0)*((1.0+UCSScaler)/getUtilityOfIncrement())){
+				if(ucs_printing) { System.out.println("UCS LEVEL TOO LOW! Raising bid"); }
+				return (1 + UCSScaler) * previousBid;
+			}
+			else{
+				if(ucs_printing) { System.out.println("UCS LEVEL PERFECT! Maintaining bid"); }
+				return previousBid;
+			}
+			
+		}
+		
+		// Calculates the utility gained from spending extra to go up a UCS level
+		private double getUtilityOfIncrement(){
+			double r = minReach;
+			double increment = 0.001;
+			
+			double totalUtility = 0;
+			
+			// Crappy implementation of integration - maybe look into a library that does this?
+			while(r < minReach*2){
+				totalUtility = totalUtility + (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaler)*previousBid);
+				r = r + increment;
+			}
+			
+			return totalUtility;
+		}
+		
+		// Returns the average impression cost accross all current campaigns
+		private double getAverageImpressionCost(){
+			double totalPriceIndex = 0;
+			for (CampaignData campaign : myCampaigns.values()){
+				//TODO - check it is OK to use getPIPPop here to get value of p in formula
+				totalPriceIndex = totalPriceIndex + getPIPPop(campaign.targetSegment, (int) campaign.dayEnd, (int) campaign.dayStart);
+			}
+			return totalPriceIndex / (double) myCampaigns.values().size();
+		}
+		
+		// Returns the total impressions still needed accross all current campaigns
+		private int getTotalReach(){
+			int totalReach = 0;
+			for (CampaignData campaign : myCampaigns.values()){
+				totalReach = totalReach + campaign.impsTogo();
+			}
+			return totalReach;
+		}
+		
 	}
 }
 
