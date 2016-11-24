@@ -872,14 +872,19 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
+	/**
+	 * Determine popularity value of market segment s on day t
+	 * @param s Atomic market segment ie FEMALE or YOUNG
+	 * @param t Day on which you want popularity
+	 * @return popularity of segment on that day
+	 */
 	private double getPIPPopAtomic(MarketSegment s, int t) {
 		double pop = 0.0;
 
+		//Consider only currently running campaigns
 		cleanPostedCampaignList();
 
 		for (CampaignData camp : postedCampaigns) {
-			int campKey = camp.id;
-
 			if (camp.targetSegment.contains(s)) {
 				if (camp.dayEnd > t) {
 					pop = pop + (double)camp.reachImps / (double)(MarketSegment.marketSegmentSize(camp.targetSegment) * (camp.dayEnd - t));
@@ -895,9 +900,17 @@ public class testAdNetwork extends Agent {
 		return pop;
 	}
 
-	private double getPIPPop(Set<MarketSegment> S, int dayEnd, int dayStart) {
+	/**
+	 * Determine popularity value of valid set of market segments
+	 * @param S market segment set ie [MALE, OLD, HIGH]
+	 * @param dayEnd end day to be considered
+	 * @param dayStart start day to be considered
+	 * @return
+	 */
+	private double getPIPPop(Set<MarketSegment> S, int dayStart, int dayEnd) {
 		double pop = 0.0;
 
+		//Adds all days in range to array
 		List<Integer> T = new ArrayList<>();
 		for (int i=dayStart ; i<= dayEnd; i++) {
 			T.add(i);
@@ -911,8 +924,8 @@ public class testAdNetwork extends Agent {
 			}
 		}
 
-		System.out.println(Arrays.toString(T.toArray()));
-		System.out.println("T size: "+T.size() + " - S soze: " + MarketSegment.marketSegmentSize(S) + " - pop: " + pop);
+		//System.out.println(Arrays.toString(T.toArray()));
+		//System.out.println("T size: "+T.size() + " - S soze: " + MarketSegment.marketSegmentSize(S) + " - pop: " + pop);
 		//pop = pop / (T.size() * MarketSegment.marketSegmentSize(S));
 		return pop / (T.size() * MarketSegment.marketSegmentSize(S));
 	}
