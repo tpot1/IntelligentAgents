@@ -4,4 +4,3 @@ jar cvf testAdNetwork.jar *.class
 
 move testAdNetwork.jar ../lib/testAdNetwork.jar
 
-pause

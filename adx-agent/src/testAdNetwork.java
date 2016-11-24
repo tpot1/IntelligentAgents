@@ -465,6 +465,10 @@ public class testAdNetwork extends Agent {
 						//update the rbid here with reserve info?
 						rbid = evaluateImpressionsBid(thisCampaign, query, reservePrice, pop);
 
+						System.out.println("Bid bundle bid: " + rbid);
+						System.out.println("Budget and 1k budget by reach:" + thisCampaign.budget + " - " + 1000*thisCampaign.budget/thisCampaign.reachImps);
+
+
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
 						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + rbid + " - site: " + query.getPublisher());}
@@ -806,13 +810,14 @@ public class testAdNetwork extends Agent {
 	 * @return bid - value to bid on specific query
 	 */
 	private double evaluateImpressionsBid(CampaignData camp, AdxQuery query, double reservePrice, int pop) {
-		int itg = currCampaign.impsTogo();
-		long dur = currCampaign.dayEnd-day;
+		long dur = camp.dayEnd-day;
 		double budget = camp.budget;
 		double bid = 0.0;
 
+		double fractionImpsToGo = 1- camp.impsTogo() / camp.reachImps;
+
 		//Coeff that decreses bid to make profit - 1 = no profit, <1 = profit
-		double profitCoeff = 0.8;
+		double profitCoeff = 0.7;
 
 		long low_budget = 500;
 		long low_reach = 500;
@@ -820,12 +825,13 @@ public class testAdNetwork extends Agent {
 		bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
 		//System.out.println("Bid Estimate: " + bid/camp.reachImps);
 		//System.out.println("Budget: " + budget);
+		System.out.println("Pop coeff: " + getPIPPop(camp.targetSegment, day+1, day+1));
 
 		if (budget < low_budget && camp.reachImps < low_reach) {
 			bid = 0.001*budget;
 		}
 
-		if (dur == 0) {
+		if (dur == 1 && fractionImpsToGo > 0.1) { //TODO: This or == 0?
 			bid = bid*2;
 		}
 
@@ -905,9 +911,10 @@ public class testAdNetwork extends Agent {
 			}
 		}
 
-		pop = pop / (T.size() * MarketSegment.marketSegmentSize(S));
-		//System.out.println("Seg: " + S.toString() + " - pop: " + pop);
-		return pop;
+		System.out.println(Arrays.toString(T.toArray()));
+		System.out.println("T size: "+T.size() + " - S soze: " + MarketSegment.marketSegmentSize(S) + " - pop: " + pop);
+		//pop = pop / (T.size() * MarketSegment.marketSegmentSize(S));
+		return pop / (T.size() * MarketSegment.marketSegmentSize(S));
 	}
 
 	/**
