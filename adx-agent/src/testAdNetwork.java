@@ -133,8 +133,8 @@ public class testAdNetwork extends Agent {
 	 */
 	private List<CampaignData> postedCampaigns;
 	private Map<Integer, Long> campaignWinningBids;
-	private List<UcsBidObject> ucsBidHistory;
-	private List<ImpBidTrackingObject> impBidHistory;
+	private UCSBidTracker ucsTracker;
+	private ImpTracker impTracker;
 	private Map<Integer, List<CampaignStats>> myCampaignStatsHistory;
 
 	private double currQuality = 1.0;
@@ -154,8 +154,8 @@ public class testAdNetwork extends Agent {
 		campaignReports = new LinkedList<CampaignReport>();
 		postedCampaigns = new ArrayList<CampaignData>();
 		campaignWinningBids = new HashMap<>();
-		ucsBidHistory = new ArrayList<>();
-		impBidHistory = new ArrayList<>();
+		ucsTracker = new UCSBidTracker();
+		impTracker = new ImpTracker();
 		myCampaignStatsHistory = new HashMap<>();
 
 		PIPredictor = new PIP();
@@ -297,7 +297,6 @@ public class testAdNetwork extends Agent {
 		
 		if (contract_printing) { System.out.println("CAMPAIGN BID: " + cmpBidMillis); }
 
-
 		if (verbose_printing) { System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis); }
 
 		/*
@@ -375,7 +374,7 @@ public class testAdNetwork extends Agent {
 		currQuality = notificationMessage.getQualityScore();
 
 		//Update ucs bid history with new result
-		ucsBidHistory.add(new UcsBidObject(day, notificationMessage.getPrice(), notificationMessage.getQualityScore()));
+		ucsTracker.handleUCSBid(day, notificationMessage);
 
 		if (verbose_printing) {
 			for (MarketSegment s : MarketSegment.values()) {
@@ -388,15 +387,6 @@ public class testAdNetwork extends Agent {
 				System.out.println("Seg: " + S.toString() + " - pop: " + pop);
 			}
 		}
-
-		//Stores the winning bid for each campaign
-		campaignWinningBids.put(notificationMessage.getCampaignId(), notificationMessage.getCostMillis());
-
-		//Stores our current quality rating
-		currQuality = notificationMessage.getQualityScore();
-
-		//Update ucs bid history with new result
-		ucsBidHistory.add(new UcsBidObject(day, notificationMessage.getPrice(), notificationMessage.getQualityScore()));
 
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
@@ -540,7 +530,7 @@ public class testAdNetwork extends Agent {
 		//end looping over campaigns
 
 		//Store bid bundle in history
-		impBidHistory.add(new ImpBidTrackingObject(day, bidBundle, new HashMap<Integer,Integer>()));
+		impTracker.handleImpBid(day, bidBundle);
 
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
@@ -609,7 +599,7 @@ public class testAdNetwork extends Agent {
 
 		if (verbose_printing) { System.out.println("Day " + day + " : AdNetworkReport"); }
 
-		updateBidHistory(adnetReport);
+		impTracker.updateBidHistory(adnetReport);
 	}
 
 	@Override
@@ -850,74 +840,90 @@ public class testAdNetwork extends Agent {
 		return MarketSegment.marketSegmentSize(seg);
 	}
 
-	/**
-	 * Function updates the bid history list with a new number of impressions won
-	 * @param adnetReport - the network report that is issued on a given day
-	 */
-	private void updateBidHistory(AdNetworkReport adnetReport) {
-		//Loop over all entries in report (see example at bottom of file)
-		for (AdNetworkKey adnetKey : adnetReport.keys()) {
-			AdNetworkReportEntry entry = adnetReport.getEntry(adnetKey);
-			//Find the corresponding day in bid history
-			for (ImpBidTrackingObject bid : impBidHistory) {
-				if (bid.getDay() == day-1) {
-					//Update impressions won on that day
-					int newImpsWon = entry.getWinCount();
-					int currBidsWon = bid.getBidsWon(adnetKey.getCampaignId());
-					bid.setImpsWon(adnetKey.getCampaignId(), currBidsWon + newImpsWon);
-				}
-			}
+	private class ImpTracker {
+		List<ImpBidTrackingObject> history;
+		public ImpTracker() {
+
 		}
 
-		if (verbose_printing) {
-			for (ImpBidTrackingObject bid : impBidHistory) {
-				if (bid.getDay() == day - 1) {
-					for (int campKey : bid.getImpsMap().keySet()) {
-						System.out.println("Day: " + (day-1) + " - Camp: " + campKey + " - Imps won: " + bid.getBidsWon(campKey));
+		public List<ImpBidTrackingObject> getHistory() {
+			return history;
+		}
+
+		public void handleImpBid(int day, AdxBidBundle bidBundle) {
+			ImpBidTrackingObject impObj = new ImpBidTrackingObject(day, bidBundle, new HashMap<Integer,Integer>());
+			history.add(impObj);
+		}
+
+		/**
+		 * Function updates the bid history list with a new number of impressions won
+		 * @param adnetReport - the network report that is issued on a given day
+		 */
+		private void updateBidHistory(AdNetworkReport adnetReport) {
+			//Loop over all entries in report (see example at bottom of file)
+			for (AdNetworkKey adnetKey : adnetReport.keys()) {
+				AdNetworkReportEntry entry = adnetReport.getEntry(adnetKey);
+				//Find the corresponding day in bid history
+				for (ImpBidTrackingObject bid : history) {
+					if (bid.getDay() == day-1) {
+						//Update impressions won on that day
+						int newImpsWon = entry.getWinCount();
+						int currBidsWon = bid.getBidsWon(adnetKey.getCampaignId());
+						bid.setImpsWon(adnetKey.getCampaignId(), currBidsWon + newImpsWon);
+					}
+				}
+			}
+
+			if (verbose_printing) {
+				for (ImpBidTrackingObject bid : history) {
+					if (bid.getDay() == day - 1) {
+						for (int campKey : bid.getImpsMap().keySet()) {
+							System.out.println("Day: " + (day-1) + " - Camp: " + campKey + " - Imps won: " + bid.getBidsWon(campKey));
+						}
 					}
 				}
 			}
 		}
-	}
 
-	/**
-	 * Class represents a pair:
-	 * bidBundle - the bid bundle sent on a given day
-	 * impsMap - map of campaign id to imps won
-	 */
-	private class ImpBidTrackingObject {
-		int day;
-		AdxBidBundle bundle;
-		Map<Integer,Integer> impsMap;
+		/**
+		 * Class represents a pair:
+		 * bidBundle - the bid bundle sent on a given day
+		 * impsMap - map of campaign id to imps won
+		 */
+		private class ImpBidTrackingObject {
+			int day;
+			AdxBidBundle bundle;
+			Map<Integer, Integer> impsMap;
 
-		public ImpBidTrackingObject(int day, AdxBidBundle bundle, Map<Integer, Integer> impsMap) {
-			this.day = day;
-			this.bundle = bundle;
-			this.impsMap = impsMap;
-		}
-
-		public int getBidsWon(int campID) {
-			if (impsMap.get(campID) != null) {
-				return impsMap.get(campID);
-			} else {
-				return 0;
+			public ImpBidTrackingObject(int day, AdxBidBundle bundle, Map<Integer, Integer> impsMap) {
+				this.day = day;
+				this.bundle = bundle;
+				this.impsMap = impsMap;
 			}
-		}
 
-		public AdxBidBundle getBundle() {
-			return this.bundle;
-		}
+			public int getBidsWon(int campID) {
+				if (impsMap.get(campID) != null) {
+					return impsMap.get(campID);
+				} else {
+					return 0;
+				}
+			}
 
-		public Map<Integer, Integer> getImpsMap() {
-			return impsMap;
-		}
+			public AdxBidBundle getBundle() {
+				return this.bundle;
+			}
 
-		public int getDay() {
-			return this.day;
-		}
+			public Map<Integer, Integer> getImpsMap() {
+				return impsMap;
+			}
 
-		public void setImpsWon(int campID, int impsWon) {
-			impsMap.put(campID, impsWon);
+			public int getDay() {
+				return this.day;
+			}
+
+			public void setImpsWon(int campID, int impsWon) {
+				impsMap.put(campID, impsWon);
+			}
 		}
 	}
 
@@ -944,28 +950,49 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
-	/**
-	 * Class represents a single Ucs bid history item with variables:
-	 * bid		- The bid value for the day
-	 * ucsLevel - The ucs level achieved
-	 */
-	private class UcsBidObject {
-		int day;
-		double bid;
-		double ucsLevel;
 
-		public UcsBidObject(int day, double bid, double ucsLevel) {
-			this.day = day;
-			this.bid = bid;
-			this.ucsLevel = ucsLevel;
+	private class UCSBidTracker {
+		List<UcsBidObj> history;
+
+		public UCSBidTracker() {
+
 		}
 
-		public double getBid() {
-			return this.bid;
+		public void handleUCSBid(int day, AdNetworkDailyNotification dailyNotification) {
+			history.add(new UcsBidObj(day, dailyNotification.getPrice(), dailyNotification.getServiceLevel()));
 		}
 
-		public double getUcsLevel() {
-			return this.ucsLevel;
+		public List<UcsBidObj> getUCSHistory() {
+			return history;
+		}
+
+		/**
+		 * Class represents a single Ucs bid history item with variables:
+		 * bid		- The bid value for the day
+		 * ucsLevel - The ucs level achieved
+		 */
+		private class UcsBidObj {
+			int day;
+			double bid;
+			double ucsLevel;
+
+			public UcsBidObj(int day, double bid, double ucsLevel) {
+				this.day = day;
+				this.bid = bid;
+				this.ucsLevel = ucsLevel;
+			}
+
+			public int getDay() {
+				return day;
+			}
+
+			public double getBid() {
+				return this.bid;
+			}
+
+			public double getUcsLevel() {
+				return this.ucsLevel;
+			}
 		}
 	}
 
