@@ -746,66 +746,6 @@ public class testAdNetwork extends Agent {
 	}
 
 	/**
-	 * Evaluates the campaign opportunity given and returns the suggested bid
-	 *	@param com Campaign op message
-	 *  @return long finBid - the suggested bid
-	 */
-	private long evaluateCampaignOp(CampaignOpportunityMessage com) {
-		long reach = com.getReachImps();
- 		double vidCoeff = com.getVideoCoef();
-		double mobileCoeff = com.getMobileCoef();
-		long dur = com.getDayEnd() - com.getDayStart(); //Duration of campaign
-		long finBid = reach; 							//Final bid size
-
-		//Population size of target market segment as a number relative to 10,000
-		int campSegPop = getSegmentPopularity(com.getTargetSegment());
-
-		//Intermediate vars required
-		double reachCoeff = 0.3; //Some coeff to multiply reach by for final bid
-		long impsPerDay = reach/dur; //impressions per day required
-		int sum = 0; boolean fullClash = false;
-
-		//Get stats on clashes with posted campaigns
-		ClashObject clashes = numClashingCampaigns(new CampaignData(com));
-		List<CampaignData> clashingCamps = clashes.getClashCamps();
-		List<Integer> clashingExtents = clashes.getClashExtents();
-
-
-		if (verbose_printing) {
-			System.out.println("Number of clashing campaigns:" + clashingCamps.size());
-			System.out.println("Clashing extent:" + Arrays.toString(clashingExtents.toArray()));
-			System.out.println("Size of target segment: " + campSegPop);
-		}
-
-		//Determines if there is a already running campaign that has exactly the same target
-		for (int i : clashingExtents) {
-			sum += i;
-			if (i >= 2) {
-				//If our campaign
-				//if (clashingCamps.size() > 0) {
-					//if (myCampaigns.containsKey(clashingCamps.get(i).id)) {
-						//TODO: What to do when its our campaign clash + test this
-					//} else {
-						fullClash = true;
-					//}
-				//}
-			}
-		}
-
-		//TODO: Factor in the popularity of market seg into campaign op bids
-
-		//Rudimentary evaluation of campaign
-		if (impsPerDay <= 1500 ||
-				(clashingCamps.size() == 0 && impsPerDay <= 2000) ||
-				(sum < 3 && impsPerDay <= 2000) ||
-				(!fullClash && impsPerDay <= 2000)) {
-			finBid = (long)(reach*reachCoeff); //Maybe some lincomb of reach other stuff eg market seg pop?
-		}
-
-		return finBid;
-	}
-
-	/**
 	 * Determines how many running campaigns clash with the given campaign and by how much
 	 * @param c campaign data object
 	 * @return int[] {number of clashing campaigns, extent of total clashing}
