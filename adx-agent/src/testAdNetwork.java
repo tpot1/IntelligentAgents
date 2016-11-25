@@ -148,6 +148,11 @@ public class testAdNetwork extends Agent {
 	private static double UCSScaler = 0.2;
 	private long previous_campaign_bid = 0;
 
+	private double currQuality;
+
+	private double meanVidCoeff;
+	private double meanMobCoeff;
+
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
 		postedCampaigns = new ArrayList<CampaignData>();
@@ -293,6 +298,7 @@ public class testAdNetwork extends Agent {
 		
 		if (contract_printing) { System.out.println("CAMPAIGN BID: " + cmpBidMillis); }
 
+
 		if (verbose_printing) { System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis); }
 
 		/*
@@ -361,6 +367,27 @@ public class testAdNetwork extends Agent {
 			// We lost, so increase the competing index
 			competing_index = (competing_index * GREED > COMPETING_INDEX_MAX) ? COMPETING_INDEX_MAX : competing_index * GREED;
 			if (contract_printing) { System.out.println("WE LOST. Competing Index = " + competing_index); }
+		}
+
+		//Stores the winning bid for each campaign
+		campaignWinningBids.put(notificationMessage.getCampaignId(), notificationMessage.getCostMillis());
+
+		//Stores our current quality rating
+		currQuality = notificationMessage.getQualityScore();
+
+		//Update ucs bid history with new result
+		ucsBidHistory.add(new UcsBidObject(day, notificationMessage.getPrice(), notificationMessage.getQualityScore()));
+
+		if (verbose_printing) {
+			for (MarketSegment s : MarketSegment.values()) {
+				double pop = getPIPPopAtomic(s, day+1);
+				System.out.println("Segment: " + s + " - Atomic pop: " + pop);
+
+			}
+			for (Set<MarketSegment> S : MarketSegment.marketSegments()) {
+				double pop = getPIPPop(S, day+2,day+1);
+				System.out.println("Seg: " + S.toString() + " - pop: " + pop);
+			}
 		}
 
 		//Stores the winning bid for each campaign
@@ -838,19 +865,21 @@ public class testAdNetwork extends Agent {
 
 	/**
 	 * Evaulates the bid to be made for a given query
+	 * @param camp the campaign for which the impressions are to be bid for
 	 * @param query specific site/target
 	 * @param reservePrice reserve price for query publisher
 	 * @param pop population of query publisher
 	 * @return bid - value to bid on specific query
 	 */
 	private double evaluateImpressionsBid(CampaignData camp, AdxQuery query, double reservePrice, int pop) {
-		int itg = currCampaign.impsTogo();
-		long dur = currCampaign.dayEnd-day;
+		long dur = camp.dayEnd-day;
 		double budget = camp.budget;
 		double bid = 0.0;
 
+		double fractionImpsToGo = 1- camp.impsTogo() / camp.reachImps;
+
 		//Coeff that decreses bid to make profit - 1 = no profit, <1 = profit
-		double profitCoeff = 0.8;
+		double profitCoeff = 0.7;
 
 		long low_budget = 500;
 		long low_reach = 500;
@@ -858,12 +887,13 @@ public class testAdNetwork extends Agent {
 		bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
 		//System.out.println("Bid Estimate: " + bid/camp.reachImps);
 		//System.out.println("Budget: " + budget);
+		System.out.println("Pop coeff: " + getPIPPop(camp.targetSegment, day+1, day+1));
 
 		if (budget < low_budget && camp.reachImps < low_reach) {
 			bid = 0.001*budget;
 		}
 
-		if (dur == 0) {
+		if (dur == 1 && fractionImpsToGo > 0.1) { //TODO: This or == 0?
 			bid = bid*2;
 		}
 
@@ -904,14 +934,19 @@ public class testAdNetwork extends Agent {
 		}
 	}
 
+	/**
+	 * Determine popularity value of market segment s on day t
+	 * @param s Atomic market segment ie FEMALE or YOUNG
+	 * @param t Day on which you want popularity
+	 * @return popularity of segment on that day
+	 */
 	private double getPIPPopAtomic(MarketSegment s, int t) {
 		double pop = 0.0;
 
+		//Consider only currently running campaigns
 		cleanPostedCampaignList();
 
 		for (CampaignData camp : postedCampaigns) {
-			int campKey = camp.id;
-
 			if (camp.targetSegment.contains(s)) {
 				if (camp.dayEnd > t) {
 					pop = pop + (double)camp.reachImps / (double)(MarketSegment.marketSegmentSize(camp.targetSegment) * (camp.dayEnd - t));
@@ -927,10 +962,18 @@ public class testAdNetwork extends Agent {
 		return pop;
 	}
 
-	private double getPIPPop(Set<MarketSegment> S, int dayEnd, int dayStart) {
+	/**
+	 * Determine popularity value of valid set of market segments
+	 * @param S market segment set ie [MALE, OLD, HIGH]
+	 * @param dayEnd end day to be considered
+	 * @param dayStart start day to be considered
+	 * @return
+	 */
+	private double getPIPPop(Set<MarketSegment> S, int dayStart, int dayEnd) {
 		double pop = 0.0;
 		int totalSize = 0;
 
+		//Adds all days in range to array
 		List<Integer> T = new ArrayList<>();
 		for (int i=dayStart ; i<= dayEnd; i++) {
 			T.add(i);
@@ -941,7 +984,7 @@ public class testAdNetwork extends Agent {
 				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
 				marketSet.add(s);
 				pop = pop + (MarketSegment.marketSegmentSize(marketSet) * getPIPPopAtomic(s, t));
-				totalSize = totalSize + MarketSegment.marketSegmentSize(marketSet);
+				totalSize += MarketSegment.marketSegmentSize(marketSet);
 			}
 		}
 		

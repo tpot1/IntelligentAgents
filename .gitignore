@@ -1,12 +1,17 @@
+adx-server/
+bin/
+*.slg
+*.class
+*.txt
 *.log
+.classpath
+.metadata
+.project
 *.dat
-*.classpath
 *.iml
 *.idea
 *.jar
-*.class
 *.bat
-*.slg
-*.dat.*
 log.txt
+*.lck
 
