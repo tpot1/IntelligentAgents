@@ -522,7 +522,7 @@ public class testAdNetwork extends Agent {
 							
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
-						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + rbid + " - site: " + query.getPublisher());}
+						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
 				}
 
