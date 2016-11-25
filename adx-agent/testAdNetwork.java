@@ -1159,13 +1159,25 @@ public class testAdNetwork extends Agent {
 		
 		public long privateValueBid(){
 			//TODO - confirm this is the correct formula (since formula in article makes no sense)	
-			return (long) ((price_index * (double) reachImps) / competing_index);
+			long privateValue = (long) ((price_index * (double) reachImps) / competing_index);
+			long highestBid = highestValidBid();
+			long lowestBid = lowestValidBid();
+			
+			if(privateValue < lowestBid){
+				return lowestBid;
+			}
+			else if (privateValue > highestBid){
+				return highestBid;
+			}
+			else{
+				return privateValue;
+			} 
 		}
 		
 		public long lowestValidBid(){
 			// Lower bound Reserve price is 0.1$ CPM
 			// TODO - check this always returns a valid bid
-			return (long) ((0.1 * (double) reachImps)/currQuality);
+			return (long) ((0.1 * (double) reachImps)/currQuality) + 1;
 		}
 		
 		public long highestValidBid(){
@@ -1237,7 +1249,9 @@ public class testAdNetwork extends Agent {
 		private int getTotalReach(){
 			int totalReach = 0;
 			for (CampaignData campaign : myCampaigns.values()){
-				totalReach = totalReach + campaign.impsTogo();
+				if(campaign.dayEnd - day > 0){
+					totalReach = totalReach + (campaign.impsTogo()/((int) campaign.dayEnd - day));
+				}
 			}
 			return totalReach;
 		}
