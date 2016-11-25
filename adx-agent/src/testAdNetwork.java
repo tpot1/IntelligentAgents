@@ -100,7 +100,7 @@ public class testAdNetwork extends Agent {
 	 */
 	private double ucsBid;
 	
-	/*
+	/**
 	 * Stores the previous POSITIVE UCS bid, to be used by the UCS Bidder 
 	 * to determine the next bid (since bids of 0 throw off the bidder)
 	 */
@@ -133,6 +133,9 @@ public class testAdNetwork extends Agent {
 	 */
 	private List<CampaignData> postedCampaigns;
 	private Map<Integer, Long> campaignWinningBids;
+	/*
+	 * Tracker Objects for ucs and imp bids
+	 */
 	private UCSBidTracker ucsTracker;
 	private ImpTracker impTracker;
 	private Map<Integer, List<CampaignStats>> myCampaignStatsHistory;
@@ -165,9 +168,6 @@ public class testAdNetwork extends Agent {
 	protected void messageReceived(Message message) {
 		try {
 			Transportable content = message.getContent();
-
-			// log.fine(message.getContent().getClass().toString());
-
 			if (content instanceof InitialCampaignMessage) {
 				handleInitialCampaignMessage((InitialCampaignMessage) content);
 			} else if (content instanceof CampaignOpportunityMessage) {
@@ -289,8 +289,6 @@ public class testAdNetwork extends Agent {
 		 * therefore the total number of impressions may be treated as a reserve
 		 * (upper bound) price for the auction.
 		 */
-		Random random = new Random();
-		//long cmpBidMillis = evaluateCampaignOp(com);
 		ContractBidder bidder = new ContractBidder(com);
 		long cmpBidMillis = bidder.getContractBid();
 		previous_campaign_bid = cmpBidMillis;
@@ -373,21 +371,16 @@ public class testAdNetwork extends Agent {
 		//Stores our current quality rating
 		currQuality = notificationMessage.getQualityScore();
 
-		try {
-			//Update ucs bid history with new result
-			ucsTracker.handleUCSBid(day, notificationMessage);
-		} catch (Exception e) {
-			System.out.println("UCS Tracker: " + e.toString());
-		}
+		//Update ucs bid history with new result
+		ucsTracker.handleUCSBid(day, notificationMessage);
 
 		if (verbose_printing) {
 			for (MarketSegment s : MarketSegment.values()) {
 				double pop = PIPredictor.getPopAtomic(s, day+1);
 				System.out.println("Segment: " + s + " - Atomic pop: " + pop);
-
 			}
 			for (Set<MarketSegment> S : MarketSegment.marketSegments()) {
-				double pop = PIPredictor.getPop(S, day+2,day+1);
+				double pop = PIPredictor.getPop(S, day+1,day+2);
 				System.out.println("Seg: " + S.toString() + " - pop: " + pop);
 			}
 		}
@@ -1046,7 +1039,7 @@ public class testAdNetwork extends Agent {
 			targetSegment = com.getTargetSegment();
 			mobileCoef = com.getMobileCoef();
 			videoCoef = com.getVideoCoef();
-			price_index = PIPredictor.getPop(targetSegment, (int) dayEnd, (int) dayStart);
+			price_index = PIPredictor.getPop(targetSegment, (int) dayStart, (int) dayEnd);
 		}
 		
 		public long getContractBid(){			
@@ -1148,7 +1141,7 @@ public class testAdNetwork extends Agent {
 			double totalPriceIndex = 0;
 			for (CampaignData campaign : myCampaigns.values()){
 				//TODO - check it is OK to use getPIPPop here to get value of p in formula
-				totalPriceIndex = totalPriceIndex + PIPredictor.getPop(campaign.targetSegment, (int) campaign.dayEnd, (int) campaign.dayStart);
+				totalPriceIndex = totalPriceIndex + PIPredictor.getPop(campaign.targetSegment, (int) campaign.dayStart, (int) campaign.dayEnd);
 			}
 			return totalPriceIndex / (double) myCampaigns.values().size();
 		}
