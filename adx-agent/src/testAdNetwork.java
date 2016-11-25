@@ -452,14 +452,16 @@ public class testAdNetwork extends Agent {
 		 * Note: bidding per 1000 imps (CPM) - no more than average budget
 		 * revenue per imp
 		 */
-		double rbid = 1*random.nextDouble(); // XXX impressions bid
+		double bid; // XXX impressions bid
 
+		//Loop over all of our running campaigns
 		for (int campKey : myCampaigns.keySet()) {
 			CampaignData thisCampaign = myCampaigns.get(campKey);
 			if (thisCampaign.dayEnd < day) { //TODO: Should be <= ?
 				//Inactive campaign
 				continue;
 			}
+			ImpressionsBidder impsBidder = new ImpressionsBidder(thisCampaign);
 
 		/*
 		 * add bid entries w.r.t. each active campaign with remaining contracted
@@ -475,20 +477,13 @@ public class testAdNetwork extends Agent {
 
 				//TODO: Determine how to handle the empty market segment calls when the ucs service doesnt give us answer
 
-			/*
-			* 	Example of AdxQuery:
-			*	AdxQuery [publisher=ehow, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
-			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=pc, adType=text]
-			*	AdxQuery [publisher=msn, marketSegments=[LOW_INCOME, MALE], device=mobile, adType=video]
-			*	AdxQuery [publisher=bestbuy, marketSegments=[LOW_INCOME, MALE], device=pc, adType=video]
-			*/
 				for (AdxQuery query : thisCampaign.campaignQueries) { //all possible targets  for each publisher
 					if (thisCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
 					/*
 					 * among matching entries with the same campaign id, the AdX
 					 * randomly chooses an entry according to the designated
 					 * weight. by setting a constant weight 1, we create a
-					 * uniform probability over active campaigns (irrelevant because we are bidding only on one campaign)
+					 * uniform probability over active campaigns
 					 */
 						if (query.getDevice() == Device.pc) {
 							if (query.getAdType() == AdType.text) {
@@ -523,10 +518,10 @@ public class testAdNetwork extends Agent {
 						}
 
 						//update the rbid here with reserve info?
-						rbid = evaluateImpressionsBid(thisCampaign, query, reservePrice, pop);
+						bid = impsBidder.getImpressionBid();
 							
 						//Weight the bids based on popularity of the publisher
-						bidBundle.addQuery(query, rbid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
+						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
 						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + rbid + " - site: " + query.getPublisher());}
 					}
 				}
@@ -856,43 +851,6 @@ public class testAdNetwork extends Agent {
 			clashExtent = 0;
 		}
 		return new ClashObject(clashingCamps, clashCampExtent);
-	}
-
-	/**
-	 * Evaulates the bid to be made for a given query
-	 * @param camp the campaign for which the impressions are to be bid for
-	 * @param query specific site/target
-	 * @param reservePrice reserve price for query publisher
-	 * @param pop population of query publisher
-	 * @return bid - value to bid on specific query
-	 */
-	private double evaluateImpressionsBid(CampaignData camp, AdxQuery query, double reservePrice, int pop) {
-		long dur = camp.dayEnd-day;
-		double budget = camp.budget;
-		double bid = 0.0;
-
-		double fractionImpsToGo = 1- camp.impsTogo() / camp.reachImps;
-
-		//Coeff that decreses bid to make profit - 1 = no profit, <1 = profit
-		double profitCoeff = 0.7;
-
-		long low_budget = 500;
-		long low_reach = 500;
-
-		bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
-		//System.out.println("Bid Estimate: " + bid/camp.reachImps);
-		//System.out.println("Budget: " + budget);
-		System.out.println("Pop coeff: " + getPIPPop(camp.targetSegment, day+1, day+1));
-
-		if (budget < low_budget && camp.reachImps < low_reach) {
-			bid = 0.001*budget;
-		}
-
-		if (dur == 1 && fractionImpsToGo > 0.1) { //TODO: This or == 0?
-			bid = bid*2;
-		}
-
-		return (double)bid/camp.reachImps*1000*profitCoeff;
 	}
 
 	private int getSegmentPopularity(Set<MarketSegment> seg) {
@@ -1294,6 +1252,46 @@ public class testAdNetwork extends Agent {
 			return totalReach;
 		}
 		
+	}
+
+	private class ImpressionsBidder {
+		CampaignData camp;
+
+		public ImpressionsBidder(CampaignData campaignData) {
+			camp = campaignData;
+		}
+
+		private double getContractCompletionFraction() {
+			return (1-camp.impsTogo()/camp.reachImps);
+		}
+
+		public double getImpressionBid() {
+			long dur = camp.dayEnd-day;
+			double budget = camp.budget;
+			double bid = 0.0;
+
+			//Coeff that decreases bid to make profit - 1 = no profit, <1 = profit
+			double profitCoeff = 1.0;
+			//Low value coefficients
+			long low_budget = 500;
+			long low_reach = 500;
+
+			double fractionImpsToGo = getContractCompletionFraction();
+
+			bid = budget * getPIPPop(camp.targetSegment, day+1, day+1);
+
+			if (budget < low_budget && camp.reachImps < low_reach) {
+				bid = 0.001*budget;
+			}
+
+			if (dur == 1 && fractionImpsToGo > 0.1) {
+				bid = bid*2;
+			}
+
+			return (double)bid/camp.reachImps*1000*profitCoeff;
+		}
+
+
 	}
 }
 
