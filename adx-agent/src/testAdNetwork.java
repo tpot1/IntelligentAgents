@@ -125,8 +125,8 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = false;
-	private boolean ucs_printing = true;
-	private boolean contract_printing = true;
+	private boolean ucs_printing = false;
+	private boolean contract_printing = false;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -373,8 +373,12 @@ public class testAdNetwork extends Agent {
 		//Stores our current quality rating
 		currQuality = notificationMessage.getQualityScore();
 
-		//Update ucs bid history with new result
-		ucsTracker.handleUCSBid(day, notificationMessage);
+		try {
+			//Update ucs bid history with new result
+			ucsTracker.handleUCSBid(day, notificationMessage);
+		} catch (Exception e) {
+			System.out.println("UCS Tracker: " + e.toString());
+		}
 
 		if (verbose_printing) {
 			for (MarketSegment s : MarketSegment.values()) {
@@ -427,7 +431,6 @@ public class testAdNetwork extends Agent {
 		}
 //TODO: Determine what is going on here - this changes each day. Maybe to do with how many users visit each day? Remove soon
 		System.out.println("Total Pop Value: " + tempsum);
-
 
 		/*
 		 * A random bid, fixed for all queries of the campaign
@@ -529,8 +532,12 @@ public class testAdNetwork extends Agent {
 		}
 		//end looping over campaigns
 
-		//Store bid bundle in history
-		impTracker.handleImpBid(day, bidBundle);
+		try {
+			//Store bid bundle in history
+			impTracker.handleImpBid(day, bidBundle);
+		} catch (Exception e) {
+			System.out.println("Handling imp bid: " + e.toString());
+		}
 
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
@@ -599,7 +606,11 @@ public class testAdNetwork extends Agent {
 
 		if (verbose_printing) { System.out.println("Day " + day + " : AdNetworkReport"); }
 
-		impTracker.updateBidHistory(adnetReport);
+		try {
+			impTracker.updateBidHistory(adnetReport);
+		} catch (Exception e) {
+			System.out.println("Updating imp tracker: " + e.toString());
+		}
 	}
 
 	@Override
@@ -783,7 +794,7 @@ public class testAdNetwork extends Agent {
 	private class ImpTracker {
 		List<ImpBidTrackingObject> history;
 		public ImpTracker() {
-
+			history = new ArrayList<>();
 		}
 
 		public List<ImpBidTrackingObject> getHistory() {
@@ -895,7 +906,7 @@ public class testAdNetwork extends Agent {
 		List<UcsBidObj> history;
 
 		public UCSBidTracker() {
-
+			history = new ArrayList<>();
 		}
 
 		public void handleUCSBid(int day, AdNetworkDailyNotification dailyNotification) {
@@ -1169,17 +1180,29 @@ public class testAdNetwork extends Agent {
 
 		//Determines bid value based on price index
 		public double getImpressionBid() {
-			long dur = camp.dayEnd-day;
-			double budget = camp.budget;
+
 			double bid = 0.0;
 
 			//Coeff that decreases bid to make profit - 1 = no profit, <1 = profit
 			double profitCoeff = 1.0;
+
+			bid = getBudget();
+
+			//Return bid per mille imps
+			return (double)bid/camp.reachImps*1000*profitCoeff;
+		}
+
+		public double getBudget() {
 			//Low value coefficients
 			long low_budget = 500;
 			long low_reach = 500;
 
+			long dur = camp.dayEnd-day;
+
 			double fractionImpsToGo = getContractCompletionFraction();
+
+			double bid = 0;
+			double budget = camp.budget;
 
 			bid = budget * PIPredictor.getPop(camp.targetSegment, day+1, day+1);
 
@@ -1193,8 +1216,7 @@ public class testAdNetwork extends Agent {
 				bid = bid*2;
 			}
 
-			//Return bid per mille imps
-			return (double)bid/camp.reachImps*1000*profitCoeff;
+			return bid;
 		}
 	}
 
