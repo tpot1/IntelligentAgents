@@ -148,11 +148,6 @@ public class testAdNetwork extends Agent {
 	private static double UCSScaler = 0.2;
 	private long previous_campaign_bid = 0;
 
-	private double currQuality;
-
-	private double meanVidCoeff;
-	private double meanMobCoeff;
-
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
 		postedCampaigns = new ArrayList<CampaignData>();
