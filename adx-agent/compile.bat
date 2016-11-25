@@ -1,4 +1,3 @@
-
 javac -classpath "lib/*" testAdNetwork.java
 
 jar cvf testAdNetwork.jar *.class
