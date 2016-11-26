@@ -497,7 +497,7 @@ public class testAdNetwork extends Agent {
 
 						//update the rbid here with reserve info?
 						bid = impsBidder.getImpressionBid();
-							
+
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
 						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
@@ -506,7 +506,6 @@ public class testAdNetwork extends Agent {
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
 				double impressionLimit = thisCampaign.impsTogo();
-				System.out.println("Imps to go: " + thisCampaign.impsTogo());
 				if (thisCampaign.impsTogo() == 0) {
 					impressionLimit = thisCampaign.reachImps*1.2;
 				} else if (thisCampaign.impsTogo() < 0) {
@@ -1181,8 +1180,12 @@ public class testAdNetwork extends Agent {
 
 			bid = getBudget();
 
-			//Return bid per mille imps
-			return (double)bid/camp.reachImps*1000*profitCoeff;
+			if (camp.impsTogo() != 0) {
+				//Return bid per mille imps
+				return (double) bid / camp.impsTogo() * 1000 * profitCoeff;
+			} else {
+				return (double) bid / camp.reachImps * 1000 * profitCoeff;
+			}
 		}
 
 		public double getBudget() {
