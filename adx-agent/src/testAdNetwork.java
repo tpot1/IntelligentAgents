@@ -435,7 +435,7 @@ public class testAdNetwork extends Agent {
 		//Loop over all of our running campaigns
 		for (int campKey : myCampaigns.keySet()) {
 			CampaignData thisCampaign = myCampaigns.get(campKey);
-			if (thisCampaign.dayEnd < day) { //TODO: Should be <= ?
+			if (thisCampaign.dayEnd < day) {
 				//Inactive campaign
 				continue;
 			}
@@ -1159,7 +1159,11 @@ public class testAdNetwork extends Agent {
 	}
 
 	private class ImpressionsBidder {
-		CampaignData camp;
+		private CampaignData camp;
+		private final double DELTA = 0.0001;
+		private boolean adv = true;
+		private double budgetCoeff = 0.3;
+		private double profitCoeff = 0.9;
 
 		public ImpressionsBidder(CampaignData campaignData) {
 			camp = campaignData;
@@ -1174,9 +1178,6 @@ public class testAdNetwork extends Agent {
 		public double getImpressionBid() {
 
 			double bid = 0.0;
-
-			//Coeff that decreases bid to make profit - 1 = no profit, <1 = profit
-			double profitCoeff = 1.0;
 
 			bid = getBudget();
 
@@ -1200,7 +1201,11 @@ public class testAdNetwork extends Agent {
 			double bid = 0;
 			double budget = camp.budget;
 
-			bid = budget * PIPredictor.getPop(camp.targetSegment, day+1, day+1);
+			if (adv) {
+				bid = budget * PIPredictor.getPop(camp.targetSegment, day + 1, day + 1);
+			} else {
+				bid = budget * budgetCoeff;
+			}
 
 			//If low budget and reach, set bid to max per impression
 			if (budget < low_budget && camp.reachImps < low_reach) {
@@ -1209,7 +1214,7 @@ public class testAdNetwork extends Agent {
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1) {
-				bid = bid*2;
+				bid = bid*2+DELTA; //technically should only have Delta for adv
 			}
 
 			return bid;
