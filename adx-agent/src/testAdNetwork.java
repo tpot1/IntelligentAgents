@@ -8,11 +8,8 @@ import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
-import tau.tac.adx.demand.Campaign;
-import tau.tac.adx.demand.CampaignImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
-import tau.tac.adx.messages.Contract;
 import tau.tac.adx.props.AdxBidBundle;
 import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
@@ -550,7 +547,6 @@ public class testAdNetwork extends Agent {
 		 */
 		for (CampaignReportKey campaignKey : campaignReport.keys()) {
 
-
 			int cmpId = campaignKey.getCampaignId();
 			CampaignStats cstats = campaignReport.getCampaignReportEntry(campaignKey).getCampaignStats();
 
@@ -811,7 +807,7 @@ public class testAdNetwork extends Agent {
 					if (bid.getDay() == day-1) {
 						//Update impressions won on that day
 						int newImpsWon = entry.getWinCount();
-						int currBidsWon = bid.getBidsWon(adnetKey.getCampaignId());
+						int currBidsWon = bid.getImpsWon(adnetKey.getCampaignId());
 						bid.setImpsWon(adnetKey.getCampaignId(), currBidsWon + newImpsWon);
 					}
 				}
@@ -821,7 +817,7 @@ public class testAdNetwork extends Agent {
 				for (ImpBidTrackingObject bid : history) {
 					if (bid.getDay() == day - 1) {
 						for (int campKey : bid.getImpsMap().keySet()) {
-							System.out.println("Day: " + (day-1) + " - Camp: " + campKey + " - Imps won: " + bid.getBidsWon(campKey));
+							System.out.println("Day: " + (day-1) + " - Camp: " + campKey + " - Imps won: " + bid.getImpsWon(campKey));
 						}
 					}
 				}
@@ -844,7 +840,7 @@ public class testAdNetwork extends Agent {
 				this.impsMap = impsMap;
 			}
 
-			public int getBidsWon(int campID) {
+			public int getImpsWon(int campID) {
 				if (impsMap.get(campID) != null) {
 					return impsMap.get(campID);
 				} else {
@@ -1275,6 +1271,79 @@ public class testAdNetwork extends Agent {
 			pop = pop / (T.size() * totalSize);
 			//System.out.println("Seg: " + S.toString() + " - pop: " + pop);
 			return pop;
+		}
+	}
+
+	private class RPIP {
+		List<RegressionTuple> labelledList;
+
+		private void generateLabelledList(){
+			for (Integer campKey : myCampaignStatsHistory.keySet()) {
+				List<CampaignStats> statsList = myCampaignStatsHistory.get(campKey);
+				CampaignStats stats = statsList.get(statsList.size());
+
+				CampaignData camp = myCampaigns.get(campKey);
+
+				double delta = PIPredictor.getPop(camp.targetSegment, (int)camp.dayEnd, (int)camp.dayEnd); //TODO: should be longs...
+				double rho = stats.getCost();
+				int t = (int)camp.dayEnd;
+
+				labelledList.add(new RegressionTuple(delta,rho,t));
+			}
+		}
+
+		private void sortLabelledList() {
+
+		}
+
+		private double getDist(RegressionTuple a, RegressionTuple b) {
+			double modulus = Math.abs(b.getDelta() - a.getDelta());
+			double alpha = Math.pow((0.1),(1/10));
+			double exponent;
+
+			if (a.getT() < b.getT()) {
+				exponent = b.getT() - a.getT();
+			} else {
+				exponent = a.getT() - b.getT();
+			}
+			return modulus*Math.pow(alpha,exponent);
+		}
+
+		private class RegressionTuple {
+			double delta;
+			double rho;
+			int t;
+
+			public RegressionTuple(double delta, double rho, int t) {
+				this.delta = delta;
+				this.rho = rho;
+				this.t = t;
+			}
+
+			private double getDist(RegressionTuple b) {
+				double modulus = Math.abs(b.getDelta() - getDelta());
+				double alpha = Math.pow((0.1),(1/10));
+				double exponent;
+
+				if (getT() < b.getT()) {
+					exponent = b.getT() - getT();
+				} else {
+					exponent = getT() - b.getT();
+				}
+				return modulus*Math.pow(alpha,exponent);
+			}
+
+			public double getDelta() {
+				return delta;
+			}
+
+			public double getRho() {
+				return rho;
+			}
+
+			public int getT() {
+				return t;
+			}
 		}
 	}
 }
