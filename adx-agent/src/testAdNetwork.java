@@ -802,7 +802,8 @@ public class testAdNetwork extends Agent {
 			CampaignData camp = myCampaigns.get(campId);
 			int dur;
 			if (camp.dayEnd == day) { dur = 1; } else { dur = (int)camp.dayEnd - day; }
-			double avImpsPerDayReq = camp.impsTogo()/(dur);
+			//double avImpsPerDayReq = camp.impstogo / dur
+			double avImpsPerDayReq = camp.reachImps/(camp.dayEnd - camp.dayStart);
 			//TODO: Maybe need to remove obj here?
 
 			if (newImpsWon < avImpsPerDayReq) {
