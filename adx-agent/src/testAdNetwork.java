@@ -798,8 +798,8 @@ public class testAdNetwork extends Agent {
 					if (bid.getDay() == day-1) {
 						//Update impressions won on that day
 						int newImpsWon = entry.getWinCount();
-						int currBidsWon = bid.getImpsWon(adnetKey.getCampaignId());
-						bid.setImpsWon(adnetKey.getCampaignId(), currBidsWon + newImpsWon);
+						int currImpsWon = bid.getImpsWon(adnetKey.getCampaignId());
+						bid.setImpsWon(adnetKey.getCampaignId(), currImpsWon + newImpsWon);
 					}
 				}
 			}
@@ -1149,7 +1149,7 @@ public class testAdNetwork extends Agent {
 		private CampaignData camp;
 		private final double DELTA = 0.0001;
 		private boolean adv = true;
-		private double budgetCoeff = 0.3;
+		private double budgetCoeff = 0.5;
 		private double profitCoeff = 0.9;
 
 		public ImpressionsBidder(CampaignData campaignData) {
@@ -1198,6 +1198,10 @@ public class testAdNetwork extends Agent {
 			if (budget < low_budget && camp.reachImps < low_reach) {
 				bid = 0.001*budget;
 				if (impressions_printing) { System.out.println("Low budget and Low reach. Bidding max per impression.");}
+			}
+
+			if (day < 3) {
+				bid = 0.001*budget;
 			}
 
 			//If short duration and not close to required reach, double bid
