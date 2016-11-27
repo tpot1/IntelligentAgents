@@ -1,4 +1,3 @@
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,8 +8,11 @@ import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
+import tau.tac.adx.demand.Campaign;
+import tau.tac.adx.demand.CampaignImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
+import tau.tac.adx.messages.Contract;
 import tau.tac.adx.props.AdxBidBundle;
 import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
@@ -146,7 +148,7 @@ public class testAdNetwork extends Agent {
 	
 	private double competing_index = 1.0;
 	private static double COMPETING_INDEX_MAX = 5.0;
-	private static double GREED = 1.2;
+	private static double GREED = 1.15;
 	private static double UCSScaler = 0.2;
 	private long previous_campaign_bid = 0;
 
@@ -544,6 +546,7 @@ public class testAdNetwork extends Agent {
 	private void handleCampaignReport(CampaignReport campaignReport) {
 
 		campaignReports.add(campaignReport);
+
 		/*
 		 * for each campaign, the accumulated statistics from day 1 up to day
 		 * n-1 are reported
@@ -595,7 +598,7 @@ public class testAdNetwork extends Agent {
 	 */
 	private void handleAdNetworkReport(AdNetworkReport adnetReport) {
 
-		if (true) { System.out.println("Day " + day + " : AdNetworkReport"); }
+		if (verbose_printing) { System.out.println("Day " + day + " : AdNetworkReport"); }
 
 		try {
 			impTracker.updateBidHistory(adnetReport);
@@ -1055,40 +1058,33 @@ public class testAdNetwork extends Agent {
 	private class ContractBidder {
 		
 		private double quality_threshold = 0.8;
-		private double price_index_threshold = 1.5;
+		private double price_index_threshold = 1.0;
 		
 		/* campaign attributes as set by server */
 		Long reachImps;
 		long dayStart;
 		long dayEnd;
 		Set<MarketSegment> targetSegment;
-		double videoCoef;
-		double mobileCoef;
-		int id;
-		private AdxQuery[] campaignQueries;//array of queries relvent for the campaign.
 		
 		double price_index;
 
 		public ContractBidder(CampaignOpportunityMessage com) {
 			dayStart = com.getDayStart();
 			dayEnd = com.getDayEnd();
-			id = com.getId();
 			reachImps = com.getReachImps();
 			targetSegment = com.getTargetSegment();
-			mobileCoef = com.getMobileCoef();
-			videoCoef = com.getVideoCoef();
 			price_index = PIPredictor.getPop(targetSegment, (int) dayStart, (int) dayEnd);
 		}
 		
-		public long getContractBid(){			
-			if (currQuality < quality_threshold){
-				if (contract_printing) { System.out.println("QUALITY LOW at " + currQuality + ". BIDDING LOWEST VALID BID."); }
-				return lowestValidBid();
-			}
-			//TODO - determine when the price index is too high
-			else if (price_index > price_index_threshold){
+		public long getContractBid(){
+			System.out.println("***PRICE INDEX***: " + price_index);
+			if (price_index > price_index_threshold){
 				if (contract_printing) { System.out.println("PRICE INDEX HIGH at " + price_index + ". BIDDING HIGHEST VALID BID."); }
 				return highestValidBid();
+			}
+			else if (currQuality < quality_threshold){
+				if (contract_printing) { System.out.println("QUALITY LOW at " + currQuality + ". BIDDING LOWEST VALID BID."); }
+				return lowestValidBid();
 			}
 			else{
 				if (contract_printing) { System.out.println("DEFAULT - BIDDING PRIVATE VALUE"); }
@@ -1097,7 +1093,6 @@ public class testAdNetwork extends Agent {
 		}
 		
 		public long privateValueBid(){
-			//TODO - confirm this is the correct formula (since formula in article makes no sense)	
 			long privateValue = (long) ((price_index * (double) reachImps) / competing_index);
 			long highestBid = highestValidBid();
 			long lowestBid = lowestValidBid();
@@ -1115,13 +1110,11 @@ public class testAdNetwork extends Agent {
 		
 		public long lowestValidBid(){
 			// Lower bound Reserve price is 0.1$ CPM
-			// TODO - check this always returns a valid bid
 			return (long) ((0.1 * (double) reachImps)/currQuality) + 1;
 		}
 		
 		public long highestValidBid(){
 			 // Upper bound Reserve price is 1$ CPM (i.e the total number of impressions)
-			// TODO - check this always returns a valid bid
 			 return (long) ((double) reachImps * currQuality);
 
 		}
