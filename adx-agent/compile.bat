@@ -1,7 +1,11 @@
-javac -classpath "lib/*" testAdNetwork.java
+cd src
+
+javac -classpath "../lib/*" testAdNetwork.java
 
 jar cvf testAdNetwork.jar *.class
 
-move testAdNetwork.jar lib/testAdNetwork.jar
+move testAdNetwork.jar ../lib/testAdNetwork.jar
 
 pause
+
+cd ..
