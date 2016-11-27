@@ -1,3 +1,4 @@
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -124,7 +125,7 @@ public class testAdNetwork extends Agent {
 	private boolean verbose_printing = false;
 	private boolean ucs_printing = false;
 	private boolean contract_printing = false;
-	private boolean impressions_printing = false;
+	private boolean impressions_printing = true;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -149,6 +150,11 @@ public class testAdNetwork extends Agent {
 	private static double UCSScaler = 0.2;
 	private long previous_campaign_bid = 0;
 
+	private Map<Integer, Double> imps_competing_indicies;
+	private static double IMP_GREED = 1.2;
+	private static double IMP_COMPETING_INDEX_DEFAULT = 1.5;
+	private static double IMP_COMPETING_INDEX_MAX = 5.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
+
 	private PIP PIPredictor;
 
 	public testAdNetwork() {
@@ -158,6 +164,8 @@ public class testAdNetwork extends Agent {
 		ucsTracker = new UCSBidTracker();
 		impTracker = new ImpTracker();
 		myCampaignStatsHistory = new HashMap<>();
+
+		imps_competing_indicies = new HashMap<>();
 
 		PIPredictor = new PIP();
 	}
@@ -248,6 +256,8 @@ public class testAdNetwork extends Agent {
 		campaignData.setBudget(initialCampaignMessage.getBudgetMillis()/1000.0);
 		currCampaign = campaignData;
 		genCampaignQueries(currCampaign);
+
+		imps_competing_indicies.put(currCampaign.id, IMP_COMPETING_INDEX_DEFAULT);
 
 		//Initialise coeff means
 		meanMobCoeff = campaignMessage.getMobileCoef();
@@ -353,6 +363,9 @@ public class testAdNetwork extends Agent {
 			currCampaign = pendingCampaign;
 			genCampaignQueries(currCampaign);
 			myCampaigns.put(pendingCampaign.id, pendingCampaign);
+
+			imps_competing_indicies.put(pendingCampaign.id, IMP_COMPETING_INDEX_DEFAULT);
+			System.out.println("Campaign ID added: " + pendingCampaign.id);
 
 			campaignAllocatedTo = " WON at cost (Millis)"
 					+ notificationMessage.getCostMillis();
@@ -531,7 +544,6 @@ public class testAdNetwork extends Agent {
 	private void handleCampaignReport(CampaignReport campaignReport) {
 
 		campaignReports.add(campaignReport);
-
 		/*
 		 * for each campaign, the accumulated statistics from day 1 up to day
 		 * n-1 are reported
@@ -583,7 +595,7 @@ public class testAdNetwork extends Agent {
 	 */
 	private void handleAdNetworkReport(AdNetworkReport adnetReport) {
 
-		if (verbose_printing) { System.out.println("Day " + day + " : AdNetworkReport"); }
+		if (true) { System.out.println("Day " + day + " : AdNetworkReport"); }
 
 		try {
 			impTracker.updateBidHistory(adnetReport);
@@ -785,24 +797,63 @@ public class testAdNetwork extends Agent {
 			history.add(impObj);
 		}
 
+		private void updateImpCompeteIndex(int campId, int newImpsWon) {
+			double comp_index = imps_competing_indicies.get(campId);
+			CampaignData camp = myCampaigns.get(campId);
+			int dur;
+			if (camp.dayEnd == day) { dur = 1; } else { dur = (int)camp.dayEnd - day; }
+			double avImpsPerDayReq = camp.impsTogo()/(dur);
+			//TODO: Maybe need to remove obj here?
+
+			if (newImpsWon < avImpsPerDayReq) {
+				comp_index = (comp_index * IMP_GREED > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * IMP_GREED;
+				if (impressions_printing) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
+			} else {
+				comp_index = (comp_index / IMP_GREED < 1) ? 1 : comp_index / IMP_GREED;
+				if (impressions_printing) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
+			}
+			imps_competing_indicies.put(campId,comp_index);
+		}
+
 		/**
 		 * Function updates the bid history list with a new number of impressions won
 		 * @param adnetReport - the network report that is issued on a given day
 		 */
 		private void updateBidHistory(AdNetworkReport adnetReport) {
+			Map<Integer, Integer> newImps = new HashMap<>();
+
 			//Loop over all entries in report (see example at bottom of file)
 			for (AdNetworkKey adnetKey : adnetReport.keys()) {
+				//initialise imps to 0 for each campaign
+				if (!newImps.keySet().contains(adnetKey.getCampaignId())) {
+					newImps.put(adnetKey.getCampaignId(), 0);
+				}
+
 				AdNetworkReportEntry entry = adnetReport.getEntry(adnetKey);
+
+				//Update impressions won on that day
+				int newImpsWon = entry.getWinCount();
+				int sumImpsWon = newImps.get(adnetKey.getCampaignId());
+				newImps.put(adnetKey.getCampaignId(), sumImpsWon+newImpsWon);
+
+
 				//Find the corresponding day in bid history
 				for (ImpBidTrackingObject bid : history) {
 					if (bid.getDay() == day-1) {
-						//Update impressions won on that day
-						int newImpsWon = entry.getWinCount();
 						int currImpsWon = bid.getImpsWon(adnetKey.getCampaignId());
 						bid.setImpsWon(adnetKey.getCampaignId(), currImpsWon + newImpsWon);
 					}
 				}
 			}
+
+			for (Integer campKey : newImps.keySet()) {
+				try {
+					updateImpCompeteIndex(campKey, newImps.get(campKey));
+				} catch (Exception e) {
+					System.out.println("Updating compete index: " + e.toString());
+				}
+			}
+
 
 			if (verbose_printing) {
 				for (ImpBidTrackingObject bid : history) {
@@ -1181,6 +1232,14 @@ public class testAdNetwork extends Agent {
 			long low_budget = 500;
 			long low_reach = 500;
 
+			double comp_index = -1;
+
+			try {
+				comp_index = imps_competing_indicies.get(camp.id);
+			} catch (Exception e) {
+				System.out.println("Getting compete index: " + camp.id);
+			}
+
 			long dur = camp.dayEnd-day;
 
 			double fractionImpsToGo = getContractCompletionFraction();
@@ -1194,15 +1253,17 @@ public class testAdNetwork extends Agent {
 				bid = budget * budgetCoeff;
 			}
 
+			bid = bid * comp_index;
+
 			//If low budget and reach, set bid to max per impression
 			if (budget < low_budget && camp.reachImps < low_reach) {
 				bid = 0.001*budget;
 				if (impressions_printing) { System.out.println("Low budget and Low reach. Bidding max per impression.");}
 			}
 
-			if (day < 3) {
-				bid = 0.001*budget;
-			}
+//			if (day < 3) {
+//				bid = 0.001*budget;
+//			}
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1) {
