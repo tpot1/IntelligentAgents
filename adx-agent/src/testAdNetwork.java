@@ -124,6 +124,7 @@ public class testAdNetwork extends Agent {
 	private boolean verbose_printing = false;
 	private boolean ucs_printing = false;
 	private boolean contract_printing = false;
+	private boolean impressions_printing = false;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -271,7 +272,7 @@ public class testAdNetwork extends Agent {
 
 		day = com.getDay();
 
-		meanVidCoeff = (meanVidCoeff + com.getVideoCoef())/2; //TODO: Also store variances for use when deciding if good or not
+		meanVidCoeff = (meanVidCoeff + com.getVideoCoef())/2;
 		meanMobCoeff = (meanMobCoeff + com.getMobileCoef())/2;
 
 		pendingCampaign = new CampaignData(com);
@@ -406,21 +407,11 @@ public class testAdNetwork extends Agent {
 	protected void sendBidAndAds() {
 
 		bidBundle = new AdxBidBundle();
-		Random random = new Random();
 
 		int dayBiddingFor = day + 1;
 
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
-
-		int tempsum = 0;
-		if (pubReport != null) {
-			for (PublisherCatalogEntry temppubKey : pubReport.keys()) {
-				tempsum = tempsum + pubReport.getEntry(temppubKey).getPopularity();
-			}
-		}
-//TODO: Determine what is going on here - this changes each day. Maybe to do with how many users visit each day? Remove soon
-		System.out.println("Total Pop Value: " + tempsum);
 
 		/*
 		 * A random bid, fixed for all queries of the campaign
@@ -1206,11 +1197,13 @@ public class testAdNetwork extends Agent {
 			//If low budget and reach, set bid to max per impression
 			if (budget < low_budget && camp.reachImps < low_reach) {
 				bid = 0.001*budget;
+				if (impressions_printing) { System.out.println("Low budget and Low reach. Bidding max per impression.");}
 			}
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1) {
 				bid = bid*2+DELTA; //technically should only have Delta for adv
+				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
 
 			return bid;
