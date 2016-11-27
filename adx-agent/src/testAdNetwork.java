@@ -156,7 +156,7 @@ public class testAdNetwork extends Agent {
 	private static double IMP_GREED = 1.2;
 	private static double IMP_COMPETING_INDEX_DEFAULT = 2;
 	private static double IMP_COMPETING_INDEX_MAX = 4.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
-	private static double IMP_COMPETING_INDEX_MIN = 0.5;
+	private static double IMP_COMPETING_INDEX_MIN = 0.3;
 
 	private PIP PIPredictor;
 
