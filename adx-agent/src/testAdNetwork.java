@@ -153,7 +153,8 @@ public class testAdNetwork extends Agent {
 	private long previous_campaign_bid = 0;
 
 	private Map<Integer, Double> imps_competing_indicies;
-	private static double IMP_GREED = 1.3;
+	private static double IMP_GREED_LOSE = 1.3;
+    private static double IMP_GREED_WIN = 1.6;
 	private static double IMP_COMPETING_INDEX_DEFAULT = 1.5;
 	private static double IMP_COMPETING_INDEX_MAX = 3.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
 	private static double IMP_COMPETING_INDEX_MIN = 0.2;
@@ -816,10 +817,11 @@ public class testAdNetwork extends Agent {
 			//TODO: Maybe need to remove obj here?
 
 			if (newImpsWon < avImpsPerDayReq) {
-				comp_index = (comp_index * IMP_GREED > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * IMP_GREED;
+			    //LOSE
+				comp_index = (comp_index * IMP_GREED_LOSE > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * IMP_GREED_LOSE;
 				if (impressions_printing) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
 			} else {
-				comp_index = (comp_index / IMP_GREED < IMP_COMPETING_INDEX_MIN) ? IMP_COMPETING_INDEX_MIN : comp_index / IMP_GREED;
+				comp_index = (comp_index / IMP_GREED_WIN < IMP_COMPETING_INDEX_MIN) ? IMP_COMPETING_INDEX_MIN : comp_index / IMP_GREED_WIN;
 				if (impressions_printing) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
 			}
 			imps_competing_indicies.put(campId,comp_index);
