@@ -8,11 +8,8 @@ import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
-import tau.tac.adx.demand.Campaign;
-import tau.tac.adx.demand.CampaignImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
-import tau.tac.adx.messages.Contract;
 import tau.tac.adx.props.AdxBidBundle;
 import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
@@ -127,7 +124,7 @@ public class testAdNetwork extends Agent {
 	private boolean verbose_printing = false;
 	private boolean ucs_printing = false;
 	private boolean contract_printing = false;
-	private boolean impressions_printing = false;
+	private boolean impressions_printing = true;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -154,9 +151,11 @@ public class testAdNetwork extends Agent {
 
 	private Map<Integer, Double> imps_competing_indicies;
 	private static double IMP_GREED = 1.2;
-	private static double IMP_COMPETING_INDEX_DEFAULT = 2;
+
 	private static double IMP_COMPETING_INDEX_MAX = 4.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
 	private static double IMP_COMPETING_INDEX_MIN = 0.3;
+	private static double IMP_COMPETING_INDEX_DEFAULT = 1.5;
+
 
 	private PIP PIPredictor;
 
@@ -507,19 +506,16 @@ public class testAdNetwork extends Agent {
 						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
 				}
-//				System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
-//				System.out.println("ID: " + thisCampaign.id + " - Budget: " + thisCampaign.budget + " - Current cost: " + thisCampaign.stats.getCost());
-//				System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
 				double impressionLimit = thisCampaign.impsTogo();
-//				if (thisCampaign.impsTogo() == 0) {
-//					impressionLimit = thisCampaign.reachImps*1.2;
-//				} else if (thisCampaign.impsTogo() < 0) {
-//					impressionLimit = 0;
-//				}
+				if (thisCampaign.impsTogo() == 0) {
+					impressionLimit = thisCampaign.reachImps*1.2;
+				} else if (thisCampaign.impsTogo() < 0) {
+					impressionLimit = 0;
+				}
 
-				double budgetLimit = thisCampaign.budget - thisCampaign.stats.getCost();
+				double budgetLimit = thisCampaign.budget;
 				bidBundle.setCampaignDailyLimit(thisCampaign.id,
 						(int) impressionLimit, budgetLimit);
 
@@ -817,7 +813,7 @@ public class testAdNetwork extends Agent {
 				comp_index = (comp_index * IMP_GREED > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * IMP_GREED;
 				if (impressions_printing) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
 			} else {
-				comp_index = (comp_index / IMP_GREED < IMP_COMPETING_INDEX_MIN) ? IMP_COMPETING_INDEX_MIN : comp_index / IMP_GREED;
+				comp_index = (comp_index / IMP_GREED < 1) ? 1 : comp_index / IMP_GREED;
 				if (impressions_printing) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
 			}
 			imps_competing_indicies.put(campId,comp_index);
@@ -1199,7 +1195,7 @@ public class testAdNetwork extends Agent {
 		private final double DELTA = 0.0001;
 		private boolean adv = true;
 		private double budgetCoeff = 0.5;
-		private double profitCoeff = 1.0;
+		private double profitCoeff = 0.9;
 
 		public ImpressionsBidder(CampaignData campaignData) {
 			camp = campaignData;
