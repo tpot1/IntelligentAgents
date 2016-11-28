@@ -846,7 +846,6 @@ public class testAdNetwork extends Agent {
 				int sumImpsWon = newImps.get(adnetKey.getCampaignId());
 				newImps.put(adnetKey.getCampaignId(), sumImpsWon+newImpsWon);
 
-
 				//Find the corresponding day in bid history
 				for (ImpBidTrackingObject bid : history) {
 					if (bid.getDay() == day-1) {
