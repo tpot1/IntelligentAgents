@@ -124,10 +124,10 @@ public class testAdNetwork extends Agent {
 	 * Unused variable used to hold the daily publisher report.
 	 */
 	private AdxPublisherReport pubReport;
-	private boolean verbose_printing = false;
-	private boolean ucs_printing = false;
-	private boolean contract_printing = false;
-	private boolean impressions_printing = false;
+	private boolean verbose_printing = true;
+	private boolean ucs_printing = true;
+	private boolean contract_printing = true;
+	private boolean impressions_printing = true;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -146,17 +146,17 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 	
-	private double competing_index = 1.0;
+	private double competing_index = 2.5;
 	private static double COMPETING_INDEX_MAX = 5.0;
 	private static double GREED = 1.15;
-	private static double UCSScaler = 0.2;
+	private static double UCSScaler = 0.15;
 	private long previous_campaign_bid = 0;
 
 	private Map<Integer, Double> imps_competing_indicies;
-	private static double IMP_GREED = 1.2;
-	private static double IMP_COMPETING_INDEX_DEFAULT = 2;
-	private static double IMP_COMPETING_INDEX_MAX = 4.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
-	private static double IMP_COMPETING_INDEX_MIN = 0.3;
+	private static double IMP_GREED = 1.3;
+	private static double IMP_COMPETING_INDEX_DEFAULT = 1.5;
+	private static double IMP_COMPETING_INDEX_MAX = 3.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
+	private static double IMP_COMPETING_INDEX_MIN = 0.2;
 
 	private PIP PIPredictor;
 
@@ -507,9 +507,11 @@ public class testAdNetwork extends Agent {
 						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
 				}
-//				System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
-//				System.out.println("ID: " + thisCampaign.id + " - Budget: " + thisCampaign.budget + " - Current cost: " + thisCampaign.stats.getCost());
-//				System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
+				if(impressions_printing) {
+					System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
+					System.out.println("ID: " + thisCampaign.id + " - Budget: " + thisCampaign.budget + " - Current cost: " + thisCampaign.stats.getCost());
+					System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
+				}
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
 				double impressionLimit = thisCampaign.impsTogo();
@@ -1199,7 +1201,7 @@ public class testAdNetwork extends Agent {
 		private final double DELTA = 0.0001;
 		private boolean adv = true;
 		private double budgetCoeff = 0.5;
-		private double profitCoeff = 1.0;
+		private double profitCoeff = 0.8;
 
 		public ImpressionsBidder(CampaignData campaignData) {
 			camp = campaignData;
@@ -1219,7 +1221,12 @@ public class testAdNetwork extends Agent {
 
 			if (camp.impsTogo() != 0) {
 				//Return bid per mille imps
-				return (double) bid / camp.impsTogo() * 1000 * profitCoeff;
+				double finalBid = (double) bid / camp.impsTogo() * 1000 * profitCoeff;
+				if (finalBid > camp.impsTogo()) {
+					finalBid = camp.impsTogo();
+				}
+
+				return finalBid;
 			} else {
 				return (double) bid / camp.reachImps * 1000 * profitCoeff;
 			}
