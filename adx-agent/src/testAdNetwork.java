@@ -306,7 +306,9 @@ public class testAdNetwork extends Agent {
 			if (haveActiveCampaigns()) {
 				UCSBidder ucsBidder = new UCSBidder(prevUcsBid, ucsLevel);
 				ucsBid = ucsBidder.getUCSBid();
-				prevUcsBid = ucsBid;
+				if(ucsBid > 0){
+					prevUcsBid = ucsBid;
+				}
 				if(ucs_printing) { System.out.println("UCS BID: " + ucsBid); }
 			} else {
 				ucsBid = 0.0;
@@ -1090,45 +1092,63 @@ public class testAdNetwork extends Agent {
 			this.previousLevel = previousLevel;
 			
 			this.minReach = 0.75 * getTotalReach();
-			this.impressionUnitPrice = getImpressionUnitPrice() * previousLevel;
+			this.impressionUnitPrice = getImpressionUnitPrice() / previousLevel;
 		}
 		
 		public double getUCSBid(){			
-			System.out.println("PREVIOUS BID: " + previousBid);
-			System.out.println("MIN REACH: " + minReach);
-			System.out.println("PREVIOUS UTILITY: " + (minReach / (previousBid*1000.0)));
-			System.out.println("NEW UTILITY:" + (20.0/3.0)*((1.0+UCSScaler)/getUtilityOfIncrement()));
-
 			if (previousLevel > 0.9){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO HIGH! Lowering bid"); }
 				return previousBid / (1 + UCSScaler); 
 			}
-			else if (previousLevel < 0.81 && (minReach / (previousBid*1000.0)) >= (20.0/3.0)*((1.0+UCSScaler)/getUtilityOfIncrement())){
+			else if ((previousLevel < 0.81) && shouldIncreaseLevel()){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO LOW! Raising bid"); }
 				return (1 + UCSScaler) * previousBid;
 			}
-			else{
+			else if(this.minReach > 0.0){
 				if(ucs_printing) { System.out.println("UCS LEVEL PERFECT! Maintaining bid"); }
 				return previousBid;
+			}
+			else{
+				return 0;
 			}
 			
 		}
 		
+		// Returns true or false, based on the expected value of increasing UCS bid
+		private boolean shouldIncreaseLevel(){			
+			return (minReach / (previousBid*1000.0)) >= 20.0/3.0*((1.0+UCSScaler)/getUtilityOfIncrement());
+		}
+		
 		// Calculates the utility gained from spending extra to go up a UCS level
 		private double getUtilityOfIncrement(){
-			double r = minReach;
-			double increment = 0.001;
-			
-			double totalUtility = 0;
-			
-			// Crappy implementation of integration - maybe look into a library that does this?
-			while(r < minReach*2){
-				totalUtility = totalUtility + (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaler)*previousBid);
-				r = r + increment;
-			}
-			
-			return totalUtility * (1/minReach);
+			return integrate(minReach, 2*minReach);
 		}
+			
+		public double integration_function(double r){
+			return (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaler)*previousBid);
+		}
+		
+		public double integrate(double a, double b) {
+		      int N = 10000;                    // precision parameter
+		      double h = (b - a) / (N - 1);     // step size
+		 
+		      // 1/3 terms
+		      double sum = 1.0 / 3.0 * (integration_function(a) + integration_function(b));
+
+		      // 4/3 terms
+		      for (int i = 1; i < N - 1; i += 2) {
+		         double x = a + h * i;
+		         sum += 4.0 / 3.0 * integration_function(x);
+		      }
+
+		      // 2/3 terms
+		      for (int i = 2; i < N - 1; i += 2) {
+		         double x = a + h * i;
+		         sum += 2.0 / 3.0 * integration_function(x);
+		      }
+
+		      return sum * h;
+		   }
 		
 		// Returns the average impression cost across all current campaigns
 		private double getImpressionUnitPrice(){
@@ -1159,18 +1179,14 @@ public class testAdNetwork extends Agent {
 				}
 				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
 				marketSet.add(s);
-				totalSupply += MarketSegment.marketSegmentSize(marketSet);
-				
+				totalSupply += MarketSegment.marketSegmentSize(marketSet);				
 			}
-			
-			System.out.println("totalDemand = " + totalDemand);
-			System.out.println("totalSupply = " + totalSupply);
 			
 			return (totalDemand / totalSupply);
 		}
 		
-		// Returns the total impressions still needed accross all current campaigns
-		private int getTotalReach(){
+		// Returns the total impressions still needed across all current campaigns
+		private int getTotalReach(){	
 			int totalReach = 0;
 			for (CampaignData campaign : myCampaigns.values()){
 				if(campaign.dayEnd - day > 0){
