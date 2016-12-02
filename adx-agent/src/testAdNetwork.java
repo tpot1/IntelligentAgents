@@ -317,7 +317,9 @@ public class testAdNetwork extends Agent {
 			if (haveActiveCampaigns()) {
 				UCSBidder ucsBidder = new UCSBidder(prevUcsBid, ucsLevel);
 				ucsBid = ucsBidder.getUCSBid();
-				prevUcsBid = ucsBid;
+				if(ucsBid > 0){
+					prevUcsBid = ucsBid;
+				}
 				if(ucs_printing) { System.out.println("UCS BID: " + ucsBid); }
 			} else {
 				ucsBid = 0.0;
@@ -787,7 +789,7 @@ public class testAdNetwork extends Agent {
 		return new ClashObject(clashingCamps, clashCampExtent);
 	}
 
-	private int getSegmentPopularity(Set<MarketSegment> seg) {
+	public int getSegmentPopularity(Set<MarketSegment> seg) {
 		return MarketSegment.marketSegmentSize(seg);
 	}
 
@@ -1137,7 +1139,7 @@ public class testAdNetwork extends Agent {
 			this.previousLevel = previousLevel;
 			
 			this.minReach = 0.75 * getTotalReach();
-			this.impressionUnitPrice = getAverageImpressionCost() * previousLevel;
+			this.impressionUnitPrice = getImpressionUnitPrice() / previousLevel;
 		}
 		
 		public double getUCSBid(){			
@@ -1145,52 +1147,107 @@ public class testAdNetwork extends Agent {
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO HIGH! Lowering bid"); }
 				return previousBid / (1 + UCSScaler); 
 			}
-			else if (previousLevel < 0.81 && (minReach / previousBid) >= (20.0/3.0)*((1.0+UCSScaler)/getUtilityOfIncrement())){
+			else if ((previousLevel < 0.81) && shouldIncreaseLevel()){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO LOW! Raising bid"); }
 				return (1 + UCSScaler) * previousBid;
 			}
-			else{
+			else if(this.minReach > 0.0){
 				if(ucs_printing) { System.out.println("UCS LEVEL PERFECT! Maintaining bid"); }
 				return previousBid;
 			}
+			else{
+				return 0;
+			}
 			
+		}
+		
+		// Returns true or false, based on the expected value of increasing UCS bid
+		private boolean shouldIncreaseLevel(){			
+			double prev_util = (minReach / (previousBid*1000.0));
+			double new_util = 20.0/3.0*((1.0+UCSScaler)/getUtilityOfIncrement());
+			if(ucs_printing) { 
+				System.out.println("Previous Util: " + prev_util); 
+				System.out.println("Utility of increment: " + new_util);
+			}
+			return prev_util >= new_util;
 		}
 		
 		// Calculates the utility gained from spending extra to go up a UCS level
 		private double getUtilityOfIncrement(){
-			double r = minReach;
-			double increment = 0.001;
+			return (1/minReach) * integrate(minReach, 2*minReach);
+		}
 			
-			double totalUtility = 0;
-			
-			// Crappy implementation of integration - maybe look into a library that does this?
-			while(r < minReach*2){
-				totalUtility = totalUtility + (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaler)*previousBid);
-				r = r + increment;
-			}
-			
-			return totalUtility;
+		public double integration_function(double r){
+			return (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaler)*previousBid);
 		}
 		
-		// Returns the average impression cost accross all current campaigns
-		private double getAverageImpressionCost(){
-			double totalPriceIndex = 0;
-			for (CampaignData campaign : myCampaigns.values()){
-				//TODO - check it is OK to use getPIPPop here to get value of p in formula
-				totalPriceIndex = totalPriceIndex + PIPredictor.getPop(campaign.targetSegment, (int) campaign.dayStart, (int) campaign.dayEnd);
+		public double integrate(double a, double b) {
+		      int N = 10000;                    // precision parameter
+		      double h = (b - a) / (N - 1);     // step size
+		 
+		      // 1/3 terms
+		      double sum = 1.0 / 3.0 * (integration_function(a) + integration_function(b));
+
+		      // 4/3 terms
+		      for (int i = 1; i < N - 1; i += 2) {
+		         double x = a + h * i;
+		         sum += 4.0 / 3.0 * integration_function(x);
+		      }
+
+		      // 2/3 terms
+		      for (int i = 2; i < N - 1; i += 2) {
+		         double x = a + h * i;
+		         sum += 2.0 / 3.0 * integration_function(x);
+		      }
+
+		      return sum * h;
+		   }
+		
+		// Returns the average impression cost across all current campaigns
+		private double getImpressionUnitPrice(){
+			
+			Set<MarketSegment> targetSegments = new HashSet<MarketSegment>();
+			
+			for (CampaignData myCampaign : myCampaigns.values()){
+				for (MarketSegment targetSegment : myCampaign.targetSegment){
+					if(!targetSegments.contains(targetSegment)){
+						targetSegments.add(targetSegment);
+						System.out.println(targetSegment.name());
+					}	
+				}
 			}
-			return totalPriceIndex / (double) myCampaigns.values().size();
+			
+			cleanPostedCampaignList();
+			ArrayList<CampaignData> allCampaigns = (ArrayList<CampaignData>) postedCampaigns;
+			ArrayList<CampaignData> checkedCampaigns = new ArrayList<CampaignData>();
+			
+			double totalDemand = 0;
+			double totalSupply = 0;
+			for (MarketSegment s : targetSegments){
+				for (CampaignData otherCampaign: allCampaigns){
+					if (otherCampaign.targetSegment.contains(s) && !checkedCampaigns.contains(otherCampaign)){
+						totalDemand += (double) otherCampaign.impsTogo();
+						checkedCampaigns.add(otherCampaign);
+					}
+				}
+				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
+				marketSet.add(s);
+				totalSupply += MarketSegment.marketSegmentSize(marketSet);				
+			}
+			
+			return (totalDemand / totalSupply);
 		}
 		
-		// Returns the total impressions still needed accross all current campaigns
+		// Returns the total impressions still needed across all current campaigns
 		private int getTotalReach(){
+			return 10; /*
 			int totalReach = 0;
 			for (CampaignData campaign : myCampaigns.values()){
 				if(campaign.dayEnd - day > 0){
 					totalReach = totalReach + (campaign.impsTogo()/((int) campaign.dayEnd - day));
 				}
 			}
-			return totalReach;
+			return totalReach;*/
 		}
 		
 	}
