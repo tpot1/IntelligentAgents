@@ -157,9 +157,9 @@ public class testAdNetwork extends Agent {
 	private static double IMP_GREED_LOSE = 1.3;
     private static double IMP_GREED_WIN = 1.6;
 	private static double IMP_COMPETING_INDEX_DEFAULT = 1.0;
-	private static double IMP_COMPETING_INDEX_MAX = 2.5; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
+	private static double IMP_COMPETING_INDEX_MAX = 2.5;
 	private static double IMP_COMPETING_INDEX_MIN = 0.2;
-	private static double IMP_RESULT_MODIFIER_LOSE_LOSE = +0.3; //TODO: Properly do these values
+	private static double IMP_RESULT_MODIFIER_LOSE_LOSE = +0.3;
 	private static double IMP_RESULT_MODIFIER_WIN_WIN = -0.2;
 	private static double IMP_RESULT_MODIFIER_WIN_LOSE = +0.3;
 	private static double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
