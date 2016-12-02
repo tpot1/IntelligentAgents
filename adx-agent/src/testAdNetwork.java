@@ -1116,12 +1116,18 @@ public class testAdNetwork extends Agent {
 		
 		// Returns true or false, based on the expected value of increasing UCS bid
 		private boolean shouldIncreaseLevel(){			
-			return (minReach / (previousBid*1000.0)) >= 20.0/3.0*((1.0+UCSScaler)/getUtilityOfIncrement());
+			double prev_util = (minReach / (previousBid*1000.0));
+			double new_util = 20.0/3.0*((1.0+UCSScaler)/getUtilityOfIncrement());
+			if(ucs_printing) { 
+				System.out.println("Previous Util: " + prev_util); 
+				System.out.println("Utility of increment: " + new_util);
+			}
+			return prev_util >= new_util;
 		}
 		
 		// Calculates the utility gained from spending extra to go up a UCS level
 		private double getUtilityOfIncrement(){
-			return integrate(minReach, 2*minReach);
+			return (1/minReach) * integrate(minReach, 2*minReach);
 		}
 			
 		public double integration_function(double r){
@@ -1186,14 +1192,15 @@ public class testAdNetwork extends Agent {
 		}
 		
 		// Returns the total impressions still needed across all current campaigns
-		private int getTotalReach(){	
+		private int getTotalReach(){
+			return 10; /*
 			int totalReach = 0;
 			for (CampaignData campaign : myCampaigns.values()){
 				if(campaign.dayEnd - day > 0){
 					totalReach = totalReach + (campaign.impsTogo()/((int) campaign.dayEnd - day));
 				}
 			}
-			return totalReach;
+			return totalReach;*/
 		}
 		
 	}
