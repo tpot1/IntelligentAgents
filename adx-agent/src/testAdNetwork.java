@@ -146,10 +146,10 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 	
-	private double competing_index = 1.0;
-	private static double COMPETING_INDEX_MAX = 3.0;
+	private double competing_index = 2.0;
+	private static double COMPETING_INDEX_MAX = 4.0;
 	private static double GREED = 1.2;
-	private static double UCSScaler = 0.15;
+	private static double UCSScaler = 0.2;
 	private long previous_campaign_bid = 0;
 
 	private Map<Integer, Double> imps_competing_indicies;
