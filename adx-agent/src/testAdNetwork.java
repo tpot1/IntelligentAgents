@@ -414,6 +414,12 @@ public class testAdNetwork extends Agent {
 			}
 		}
 
+		if (impressions_printing) {
+			for (Integer key : imps_competing_indicies.keySet()) {
+				System.out.println("Campaign ID: " + key + " - Index: " + imps_competing_indicies.get(key));
+			}
+		}
+
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
 				+ " at price " + notificationMessage.getPrice()
@@ -836,7 +842,7 @@ public class testAdNetwork extends Agent {
 					result_modifier = IMP_RESULT_MODIFIER_WIN_LOSE;
 				}
 				comp_index = (comp_index * (IMP_GREED_LOSE + result_modifier) > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * (IMP_GREED_LOSE + result_modifier);
-				if (impressions_printing) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
+				if (false) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
 			} else {
 				//WIN
 				if (prev_result == -1) {
@@ -845,7 +851,7 @@ public class testAdNetwork extends Agent {
 					result_modifier = IMP_RESULT_MODIFIER_WIN_WIN;
 				}
 				comp_index = (comp_index / IMP_GREED_WIN < (IMP_GREED_WIN + result_modifier)) ? IMP_COMPETING_INDEX_MIN : comp_index / (IMP_GREED_WIN + result_modifier);
-				if (impressions_printing) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
+				if (false) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
 			}
 
 			imps_competing_indicies.put(campId,comp_index);
