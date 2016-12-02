@@ -124,9 +124,9 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = 		false;
-	private boolean ucs_printing = 			false;
-	private boolean contract_printing = 	false;
-	private boolean impressions_printing = 	true;
+	private boolean ucs_printing = 			true;
+	private boolean contract_printing = 	true;
+	private boolean impressions_printing = 	false;
 	private boolean costs_printing = 		false;
 
 	/**
@@ -146,9 +146,9 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 	
-	private double competing_index = 2.5;
-	private static double COMPETING_INDEX_MAX = 5.0;
-	private static double GREED = 1.15;
+	private double competing_index = 1.0;
+	private static double COMPETING_INDEX_MAX = 3.0;
+	private static double GREED = 1.2;
 	private static double UCSScaler = 0.15;
 	private long previous_campaign_bid = 0;
 
@@ -1260,14 +1260,13 @@ public class testAdNetwork extends Agent {
 		
 		// Returns the total impressions still needed across all current campaigns
 		private int getTotalReach(){
-			return 10; /*
 			int totalReach = 0;
 			for (CampaignData campaign : myCampaigns.values()){
 				if(campaign.dayEnd - day > 0){
 					totalReach = totalReach + (campaign.impsTogo()/((int) campaign.dayEnd - day));
 				}
 			}
-			return totalReach;*/
+			return totalReach;
 		}
 		
 	}
