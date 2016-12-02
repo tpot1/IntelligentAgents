@@ -1,0 +1,1463 @@
+UNKNOWN Message Received: edu.umich.eecs.tac.props.AdvertiserInfo@bc76a1c1
+***PRICE INDEX***: 0.08333333333333333
+Day 0 :BankStatus[0.000000]
+Day 0 : Simulation Status Received
+ID: 900798981 - bid: 0.20346321720498373
+ID: 900798981 - Budget: 9.54 - Current cost: 0.0
+ID: 900798981 - Reach: 9540 - Imps2Go: 9540
+Campaign ID added: 423704693
+Campaign ID: 900798981 - Index: 2.0
+Campaign ID: 423704693 - Index: 1.0
+***PRICE INDEX***: 0.23972490276463787
+LOW_INCOME
+YOUNG
+OLD
+Day 1 :BankStatus[-0.199955]
+Day 1 : Simulation Status Received
+ID: 900798981 - bid: 0.25432902150622966
+ID: 900798981 - Budget: 9.54 - Current cost: 0.0
+ID: 900798981 - Reach: 9540 - Imps2Go: 9540
+ID: 423704693 - bid: 0.05905009805246562
+ID: 423704693 - Budget: 0.541 - Current cost: 0.0
+ID: 423704693 - Reach: 4196 - Imps2Go: 4196
+Day 2: Updating campaign 900798981 stats: 3436.19300143718 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 900798981 - Seg: [LOW_INCOME, YOUNG] - Seg pop: 0.15895563844139354
+Campaign ID added: 1085367054
+Campaign ID: 900798981 - Index: 2.0
+Campaign ID: 423704693 - Index: 1.0
+Campaign ID: 1085367054 - Index: 1.0
+***PRICE INDEX***: 0.32567771795598377
+LOW_INCOME
+YOUNG
+OLD
+HIGH_INCOME
+Day 2 :BankStatus[-0.398049]
+Day 2 : Simulation Status Received
+ID: 900798981 - bid: 3.116068166267192
+ID: 900798981 - Budget: 9.54 - Current cost: 0.0
+ID: 900798981 - Reach: 9540 - Imps2Go: 6103
+ID: 423704693 - bid: 0.1021247001111677
+ID: 423704693 - Budget: 0.541 - Current cost: 0.0
+ID: 423704693 - Reach: 4196 - Imps2Go: 4196
+ID: 1085367054 - bid: 0.13200389849887026
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0
+ID: 1085367054 - Reach: 9720 - Imps2Go: 9720
+Day 3: Updating campaign 900798981 stats: 10642.138558079121 tgtImps 0.0 nonTgtImps. Cost of imps is 0.06528355942239693
+ID: 900798981 - Seg: [LOW_INCOME, YOUNG] - Seg pop: 0.7119408512551914
+Day 3: Updating campaign 423704693 stats: 4197.310988013329 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 423704693 - Seg: [OLD, LOW_INCOME] - Seg pop: 0.9900999114289734
+Campaign ID added: 1148497772
+Campaign ID: 900798981 - Index: 3.5
+Campaign ID: 423704693 - Index: 1.0
+Campaign ID: 1148497772 - Index: 1.0
+Campaign ID: 1085367054 - Index: 1.0
+***PRICE INDEX***: 0.41787990196078434
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 3 :BankStatus[-0.524532]
+Day 3 : Simulation Status Received
+ID: 900798981 - bid: 0.25225109118323935
+ID: 900798981 - Budget: 9.54 - Current cost: 0.06528355942239693
+ID: 900798981 - Reach: 9540 - Imps2Go: 0
+ID: 423704693 - bid: 0.037716050030655375
+ID: 423704693 - Budget: 0.541 - Current cost: 0.0
+ID: 423704693 - Reach: 4196 - Imps2Go: 0
+ID: 1148497772 - bid: 0.27597041387712967
+ID: 1148497772 - Budget: 0.653 - Current cost: 0.0
+ID: 1148497772 - Reach: 2970 - Imps2Go: 2970
+ID: 1085367054 - bid: 0.15915811112279105
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0
+ID: 1085367054 - Reach: 9720 - Imps2Go: 9720
+Day 4: Updating campaign 900798981 stats: 16749.407236728435 tgtImps 0.0 nonTgtImps. Cost of imps is 0.06528355942239693
+ID: 900798981 - Seg: [LOW_INCOME, YOUNG] - Seg pop: 1.5765693198952464
+Day 4: Updating campaign 423704693 stats: 8398.556524029951 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 423704693 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.8282872681218802
+Day 4: Updating campaign 1085367054 stats: 979.7551118265952 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 1.3656575212866604
+Campaign ID added: 698156320
+Campaign ID: 900798981 - Index: 0.2
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 1.0
+Campaign ID: 698156320 - Index: 1.0
+Campaign ID: 1085367054 - Index: 1.0
+***PRICE INDEX***: 1.0648148148148147
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 4 :BankStatus[-0.748687]
+Day 4 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 900798981 - bid: 1.1219619395286087
+ID: 900798981 - Budget: 9.54 - Current cost: 0.06528355942239693
+ID: 900798981 - Reach: 9540 - Imps2Go: 0
+ID: 423704693 - bid: 0.060916221158183105
+ID: 423704693 - Budget: 0.541 - Current cost: 0.0
+ID: 423704693 - Reach: 4196 - Imps2Go: 0
+ID: 1148497772 - bid: 0.49899272311287046
+ID: 1148497772 - Budget: 0.653 - Current cost: 0.0
+ID: 1148497772 - Reach: 2970 - Imps2Go: 2970
+ID: 698156320 - bid: 0.9660086125582394
+ID: 698156320 - Budget: 6.399 - Current cost: 0.0
+ID: 698156320 - Reach: 17524 - Imps2Go: 17524
+ID: 1085367054 - bid: 0.558700592540955
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 8740
+Day 5: Updating campaign 900798981 stats: 16749.407236728435 tgtImps 0.0 nonTgtImps. Cost of imps is 0.06528355942239693
+ID: 900798981 - Seg: [LOW_INCOME, YOUNG] - Seg pop: 2.7716451075311483
+Day 5: Updating campaign 423704693 stats: 8398.556524029951 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 423704693 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.952916635625419
+Day 5: Updating campaign 1085367054 stats: 2161.2135164727442 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 1.8741721854304636
+Day 5: Updating campaign 1148497772 stats: 2975.1454646599564 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1148497772 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 2.8369226409747803
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 1.0
+Campaign ID: 698156320 - Index: 1.0
+Campaign ID: 1085367054 - Index: 2.3
+***PRICE INDEX***: 0.6669887734760257
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 5 :BankStatus[-0.938340]
+Day 5 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 423704693 - bid: 0.03482986671545203
+ID: 423704693 - Budget: 0.541 - Current cost: 0.0
+ID: 423704693 - Reach: 4196 - Imps2Go: 0
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1148497772 - bid: 0.5344376293777484
+ID: 1148497772 - Budget: 0.653 - Current cost: 0.0
+ID: 1148497772 - Reach: 2970 - Imps2Go: 0
+ID: 698156320 - bid: 0.4741438946755374
+ID: 698156320 - Budget: 6.399 - Current cost: 0.0
+ID: 698156320 - Reach: 17524 - Imps2Go: 17524
+ID: 1085367054 - bid: 0.961735908970627
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 7558
+Day 6: Updating campaign 698156320 stats: 8440.776709005615 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 698156320 - Seg: [LOW_INCOME, FEMALE] - Seg pop: 1.6230851715686274
+Day 6: Updating campaign 900798981 stats: 16749.407236728435 tgtImps 0.0 nonTgtImps. Cost of imps is 0.06528355942239693
+ID: 900798981 - Seg: [LOW_INCOME, YOUNG] - Seg pop: 0.8477634050207655
+Day 6: Updating campaign 423704693 stats: 8398.556524029951 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 423704693 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.534890362313442
+Day 6: Updating campaign 1085367054 stats: 3297.171728282765 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 1.8333333333333333
+Day 6: Updating campaign 1148497772 stats: 5665.138103239677 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1148497772 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 1.2009634457353358
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 2.3
+Campaign ID: 698156320 - Index: 1.0
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.32342528519515784
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 6 :BankStatus[11.045332]
+Day 6 : Simulation Status Received
+ID: 698156320 - bid: 3.9801600282687115
+ID: 698156320 - Budget: 6.399 - Current cost: 0.0
+ID: 698156320 - Reach: 17524 - Imps2Go: 9083
+ID: 1085367054 - bid: 1.8120358618243166
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 6422
+Day 7: Updating campaign 698156320 stats: 13531.541518867427 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 698156320 - Seg: [LOW_INCOME, FEMALE] - Seg pop: 3.0704350490196077
+Day 7: Updating campaign 423704693 stats: 8398.556524029951 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 423704693 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.941089920286076
+Day 7: Updating campaign 1085367054 stats: 5666.154841569592 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 2.9350520340586566
+Day 7: Updating campaign 1148497772 stats: 5665.138103239677 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1148497772 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 2.2718957211674695
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 698156320 - Index: 2.3
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.2881150793650794
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 7 :BankStatus[12.499928]
+Day 7 : Simulation Status Received
+ID: 698156320 - bid: 20.401368177531538
+ID: 698156320 - Budget: 6.399 - Current cost: 0.0
+ID: 698156320 - Reach: 17524 - Imps2Go: 3992
+ID: 1085367054 - bid: 0.23949512230059877
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 4053
+Day 8: Updating campaign 698156320 stats: 21549.372696518203 tgtImps 0.0 nonTgtImps. Cost of imps is 4.909482959235926
+ID: 698156320 - Seg: [LOW_INCOME, FEMALE] - Seg pop: 4.545479302832244
+Day 8: Updating campaign 1085367054 stats: 6576.907212316875 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 4.28440029433407
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 0.2
+***PRICE INDEX***: 0.3333333333333333
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 8 :BankStatus[12.371743]
+Day 8 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 698156320 - bid: 0.6901768394101536
+ID: 698156320 - Budget: 6.399 - Current cost: 4.909482959235926
+ID: 698156320 - Reach: 17524 - Imps2Go: 0
+ID: 1085367054 - bid: 0.58811008490182
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 3143
+Day 9: Updating campaign 698156320 stats: 25543.38518655461 tgtImps 0.0 nonTgtImps. Cost of imps is 10.789671221614501
+ID: 698156320 - Seg: [LOW_INCOME, FEMALE] - Seg pop: 0.6136642156862745
+Day 9: Updating campaign 1085367054 stats: 7681.998156821658 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 3.5472511300325866
+Campaign ID added: 1504109707
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 1.0
+Campaign ID: 1085367054 - Index: 0.45999999999999996
+***PRICE INDEX***: 0.8952621338106618
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 9 :BankStatus[7.345878]
+Day 9 : Simulation Status Received
+ID: 1504109707 - bid: 0.15996949226410984
+ID: 1504109707 - Budget: 2.447 - Current cost: 0.0
+ID: 1504109707 - Reach: 18356 - Imps2Go: 18356
+ID: 1085367054 - bid: 2.9425743356295264
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 2038
+Day 10: Updating campaign 698156320 stats: 25543.38518655461 tgtImps 0.0 nonTgtImps. Cost of imps is 10.789671221614501
+ID: 698156320 - Seg: [LOW_INCOME, FEMALE] - Seg pop: 1.0081626400560224
+Day 10: Updating campaign 1085367054 stats: 8342.895932700716 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 5.00371671847547
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 1.0
+Campaign ID: 1085367054 - Index: 1.0579999999999998
+***PRICE INDEX***: 0.13157936507936507
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 10 :BankStatus[9.163457]
+Day 10 : Simulation Status Received
+ID: 1504109707 - bid: 0.24350911600203387
+ID: 1504109707 - Budget: 2.447 - Current cost: 0.0
+ID: 1504109707 - Reach: 18356 - Imps2Go: 18356
+ID: 1085367054 - bid: 18.351021782585974
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 1377
+Day 11: Updating campaign 1085367054 stats: 9500.502518363977 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0033098958870490425
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 9.167004550164437
+Day 11: Updating campaign 1504109707 stats: 5601.716374770047 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1504109707 - Seg: [YOUNG] - Seg pop: 2.283333333333333
+Campaign ID added: 420769902
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 420769902 - Index: 1.0
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 1.0
+Campaign ID: 1085367054 - Index: 2.4333999999999993
+***PRICE INDEX***: 0.25258036149663377
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 11 :BankStatus[9.080523]
+Day 11 : Simulation Status Received
+ID: 420769902 - bid: 1.1179487179487182
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 9178
+ID: 1504109707 - bid: 1.3846422386005264
+ID: 1504109707 - Budget: 2.447 - Current cost: 0.0
+ID: 1504109707 - Reach: 18356 - Imps2Go: 12754
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1085367054 - bid: 28.831151350207143
+ID: 1085367054 - Budget: 1.416 - Current cost: 0.0033098958870490425
+ID: 1085367054 - Reach: 9720 - Imps2Go: 219
+Day 12: Updating campaign 1085367054 stats: 9822.206834949959 tgtImps 0.0 nonTgtImps. Cost of imps is 1.4237612073095278
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 1.4477451907915484
+Day 12: Updating campaign 1504109707 stats: 7206.805410980105 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1504109707 - Seg: [YOUNG] - Seg pop: 3.922222222222223
+Campaign ID added: 2109629254
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 1.0
+Campaign ID: 420769902 - Index: 1.0
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 2.3
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.5124702160702506
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 12 :BankStatus[8.948835]
+Day 12 : Simulation Status Received
+ID: 2109629254 - bid: 0.36241825144135625
+ID: 2109629254 - Budget: 0.04 - Current cost: 0.0
+ID: 2109629254 - Reach: 256 - Imps2Go: 256
+ID: 420769902 - bid: 1.5106559163216389
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 9178
+ID: 1504109707 - bid: 3.2571064669477083
+ID: 1504109707 - Budget: 2.447 - Current cost: 0.0
+ID: 1504109707 - Reach: 18356 - Imps2Go: 11149
+Day 13: Updating campaign 420769902 stats: 4360.016004563537 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 5.3
+Day 13: Updating campaign 1085367054 stats: 10042.128032990551 tgtImps 0.0 nonTgtImps. Cost of imps is 1.7040913010853314
+ID: 1085367054 - Seg: [OLD, HIGH_INCOME] - Seg pop: 2.013434247871334
+Day 13: Updating campaign 1504109707 stats: 7206.805410980105 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1504109707 - Seg: [YOUNG] - Seg pop: 5.3
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 1.0
+Campaign ID: 420769902 - Index: 1.0
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.6866666666666665
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 13 :BankStatus[8.833088]
+Day 13 : Simulation Status Received
+ID: 2109629254 - bid: 0.2509036391426031
+ID: 2109629254 - Budget: 0.04 - Current cost: 0.0
+ID: 2109629254 - Reach: 256 - Imps2Go: 256
+ID: 420769902 - bid: 0.17585337643465113
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 4817
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1504109707 - bid: 1.0944814183633809
+ID: 1504109707 - Budget: 2.447 - Current cost: 0.0
+ID: 1504109707 - Reach: 18356 - Imps2Go: 11149
+Day 14: Updating campaign 420769902 stats: 10839.935152273752 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 1.619047619047619
+Day 14: Updating campaign 2109629254 stats: 224.7773012972817 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2109629254 - Seg: [HIGH_INCOME, FEMALE, YOUNG] - Seg pop: 2.007229113140825
+Day 14: Updating campaign 1504109707 stats: 7206.805410980105 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1504109707 - Seg: [YOUNG] - Seg pop: 1.619047619047619
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 1.0
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.9066666666666666
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 14 :BankStatus[8.400843]
+Day 14 : Simulation Status Received
+ID: 2109629254 - bid: 0.6258279551386857
+ID: 2109629254 - Budget: 0.04 - Current cost: 0.0
+ID: 2109629254 - Reach: 256 - Imps2Go: 31
+ID: 420769902 - bid: 0.12351274787535411
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+Day 15: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 2.1666666666666665
+Day 15: Updating campaign 2109629254 stats: 445.18137048472147 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2109629254 - Seg: [HIGH_INCOME, FEMALE, YOUNG] - Seg pop: 3.0313541577030083
+Day 15: Updating campaign 1504109707 stats: 7206.805410980105 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1504109707 - Seg: [YOUNG] - Seg pop: 2.1666666666666665
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.2
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.20833333333333337
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 15 :BankStatus[8.619352]
+Day 15 : Simulation Status Received
+ID: 2109629254 - bid: 0.11495984281329777
+ID: 2109629254 - Budget: 0.04 - Current cost: 0.0
+ID: 2109629254 - Reach: 256 - Imps2Go: 0
+ID: 420769902 - bid: 0.193820004358248
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+Day 16: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 3.4
+Day 16: Updating campaign 2109629254 stats: 480.7148329698241 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2109629254 - Seg: [HIGH_INCOME, FEMALE, YOUNG] - Seg pop: 4.59839371253191
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.2
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 1.3611111111111112
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 16 :BankStatus[8.501090]
+Day 16 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 2109629254 - bid: 0.4248261731635258
+ID: 2109629254 - Budget: 0.04 - Current cost: 0.0
+ID: 2109629254 - Reach: 256 - Imps2Go: 0
+ID: 420769902 - bid: 0.25652647635650466
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+Day 17: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 4.5
+Day 17: Updating campaign 2109629254 stats: 480.7148329698241 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2109629254 - Seg: [HIGH_INCOME, FEMALE, YOUNG] - Seg pop: 6.716619338553767
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.2668694580505292
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 17 :BankStatus[8.392281]
+Day 17 : Simulation Status Received
+ID: 420769902 - bid: 0.08360862933100895
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+Day 18: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 1.4666666666666668
+Day 18: Updating campaign 2109629254 stats: 480.7148329698241 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2109629254 - Seg: [HIGH_INCOME, FEMALE, YOUNG] - Seg pop: 3.856185640937383
+Campaign ID added: 1205564468
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 1.0
+***PRICE INDEX***: 0.1696221157342274
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 18 :BankStatus[8.332088]
+Day 18 : Simulation Status Received
+ID: 420769902 - bid: 0.10767778019902668
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+ID: 1205564468 - bid: 0.917268193537656
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 15840
+Day 19: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 1.8888888888888888
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 1.0
+***PRICE INDEX***: 0.8528802377639585
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 19 :BankStatus[8.208270]
+Day 19 : Simulation Status Received
+ID: 420769902 - bid: 0.21661895853466184
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+ID: 1205564468 - bid: 0.8666066648887946
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 15840
+Day 20: Updating campaign 1205564468 stats: 305.17917820620863 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 3.1929311434309886
+Day 20: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 3.799940369707811
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 1.0
+***PRICE INDEX***: 0.5403856047911199
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 20 :BankStatus[8.083451]
+Day 20 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 420769902 - bid: 0.14690669701661607
+ID: 420769902 - Budget: 3.27 - Current cost: 0.0
+ID: 420769902 - Reach: 9178 - Imps2Go: 0
+ID: 1205564468 - bid: 1.2745229303755383
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 15534
+Day 21: Updating campaign 1205564468 stats: 4702.83120096089 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 2.0022369379595006
+Day 21: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 2.34276769741886
+Campaign ID added: 2012526220
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 1.0
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 2.3
+***PRICE INDEX***: 1.2999674701484476
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 21 :BankStatus[7.972604]
+Day 21 : Simulation Status Received
+ID: 2012526220 - bid: 0.22452514823089956
+ID: 2012526220 - Budget: 0.38 - Current cost: 0.0
+ID: 2012526220 - Reach: 2517 - Imps2Go: 2517
+ID: 1205564468 - bid: 0.2526661206218208
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 11137
+Day 22: Updating campaign 1205564468 stats: 6827.282256915869 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 3.272635124401305
+Day 22: Updating campaign 420769902 stats: 15659.77341600518 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 420769902 - Seg: [YOUNG] - Seg pop: 3.7331544424567675
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 1.0
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+***PRICE INDEX***: 0.862183260500478
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 22 :BankStatus[11.958865]
+Day 22 : Simulation Status Received
+ID: 2012526220 - bid: 0.35060460230472423
+ID: 2012526220 - Budget: 0.38 - Current cost: 0.0
+ID: 2012526220 - Reach: 2517 - Imps2Go: 2517
+ID: 1205564468 - bid: 0.6134801958682419
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 9012
+Day 23: Updating campaign 1205564468 stats: 7949.260040040672 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 2.795607840672378
+Day 23: Updating campaign 2012526220 stats: 2518.79490623449 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2012526220 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.9028677105295753
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 1.0
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.45999999999999996
+***PRICE INDEX***: 0.32865185796583085
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 23 :BankStatus[11.826543]
+Day 23 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 2012526220 - bid: 1.0387158754821444
+ID: 2012526220 - Budget: 0.38 - Current cost: 0.0
+ID: 2012526220 - Reach: 2517 - Imps2Go: 0
+ID: 1205564468 - bid: 2.1694554537714303
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 7890
+Day 24: Updating campaign 1205564468 stats: 8835.688868091636 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 3.7631750739964
+Day 24: Updating campaign 2012526220 stats: 4667.237802480475 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2012526220 - Seg: [OLD, LOW_INCOME] - Seg pop: 3.3992717112915503
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 2.3
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 1.0579999999999998
+***PRICE INDEX***: 0.4437460317460317
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 24 :BankStatus[11.682376]
+Day 24 : Simulation Status Received
+ID: 1205564468 - bid: 5.23269501859095
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 7004
+Day 25: Updating campaign 1205564468 stats: 11933.637146749497 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 3.5032441684329703
+Day 25: Updating campaign 2012526220 stats: 4667.237802480475 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2012526220 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.5890733994553115
+Campaign ID added: 143301537
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 143301537 - Index: 1.0
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 2.4333999999999993
+***PRICE INDEX***: 0.14925156706302442
+LOW_INCOME
+YOUNG
+OLD
+FEMALE
+HIGH_INCOME
+Day 25 :BankStatus[12.021959]
+Day 25 : Simulation Status Received
+ID: 143301537 - bid: 0.2987256874580818
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 15904
+ID: 1205564468 - bid: 20.1135892742118
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 3906
+Day 26: Updating campaign 1205564468 stats: 16559.464701122317 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 5.221149430131272
+Campaign ID added: 1904722309
+Campaign ID: 1904722309 - Index: 1.0
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 143301537 - Index: 1.0
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 3.5
+***PRICE INDEX***: 0.6818619048860479
+OLD
+LOW_INCOME
+YOUNG
+FEMALE
+HIGH_INCOME
+Day 26 :BankStatus[11.935581]
+Day 26 : Simulation Status Received
+ID: 1904722309 - bid: 0.822515193930113
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 8392
+ID: 143301537 - bid: 0.33889048577177355
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 15904
+ID: 1205564468 - bid: 0.5618564011433247
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 0
+Day 27: Updating campaign 1205564468 stats: 20465.923843577548 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 10.350536604612792
+Day 27: Updating campaign 143301537 stats: 2329.0407934271575 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 2.142857142857143
+Campaign ID: 1904722309 - Index: 1.0
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 143301537 - Index: 1.0
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+***PRICE INDEX***: 0.20833333333333334
+OLD
+LOW_INCOME
+YOUNG
+FEMALE
+HIGH_INCOME
+Day 27 :BankStatus[11.809258]
+Day 27 : Simulation Status Received
+ID: 1904722309 - bid: 0.3062371176591868
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 8392
+ID: 143301537 - bid: 1.055301521816919
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 13574
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1205564468 - bid: 0.12277790665388957
+ID: 1205564468 - Budget: 5.374 - Current cost: 0.0
+ID: 1205564468 - Reach: 15840 - Imps2Go: 0
+Day 28: Updating campaign 1904722309 stats: 4903.09103435644 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.9662302532270264
+Day 28: Updating campaign 1205564468 stats: 20465.923843577548 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 2.0561986600018725
+Day 28: Updating campaign 143301537 stats: 4135.430816316602 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 2.4761904761904763
+Campaign ID added: 266643251
+Campaign ID: 1904722309 - Index: 1.0
+Campaign ID: 143301537 - Index: 2.3
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 266643251 - Index: 1.0
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.1904484126984127
+OLD
+LOW_INCOME
+HIGH_INCOME
+YOUNG
+FEMALE
+Day 28 :BankStatus[11.696549]
+Day 28 : Simulation Status Received
+ID: 1904722309 - bid: 0.09537016340842974
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 3488
+ID: 143301537 - bid: 2.1943167912984367
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 11768
+ID: 266643251 - bid: 0.0647898493259318
+ID: 266643251 - Budget: 1.634 - Current cost: 0.0
+ID: 266643251 - Reach: 12610 - Imps2Go: 12610
+Day 29: Updating campaign 1904722309 stats: 9913.24868085408 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.9197318211484469
+Day 29: Updating campaign 1205564468 stats: 20465.923843577548 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1205564468 - Seg: [LOW_INCOME, FEMALE, YOUNG] - Seg pop: 1.8142227393185382
+Day 29: Updating campaign 143301537 stats: 6863.463977018336 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 2.9333333333333336
+Campaign ID added: 611483270
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 1.0
+Campaign ID: 266643251 - Index: 1.0
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.1789484126984127
+OLD
+LOW_INCOME
+HIGH_INCOME
+YOUNG
+FEMALE
+Day 29 :BankStatus[17.912939]
+Day 29 : Simulation Status Received
+ID: 1904722309 - bid: 0.01150696456700472
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+ID: 143301537 - bid: 3.505699115044248
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 9040
+ID: 611483270 - bid: 0.2247011232263496
+ID: 611483270 - Budget: 8.549 - Current cost: 0.0
+ID: 611483270 - Reach: 27055 - Imps2Go: 27055
+ID: 266643251 - bid: 0.13821834522865453
+ID: 266643251 - Budget: 1.634 - Current cost: 0.0
+ID: 266643251 - Reach: 12610 - Imps2Go: 12610
+Day 30: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 0.5572855877556764
+Day 30: Updating campaign 266643251 stats: 8486.113362135127 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 266643251 - Seg: [FEMALE] - Seg pop: 1.3333333333333335
+Day 30: Updating campaign 143301537 stats: 9377.163768780609 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 3.6
+Campaign ID added: 1828851852
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 1.0
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 1.0
+Campaign ID: 266643251 - Index: 1.0
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.41757941021887335
+OLD
+LOW_INCOME
+HIGH_INCOME
+YOUNG
+FEMALE
+Day 30 :BankStatus[17.769076]
+Day 30 : Simulation Status Received
+ID: 1904722309 - bid: 0.019623580750180874
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+ID: 143301537 - bid: 6.295065890285014
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 6526
+ID: 1828851852 - bid: 0.8718972626069017
+ID: 1828851852 - Budget: 11.922 - Current cost: 0.0
+ID: 1828851852 - Reach: 25220 - Imps2Go: 25220
+ID: 611483270 - bid: 0.25910848272038434
+ID: 611483270 - Budget: 8.549 - Current cost: 0.0
+ID: 611483270 - Reach: 27055 - Imps2Go: 27055
+ID: 266643251 - bid: 0.14619414912858006
+ID: 266643251 - Budget: 1.634 - Current cost: 0.0
+ID: 266643251 - Reach: 12610 - Imps2Go: 4123
+Day 31: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 0.9503756328227025
+Day 31: Updating campaign 266643251 stats: 15910.601883613472 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 266643251 - Seg: [FEMALE] - Seg pop: 2.305532729716706
+Day 31: Updating campaign 611483270 stats: 5967.332403767485 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 611483270 - Seg: [OLD] - Seg pop: 1.025
+Day 31: Updating campaign 143301537 stats: 11355.65171530631 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 4.666666666666666
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 1.0
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 1.0
+Campaign ID: 266643251 - Index: 0.2
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 1.1499876794184685
+OLD
+LOW_INCOME
+HIGH_INCOME
+YOUNG
+FEMALE
+Day 31 :BankStatus[17.684807]
+Day 31 : Simulation Status Received
+ID: 1904722309 - bid: 0.03063076278001769
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+ID: 143301537 - bid: 12.904133685136323
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 4548
+ID: 1828851852 - bid: 1.4181494000931494
+ID: 1828851852 - Budget: 11.922 - Current cost: 0.0
+ID: 1828851852 - Reach: 25220 - Imps2Go: 25220
+ID: 611483270 - bid: 1.5025678836245555
+ID: 611483270 - Budget: 8.549 - Current cost: 0.0
+ID: 611483270 - Reach: 27055 - Imps2Go: 21087
+ID: 266643251 - bid: 0.17881862356752473
+ID: 266643251 - Budget: 1.634 - Current cost: 0.0
+ID: 266643251 - Reach: 12610 - Imps2Go: 0
+Day 32: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.483456609244624
+Day 32: Updating campaign 266643251 stats: 15910.601883613472 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 266643251 - Seg: [FEMALE] - Seg pop: 3.7499714677014375
+Day 32: Updating campaign 611483270 stats: 15274.015294058981 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 611483270 - Seg: [OLD] - Seg pop: 2.0142610731226513
+Day 32: Updating campaign 1828851852 stats: 10085.802010193638 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 3.7499714677014375
+Day 32: Updating campaign 143301537 stats: 13792.313940866494 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 6.666666666666666
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 1.0
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 2.3
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.7975210785624499
+OLD
+LOW_INCOME
+HIGH_INCOME
+YOUNG
+FEMALE
+Day 32 :BankStatus[17.568237]
+Day 32 : Simulation Status Received
+ID: 1904722309 - bid: 0.0409598913472001
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+ID: 143301537 - bid: 50.04187588820465
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 2111
+ID: 1828851852 - bid: 0.29588634675779435
+ID: 1828851852 - Budget: 11.922 - Current cost: 0.0
+ID: 1828851852 - Reach: 25220 - Imps2Go: 15134
+ID: 611483270 - bid: 5.486379901470908
+ID: 611483270 - Budget: 8.549 - Current cost: 0.0
+ID: 611483270 - Reach: 27055 - Imps2Go: 11780
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 266643251 - bid: 0.1231365622411045
+ID: 266643251 - Budget: 1.634 - Current cost: 0.0
+ID: 266643251 - Reach: 12610 - Imps2Go: 0
+Day 33: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.983699262382867
+Day 33: Updating campaign 266643251 stats: 15910.601883613472 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 266643251 - Seg: [FEMALE] - Seg pop: 2.3475213742621097
+Day 33: Updating campaign 611483270 stats: 20370.532308621187 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 611483270 - Seg: [OLD] - Seg pop: 2.6999630382554054
+Day 33: Updating campaign 1828851852 stats: 14441.832412867461 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 2.3475213742621097
+Day 33: Updating campaign 143301537 stats: 15432.643970614696 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 12.0
+Campaign ID added: 1845686346
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 1.0
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 0.2
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.15819279322109392
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+Day 33 :BankStatus[17.450240]
+Day 33 : Simulation Status Received
+ID: 1904722309 - bid: 0.06435294122344536
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+ID: 1845686346 - bid: 0.45432326602914597
+ID: 1845686346 - Budget: 1.205 - Current cost: 0.0
+ID: 1845686346 - Reach: 5366 - Imps2Go: 5366
+ID: 143301537 - bid: 158.8687898089172
+ID: 143301537 - Budget: 3.144 - Current cost: 0.0
+ID: 143301537 - Reach: 15904 - Imps2Go: 471
+ID: 1828851852 - bid: 1.3364550396277324
+ID: 1828851852 - Budget: 11.922 - Current cost: 0.0
+ID: 1828851852 - Reach: 25220 - Imps2Go: 10778
+ID: 611483270 - bid: 15.757317546178124
+ID: 611483270 - Budget: 8.549 - Current cost: 0.0
+ID: 611483270 - Reach: 27055 - Imps2Go: 6684
+Day 34: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 3.11663136396095
+Day 34: Updating campaign 266643251 stats: 15910.601883613472 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 266643251 - Seg: [FEMALE] - Seg pop: 3.2831868232979264
+Day 34: Updating campaign 611483270 stats: 27296.11304604776 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 611483270 - Seg: [OLD] - Seg pop: 4.399926076510811
+Day 34: Updating campaign 1828851852 stats: 22467.25471116207 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 3.2831868232979264
+Day 34: Updating campaign 143301537 stats: 17544.045025540072 tgtImps 0.0 nonTgtImps. Cost of imps is 0.8983373685796617
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 8.5
+Campaign ID added: 399977820
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 1.0
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 1.0
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 0.45999999999999996
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.2067823384635852
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+Day 34 :BankStatus[19.222312]
+Day 34 : Simulation Status Received
+ID: 1904722309 - bid: 0.08251116430485163
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+ID: 1845686346 - bid: 0.8506893850806062
+ID: 1845686346 - Budget: 1.205 - Current cost: 0.0
+ID: 1845686346 - Reach: 5366 - Imps2Go: 5366
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 143301537 - bid: 0.33826291079812215
+ID: 143301537 - Budget: 3.144 - Current cost: 0.8983373685796617
+ID: 143301537 - Reach: 15904 - Imps2Go: 0
+ID: 399977820 - bid: 0.21244742608404554
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 3865
+ID: 1828851852 - bid: 21.632503604177117
+ID: 1828851852 - Budget: 11.922 - Current cost: 0.0
+ID: 1828851852 - Reach: 25220 - Imps2Go: 2752
+ID: 611483270 - bid: 2.8754721862871935
+ID: 611483270 - Budget: 8.549 - Current cost: 0.0
+ID: 611483270 - Reach: 27055 - Imps2Go: 0
+Day 35: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 3.9960393054381047
+Day 35: Updating campaign 611483270 stats: 30368.144988043012 tgtImps 0.0 nonTgtImps. Cost of imps is 8.555070758224355
+ID: 611483270 - Seg: [OLD] - Seg pop: 3.25
+Day 35: Updating campaign 1828851852 stats: 24605.328046332557 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 5.899706979929187
+Day 35: Updating campaign 143301537 stats: 18015.3182485805 tgtImps 0.0 nonTgtImps. Cost of imps is 1.6829101412538694
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 0.5555555555555556
+Day 35: Updating campaign 1845686346 stats: 887.091256489114 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1845686346 - Seg: [FEMALE, YOUNG] - Seg pop: 4.73526892151715
+Campaign ID added: 1842232026
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 1.0
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 1.0
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 1.0579999999999998
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 1842232026 - Index: 1.0
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 1.2201590037722803
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+MALE
+Day 35 :BankStatus[18.204608]
+Day 35 : Simulation Status Received
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1904722309 - bid: 0.022578687073664783
+ID: 1904722309 - Budget: 1.083 - Current cost: 0.0
+ID: 1904722309 - Reach: 8392 - Imps2Go: 0
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1845686346 - bid: 0.8907494330061381
+ID: 1845686346 - Budget: 1.205 - Current cost: 0.0
+ID: 1845686346 - Reach: 5366 - Imps2Go: 4478
+ID: 399977820 - bid: 0.10332509416167016
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 3865
+ID: 1828851852 - bid: 77.46388445237658
+ID: 1828851852 - Budget: 11.922 - Current cost: 0.0
+ID: 1828851852 - Reach: 25220 - Imps2Go: 614
+ID: 611483270 - bid: 2.181829963563469
+ID: 611483270 - Budget: 8.549 - Current cost: 8.555070758224355
+ID: 611483270 - Reach: 27055 - Imps2Go: 0
+ID: 1842232026 - bid: 0.13778134619447505
+ID: 1842232026 - Budget: 2.367 - Current cost: 0.0
+ID: 1842232026 - Reach: 11765 - Imps2Go: 11765
+Day 36: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 0.9940838890403071
+Day 36: Updating campaign 611483270 stats: 30368.144988043012 tgtImps 0.0 nonTgtImps. Cost of imps is 8.555070758224355
+ID: 611483270 - Seg: [OLD] - Seg pop: 2.466011466011466
+Day 36: Updating campaign 1828851852 stats: 27362.17560824135 tgtImps 0.0 nonTgtImps. Cost of imps is 4.923441914700071
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 2.0493447993447993
+Day 36: Updating campaign 143301537 stats: 18015.3182485805 tgtImps 0.0 nonTgtImps. Cost of imps is 1.6829101412538694
+ID: 143301537 - Seg: [HIGH_INCOME] - Seg pop: 1.4243447993447993
+Day 36: Updating campaign 1845686346 stats: 2816.5064870457454 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1845686346 - Seg: [FEMALE, YOUNG] - Seg pop: 1.6354681420470893
+Day 36: Updating campaign 399977820 stats: 1119.4902693383376 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 399977820 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 1.2542446260516809
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 2.3
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 1.0
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 2.4333999999999993
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 1842232026 - Index: 1.0
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.6774995681738867
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+MALE
+Day 36 :BankStatus[12.207289]
+Day 36 : Simulation Status Received
+ID: 399977820 - bid: 0.03509455356740356
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 2745
+ID: 1828851852 - bid: 4.851958466721353
+ID: 1828851852 - Budget: 11.922 - Current cost: 4.923441914700071
+ID: 1828851852 - Reach: 25220 - Imps2Go: 0
+ID: 611483270 - bid: 3.9805534835082046
+ID: 611483270 - Budget: 8.549 - Current cost: 8.555070758224355
+ID: 611483270 - Reach: 27055 - Imps2Go: 0
+ID: 1842232026 - bid: 0.15586764985518786
+ID: 1842232026 - Budget: 2.367 - Current cost: 0.0
+ID: 1842232026 - Reach: 11765 - Imps2Go: 11765
+Day 37: Updating campaign 1904722309 stats: 13403.09674422826 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1904722309 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.8136170799286344
+Day 37: Updating campaign 611483270 stats: 30368.144988043012 tgtImps 0.0 nonTgtImps. Cost of imps is 8.555070758224355
+ID: 611483270 - Seg: [OLD] - Seg pop: 4.4990171990171985
+Day 37: Updating campaign 1842232026 stats: 1913.8863160484211 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1842232026 - Seg: [MALE, YOUNG] - Seg pop: 0.9684109107236399
+Day 37: Updating campaign 1828851852 stats: 27979.19659326084 tgtImps 0.0 nonTgtImps. Cost of imps is 5.124262525899054
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 3.6656838656838655
+Day 37: Updating campaign 1845686346 stats: 6815.91297478995 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1845686346 - Seg: [FEMALE, YOUNG] - Seg pop: 2.557426716637243
+Day 37: Updating campaign 399977820 stats: 1853.5257431606951 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 399977820 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 1.5127912930672547
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 3.5
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 0.2
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 1842232026 - Index: 1.0
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 0.40364089711458134
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+MALE
+Day 37 :BankStatus[9.964030]
+Day 37 : Simulation Status Received
+ID: 399977820 - bid: 0.1904356652922608
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 2011
+ID: 1828851852 - bid: 8.86562668760607
+ID: 1828851852 - Budget: 11.922 - Current cost: 5.124262525899054
+ID: 1828851852 - Reach: 25220 - Imps2Go: 0
+ID: 611483270 - bid: 7.430250563394158
+ID: 611483270 - Budget: 8.549 - Current cost: 8.555070758224355
+ID: 611483270 - Reach: 27055 - Imps2Go: 0
+ID: 1842232026 - bid: 0.6629752127351582
+ID: 1842232026 - Budget: 2.367 - Current cost: 0.0
+ID: 1842232026 - Reach: 11765 - Imps2Go: 9851
+Day 38: Updating campaign 611483270 stats: 30368.144988043012 tgtImps 0.0 nonTgtImps. Cost of imps is 8.555070758224355
+ID: 611483270 - Seg: [OLD] - Seg pop: 8.398034398034397
+Day 38: Updating campaign 1842232026 stats: 3708.3714550031145 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1842232026 - Seg: [MALE, YOUNG] - Seg pop: 1.4995519968071043
+Day 38: Updating campaign 1828851852 stats: 27979.19659326084 tgtImps 0.0 nonTgtImps. Cost of imps is 5.124262525899054
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 6.698034398034398
+Day 38: Updating campaign 399977820 stats: 2636.381537361145 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 399977820 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 2.614745759386173
+Campaign ID added: 2119958836
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 3.5
+Campaign ID: 2119958836 - Index: 1.0
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 0.45999999999999996
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 1842232026 - Index: 2.3
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 1.0626774423286516
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+MALE
+Day 38 :BankStatus[9.645106]
+Day 38 : Simulation Status Received
+ID: 2119958836 - bid: 0.5409350260882603
+ID: 2119958836 - Budget: 2.265 - Current cost: 0.0
+ID: 2119958836 - Reach: 17888 - Imps2Go: 17888
+ID: 399977820 - bid: 0.6453867697910599
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 1228
+ID: 1828851852 - bid: 10.220716239272942
+ID: 1828851852 - Budget: 11.922 - Current cost: 5.124262525899054
+ID: 1828851852 - Reach: 25220 - Imps2Go: 0
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 611483270 - bid: 1.7838688157756721
+ID: 611483270 - Budget: 8.549 - Current cost: 8.555070758224355
+ID: 611483270 - Reach: 27055 - Imps2Go: 0
+ID: 1842232026 - bid: 1.432687377462009
+ID: 1842232026 - Budget: 2.367 - Current cost: 0.0
+ID: 1842232026 - Reach: 11765 - Imps2Go: 8056
+Day 39: Updating campaign 611483270 stats: 30368.144988043012 tgtImps 0.0 nonTgtImps. Cost of imps is 8.555070758224355
+ID: 611483270 - Seg: [OLD] - Seg pop: 1.8329238329238327
+Day 39: Updating campaign 1842232026 stats: 5205.119994775565 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1842232026 - Seg: [MALE, YOUNG] - Seg pop: 1.74146440835807
+Day 39: Updating campaign 1828851852 stats: 27979.19659326084 tgtImps 0.0 nonTgtImps. Cost of imps is 5.124262525899054
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 7.7218127218127215
+Day 39: Updating campaign 399977820 stats: 3225.5140105030096 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 399977820 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 2.3526628692357745
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 3.5
+Campaign ID: 2119958836 - Index: 1.0
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 1.0579999999999998
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 1842232026 - Index: 3.5
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 1.0028515280611983
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+MALE
+Day 39 :BankStatus[9.481391]
+Day 39 : Simulation Status Received
+ID: 2119958836 - bid: 0.3653541625489889
+ID: 2119958836 - Budget: 2.265 - Current cost: 0.0
+ID: 2119958836 - Reach: 17888 - Imps2Go: 17888
+ID: 399977820 - bid: 3.72481271605717
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 639
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1828851852 - bid: 5.459022397496626
+ID: 1828851852 - Budget: 11.922 - Current cost: 5.124262525899054
+ID: 1828851852 - Reach: 25220 - Imps2Go: 0
+ID: 1842232026 - bid: 2.2006778809358356
+ID: 1842232026 - Budget: 2.367 - Current cost: 0.0
+ID: 1842232026 - Reach: 11765 - Imps2Go: 6559
+Day 40: Updating campaign 611483270 stats: 30368.144988043012 tgtImps 0.0 nonTgtImps. Cost of imps is 8.555070758224355
+ID: 611483270 - Seg: [OLD] - Seg pop: 2.749385749385749
+Day 40: Updating campaign 1842232026 stats: 7256.774970234163 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1842232026 - Seg: [MALE, YOUNG] - Seg pop: 2.177899423782085
+Day 40: Updating campaign 1828851852 stats: 27979.19659326084 tgtImps 0.0 nonTgtImps. Cost of imps is 5.124262525899054
+ID: 1828851852 - Seg: [FEMALE] - Seg pop: 3.749385749385749
+Day 40: Updating campaign 399977820 stats: 3953.947576431103 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 399977820 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 3.071982495024916
+Day 40: Updating campaign 2119958836 stats: 5408.183497822195 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 2119958836 - Seg: [FEMALE, YOUNG] - Seg pop: 3.606763388342336
+Campaign ID: 1904722309 - Index: 0.2
+Campaign ID: 1845686346 - Index: 3.5
+Campaign ID: 2119958836 - Index: 1.0
+Campaign ID: 143301537 - Index: 3.5
+Campaign ID: 399977820 - Index: 2.4333999999999993
+Campaign ID: 1504109707 - Index: 3.5
+Campaign ID: 1828851852 - Index: 3.5
+Campaign ID: 1205564468 - Index: 0.2
+Campaign ID: 900798981 - Index: 0.45999999999999996
+Campaign ID: 423704693 - Index: 0.2
+Campaign ID: 611483270 - Index: 3.5
+Campaign ID: 1842232026 - Index: 3.5
+Campaign ID: 266643251 - Index: 0.45999999999999996
+Campaign ID: 1148497772 - Index: 3.5
+Campaign ID: 2109629254 - Index: 0.45999999999999996
+Campaign ID: 2012526220 - Index: 3.5
+Campaign ID: 420769902 - Index: 0.2
+Campaign ID: 698156320 - Index: 3.5
+Campaign ID: 1085367054 - Index: 3.5
+***PRICE INDEX***: 1.2870370370370372
+OLD
+LOW_INCOME
+FEMALE
+YOUNG
+HIGH_INCOME
+MALE
+Day 40 :BankStatus[18.753241]
+Day 40 : Simulation Status Received
+ID: 2119958836 - bid: 1.8470670031135825
+ID: 2119958836 - Budget: 2.265 - Current cost: 0.0
+ID: 2119958836 - Reach: 17888 - Imps2Go: 12479
+ID: 399977820 - bid: 1.2082245009726151
+ID: 399977820 - Budget: 0.398 - Current cost: 0.0
+ID: 399977820 - Reach: 3865 - Imps2Go: 0
+ID: 1842232026 - bid: 4.000293807458529
+ID: 1842232026 - Budget: 2.367 - Current cost: 0.0
+ID: 1842232026 - Reach: 11765 - Imps2Go: 4508
