@@ -2,9 +2,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.math3.linear.MatrixUtils;
-import org.apache.commons.math3.linear.QRDecomposition;
-import org.apache.commons.math3.linear.RealMatrix;
 import se.sics.isl.transport.Transportable;
 import se.sics.tasim.aw.Agent;
 import se.sics.tasim.aw.Message;
@@ -168,7 +165,6 @@ public class testAdNetwork extends Agent {
 	private static double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
 
 	private PIP PIPredictor;
-	private RPIP RPIPredictor;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -182,7 +178,6 @@ public class testAdNetwork extends Agent {
 		imps_previous_results = new HashMap<>(); // -1 is loss, 0 if none, +1 if win
 
 		PIPredictor = new PIP();
-		RPIPredictor = new RPIP();
 	}
 
 	@Override
@@ -1368,183 +1363,6 @@ public class testAdNetwork extends Agent {
 			pop = pop / (T.size() * totalSize);
 			//System.out.println("Seg: " + S.toString() + " - pop: " + pop);
 			return pop;
-		}
-	}
-
-	private class RPIP {
-		List<RegressionTuple> labelledList;
-		RegressionTuple sortingTuple; //tuple used for sorting the list based on distance from this
-
-		int K = 3; //Number clusters used for K-means
-
-		public RPIP() {
-			labelledList = new ArrayList<>();
-		}
-
-		public double getPI(Set<MarketSegment> S, int day) { //TODO: Implement this for set of days
-			double delta = PIPredictor.getPop(S, day, day);
-			double rho = 0;
-			double alpha = Math.pow((0.1),(1/10));
-
-			RegressionTuple newTuple = new RegressionTuple(delta,rho,day);
-			generateLabelledList();
-
-			if (labelledList.size() < K) {
-				return delta;
-			}
-
-			sortLabelledList(newTuple);
-
-			double[] reg_consts;
-
-			try {
-				reg_consts = doRegression(day);
-				return reg_consts[0]*delta*10;
-			} catch (Exception e) {
-				System.out.println("Exception attempting regression: " + e.toString());
-			}
-
-			return 0;
-		}
-
-		/**
-		 * Method does the weighted linear regression as described:
-		 * https://onlinecourses.science.psu.edu/stat501/node/352
-		 * @return array with regression constants
-		 */
-		private double[] doRegression(int day) {
-			double alpha = Math.pow((0.1),(1/10));
-
-			double[] x = new double[K];
-			double[] y = new double[K];
-			double[] w = new double[K];
-
-			for (int i = 0; i < K; i++) {
-				x[i] = labelledList.get(i).getDelta();
-				y[i] = labelledList.get(i).getRho();
-				w[i] = Math.pow(alpha, day - labelledList.get(i).getT());
-			}
-
-			double[] X_data = x;
-
-			RealMatrix mat_weights = MatrixUtils.createRealDiagonalMatrix(w);
-			RealMatrix mat_X = MatrixUtils.createColumnRealMatrix(X_data);
-			RealMatrix mat_Y = MatrixUtils.createColumnRealMatrix(y);
-
-			//want (X'WX)^-1 X'WY = A^-1*B
-			RealMatrix mat_A = mat_X.transpose().multiply(mat_weights.multiply(mat_X));
-			RealMatrix mat_A_inv = new QRDecomposition(mat_A).getSolver().getInverse();
-
-			RealMatrix mat_B = mat_X.transpose().multiply(mat_weights.multiply(mat_Y));
-
-			RealMatrix mat_regression = mat_A_inv.multiply(mat_B);
-
-			return mat_regression.getRow(0); //maybe get row???... its just one num maybe add in the 1s to add offset ie ML
-		}
-
-		private void generateLabelledList(){ //TODO: Make an update list instead of regen each time
-			for (Integer campKey : myCampaignStatsHistory.keySet()) {
-
-				try {
-
-					CampaignStats stats = myCampaigns.get(campKey).stats;
-
-					if (myCampaigns.get(campKey).dayEnd >= day || myCampaigns.get(campKey).stats.getCost() == 0.0) {
-						continue;
-					}
-
-					CampaignData camp;
-					double delta;
-					camp = myCampaigns.get(campKey);
-					delta = PIPredictor.getPop(camp.targetSegment, (int)camp.dayEnd, (int)camp.dayEnd); //TODO: should be longs...
-
-					double rho = stats.getCost(); //TODO: Find out why this is 0...
-					int t = (int)camp.dayEnd;
-
-					labelledList.add(new RegressionTuple(delta,rho,t));
-				} catch (Exception e) {
-					System.out.println("Generating list: " + e.toString());
-				}
-			}
-		}
-
-		/**
-		 * Sorts the list based on distance from regression tuple a
-		 * @param a the regression tuple to compare distances from when sorting
-		 */
-		private void sortLabelledList(RegressionTuple a) {
-			sortingTuple = a; //Moves a to class variable so it can be used when comparing tuples in the list sort
-
-			//Sort list using compare to from regression tuple class
-			try {
-				Collections.sort(labelledList);
-			} catch (Exception e) {
-				System.out.println("Failed sorting list: " + e.toString());
-			}
-		}
-
-		private double getDist(RegressionTuple a, RegressionTuple b) {
-			double modulus = Math.abs(b.getDelta() - a.getDelta());
-			double alpha = Math.pow((0.1),(1/10));
-			double exponent;
-
-			if (a.getT() < b.getT()) {
-				exponent = b.getT() - a.getT();
-			} else {
-				exponent = a.getT() - b.getT();
-			}
-			return modulus*Math.pow(alpha,exponent);
-		}
-
-		private class RegressionTuple implements Comparable<RegressionTuple> {
-			double delta;
-			double rho;
-			int t;
-
-			public RegressionTuple(double delta, double rho, int t) {
-				this.delta = delta;
-				this.rho = rho;
-				this.t = t;
-			}
-
-			private double getDist(RegressionTuple b) {
-				double modulus = Math.abs(b.getDelta() - getDelta());
-				double alpha = Math.pow((0.1),(1/10));
-				double exponent;
-
-				if (getT() < b.getT()) {
-					exponent = b.getT() - getT();
-				} else {
-					exponent = getT() - b.getT();
-				}
-				return modulus*Math.pow(alpha,exponent);
-			}
-
-			@Override
-			public int compareTo(RegressionTuple b) {
-				double distFromNewTuple = getDist(sortingTuple);
-				double distFromB = getDist(b);
-				int compared;
-
-				if (distFromNewTuple == distFromB)		{ compared = 0; }
-				else if (distFromNewTuple < distFromB) 	{ compared = -1;}
-				else {compared = +1; }
-
-				return  compared;
-
-			}
-
-			public double getDelta() {
-				return delta;
-			}
-
-			public double getRho() {
-				return rho;
-			}
-
-			public int getT() {
-				return t;
-			}
 		}
 	}
 }
