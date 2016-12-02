@@ -2,17 +2,17 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.math3.linear.MatrixUtils;
+import org.apache.commons.math3.linear.QRDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
 import se.sics.isl.transport.Transportable;
 import se.sics.tasim.aw.Agent;
 import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 import tau.tac.adx.ads.properties.AdType;
-import tau.tac.adx.demand.Campaign;
-import tau.tac.adx.demand.CampaignImpl;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
-import tau.tac.adx.messages.Contract;
 import tau.tac.adx.props.AdxBidBundle;
 import tau.tac.adx.props.AdxQuery;
 import tau.tac.adx.props.PublisherCatalog;
@@ -120,14 +120,17 @@ public class testAdNetwork extends Agent {
 	private String[] publisherNames;
 	private CampaignData currCampaign;
 
+	private double currrcurrProfit;
+
 	/**
 	 * Unused variable used to hold the daily publisher report.
 	 */
 	private AdxPublisherReport pubReport;
-	private boolean verbose_printing = true;
-	private boolean ucs_printing = true;
-	private boolean contract_printing = true;
-	private boolean impressions_printing = true;
+	private boolean verbose_printing = 		false;
+	private boolean ucs_printing = 			false;
+	private boolean contract_printing = 	false;
+	private boolean impressions_printing = 	true;
+	private boolean costs_printing = 		false;
 
 	/**
 	 * Keeps list of all currently running campaigns allocated to any agent.
@@ -139,7 +142,7 @@ public class testAdNetwork extends Agent {
 	 */
 	private UCSBidTracker ucsTracker;
 	private ImpTracker impTracker;
-	private Map<Integer, List<CampaignStats>> myCampaignStatsHistory;
+	private Map<Integer, CampaignStats> myCampaignStatsHistory;
 
 	private double currQuality = 1.0;
 
@@ -153,12 +156,19 @@ public class testAdNetwork extends Agent {
 	private long previous_campaign_bid = 0;
 
 	private Map<Integer, Double> imps_competing_indicies;
-	private static double IMP_GREED = 1.3;
-	private static double IMP_COMPETING_INDEX_DEFAULT = 1.5;
-	private static double IMP_COMPETING_INDEX_MAX = 3.0; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
+	private Map<Integer, Integer> imps_previous_results;
+	private static double IMP_GREED_LOSE = 1.3;
+    private static double IMP_GREED_WIN = 1.6;
+	private static double IMP_COMPETING_INDEX_DEFAULT = 1.0;
+	private static double IMP_COMPETING_INDEX_MAX = 3.5; //TODO: Decide on this and change it so if it goes over max valid bid, just bids that
 	private static double IMP_COMPETING_INDEX_MIN = 0.2;
+	private static double IMP_RESULT_MODIFIER_LOSE_LOSE = +0.3; //TODO: Properly do these values
+	private static double IMP_RESULT_MODIFIER_WIN_WIN = -0.2;
+	private static double IMP_RESULT_MODIFIER_WIN_LOSE = +0.3;
+	private static double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
 
 	private PIP PIPredictor;
+	private RPIP RPIPredictor;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -169,8 +179,10 @@ public class testAdNetwork extends Agent {
 		myCampaignStatsHistory = new HashMap<>();
 
 		imps_competing_indicies = new HashMap<>();
+		imps_previous_results = new HashMap<>(); // -1 is loss, 0 if none, +1 if win
 
 		PIPredictor = new PIP();
+		RPIPredictor = new RPIP();
 	}
 
 	@Override
@@ -217,7 +229,8 @@ public class testAdNetwork extends Agent {
 	}
 
 	private void handleBankStatus(BankStatus content) {
-		if (verbose_printing) { System.out.println("Day " + day + " :" + content.toString()); }
+		currrcurrProfit = content.getAccountBalance();
+		if (true) { System.out.println("Day " + day + " :" + content.toString()); }
 	}
 
 	/**
@@ -260,7 +273,8 @@ public class testAdNetwork extends Agent {
 		currCampaign = campaignData;
 		genCampaignQueries(currCampaign);
 
-		imps_competing_indicies.put(currCampaign.id, IMP_COMPETING_INDEX_DEFAULT);
+		imps_competing_indicies.put(currCampaign.id, 2.0);
+		imps_previous_results.put(currCampaign.id, 0); //ie no results yet
 
 		//Initialise coeff means
 		meanMobCoeff = campaignMessage.getMobileCoef();
@@ -370,6 +384,7 @@ public class testAdNetwork extends Agent {
 			myCampaigns.put(pendingCampaign.id, pendingCampaign);
 
 			imps_competing_indicies.put(pendingCampaign.id, IMP_COMPETING_INDEX_DEFAULT);
+			imps_previous_results.put(pendingCampaign.id, 0);
 			System.out.println("Campaign ID added: " + pendingCampaign.id);
 
 			campaignAllocatedTo = " WON at cost (Millis)"
@@ -506,7 +521,7 @@ public class testAdNetwork extends Agent {
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
-						if (verbose_printing) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
+						if (false) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
 				}
 				if(impressions_printing) {
@@ -566,22 +581,17 @@ public class testAdNetwork extends Agent {
 
 			//Updates each campaign in myCampaigns with new stats
 			myCampaigns.get(cmpId).setStats(cstats);
-
-			//Updates the campaign stats history for each campaign
-			List<CampaignStats> newStatsList;
-			if (myCampaignStatsHistory.get(cmpId) != null) {
-				newStatsList = myCampaignStatsHistory.get(cmpId);
-			} else {
-				newStatsList = new ArrayList<>();
+			for (Integer campID : myCampaigns.keySet()) {
+				if (costs_printing) { System.out.println("Campaign ID: " + campID + " - Cost: " + myCampaigns.get(campID).stats.getCost());}
 			}
 
-			newStatsList.add(cstats);
-			myCampaignStatsHistory.put(cmpId, newStatsList);
+			myCampaignStatsHistory.put(cmpId, cstats);
 
-			if (verbose_printing) { System.out.println("Day " + day + ": Updating campaign " + cmpId + " stats: "
+			if (true) { System.out.println("Day " + day + ": Updating campaign " + cmpId + " stats: "
 					+ cstats.getTargetedImps() + " tgtImps "
 					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
 					+ cstats.getCost());
+				System.out.println("ID: " + cmpId + " - Seg: " + myCampaigns.get(cmpId).targetSegment + " - Seg pop: " + PIPredictor.getPop(myCampaigns.get(cmpId).targetSegment, day, day));
 			}
 		}
 	}
@@ -810,20 +820,36 @@ public class testAdNetwork extends Agent {
 
 		private void updateImpCompeteIndex(int campId, int newImpsWon) {
 			double comp_index = imps_competing_indicies.get(campId);
+			double prev_result = imps_previous_results.get(campId);
+
+			double result_modifier = 1;
+
 			CampaignData camp = myCampaigns.get(campId);
 			int dur;
 			if (camp.dayEnd == day) { dur = 1; } else { dur = (int)camp.dayEnd - day; }
 			//double avImpsPerDayReq = camp.impstogo / dur
 			double avImpsPerDayReq = camp.reachImps/(camp.dayEnd - camp.dayStart);
-			//TODO: Maybe need to remove obj here?
 
 			if (newImpsWon < avImpsPerDayReq) {
-				comp_index = (comp_index * IMP_GREED > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * IMP_GREED;
+			    //LOSE
+				if (prev_result == -1) {
+					result_modifier = IMP_RESULT_MODIFIER_LOSE_LOSE; //Add to greed
+				} else if (prev_result == 1) {
+					result_modifier = IMP_RESULT_MODIFIER_WIN_LOSE;
+				}
+				comp_index = (comp_index * (IMP_GREED_LOSE + result_modifier) > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * (IMP_GREED_LOSE + result_modifier);
 				if (impressions_printing) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
 			} else {
-				comp_index = (comp_index / IMP_GREED < IMP_COMPETING_INDEX_MIN) ? IMP_COMPETING_INDEX_MIN : comp_index / IMP_GREED;
+				//WIN
+				if (prev_result == -1) {
+					result_modifier = IMP_RESULT_MODIFIER_LOSE_WIN; //Add to greed
+				} else if (prev_result == 1) {
+					result_modifier = IMP_RESULT_MODIFIER_WIN_WIN;
+				}
+				comp_index = (comp_index / IMP_GREED_WIN < (IMP_GREED_WIN + result_modifier)) ? IMP_COMPETING_INDEX_MIN : comp_index / (IMP_GREED_WIN + result_modifier);
 				if (impressions_printing) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
 			}
+
 			imps_competing_indicies.put(campId,comp_index);
 		}
 
@@ -864,7 +890,6 @@ public class testAdNetwork extends Agent {
 					System.out.println("Updating compete index: " + e.toString());
 				}
 			}
-
 
 			if (verbose_printing) {
 				for (ImpBidTrackingObject bid : history) {
@@ -1309,7 +1334,11 @@ public class testAdNetwork extends Agent {
 			double budget = camp.budget;
 
 			if (adv) {
-				bid = budget * PIPredictor.getPop(camp.targetSegment, day + 1, day + 1);
+				if (day < 4) {
+					bid = budget * PIPredictor.getPop(camp.targetSegment, day+1, day+1);
+				} else {
+					bid = budget * PIPredictor.getPop(camp.targetSegment, day + 1, day+1);
+				}
 			} else {
 				bid = budget * budgetCoeff;
 			}
@@ -1317,10 +1346,10 @@ public class testAdNetwork extends Agent {
 			bid = bid * comp_index;
 
 			//If low budget and reach, set bid to max per impression
-			if (budget < low_budget && camp.reachImps < low_reach) {
-				bid = 0.001*budget;
-				if (impressions_printing) { System.out.println("Low budget and Low reach. Bidding max per impression.");}
-			}
+//			if (budget < low_budget && camp.reachImps < low_reach) {
+//				bid = 0.001*budget;
+//				if (impressions_printing) { System.out.println("Low budget and Low reach. Bidding max per impression.");}
+//			}
 
 //			if (day < 3) {
 //				bid = 0.001*budget;
@@ -1328,7 +1357,7 @@ public class testAdNetwork extends Agent {
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1) {
-				bid = bid*2+DELTA; //technically should only have Delta for adv
+				bid = bid*1.1;
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
 
@@ -1395,24 +1424,114 @@ public class testAdNetwork extends Agent {
 
 	private class RPIP {
 		List<RegressionTuple> labelledList;
+		RegressionTuple sortingTuple; //tuple used for sorting the list based on distance from this
 
-		private void generateLabelledList(){
+		int K = 3; //Number clusters used for K-means
+
+		public RPIP() {
+			labelledList = new ArrayList<>();
+		}
+
+		public double getPI(Set<MarketSegment> S, int day) { //TODO: Implement this for set of days
+			double delta = PIPredictor.getPop(S, day, day);
+			double rho = 0;
+			double alpha = Math.pow((0.1),(1/10));
+
+			RegressionTuple newTuple = new RegressionTuple(delta,rho,day);
+			generateLabelledList();
+
+			if (labelledList.size() < K) {
+				return delta;
+			}
+
+			sortLabelledList(newTuple);
+
+			double[] reg_consts;
+
+			try {
+				reg_consts = doRegression(day);
+				return reg_consts[0]*delta*10;
+			} catch (Exception e) {
+				System.out.println("Exception attempting regression: " + e.toString());
+			}
+
+			return 0;
+		}
+
+		/**
+		 * Method does the weighted linear regression as described:
+		 * https://onlinecourses.science.psu.edu/stat501/node/352
+		 * @return array with regression constants
+		 */
+		private double[] doRegression(int day) {
+			double alpha = Math.pow((0.1),(1/10));
+
+			double[] x = new double[K];
+			double[] y = new double[K];
+			double[] w = new double[K];
+
+			for (int i = 0; i < K; i++) {
+				x[i] = labelledList.get(i).getDelta();
+				y[i] = labelledList.get(i).getRho();
+				w[i] = Math.pow(alpha, day - labelledList.get(i).getT());
+			}
+
+			double[] X_data = x;
+
+			RealMatrix mat_weights = MatrixUtils.createRealDiagonalMatrix(w);
+			RealMatrix mat_X = MatrixUtils.createColumnRealMatrix(X_data);
+			RealMatrix mat_Y = MatrixUtils.createColumnRealMatrix(y);
+
+			//want (X'WX)^-1 X'WY = A^-1*B
+			RealMatrix mat_A = mat_X.transpose().multiply(mat_weights.multiply(mat_X));
+			RealMatrix mat_A_inv = new QRDecomposition(mat_A).getSolver().getInverse();
+
+			RealMatrix mat_B = mat_X.transpose().multiply(mat_weights.multiply(mat_Y));
+
+			RealMatrix mat_regression = mat_A_inv.multiply(mat_B);
+
+			return mat_regression.getRow(0); //maybe get row???... its just one num maybe add in the 1s to add offset ie ML
+		}
+
+		private void generateLabelledList(){ //TODO: Make an update list instead of regen each time
 			for (Integer campKey : myCampaignStatsHistory.keySet()) {
-				List<CampaignStats> statsList = myCampaignStatsHistory.get(campKey);
-				CampaignStats stats = statsList.get(statsList.size());
 
-				CampaignData camp = myCampaigns.get(campKey);
+				try {
 
-				double delta = PIPredictor.getPop(camp.targetSegment, (int)camp.dayEnd, (int)camp.dayEnd); //TODO: should be longs...
-				double rho = stats.getCost();
-				int t = (int)camp.dayEnd;
+					CampaignStats stats = myCampaigns.get(campKey).stats;
 
-				labelledList.add(new RegressionTuple(delta,rho,t));
+					if (myCampaigns.get(campKey).dayEnd >= day || myCampaigns.get(campKey).stats.getCost() == 0.0) {
+						continue;
+					}
+
+					CampaignData camp;
+					double delta;
+					camp = myCampaigns.get(campKey);
+					delta = PIPredictor.getPop(camp.targetSegment, (int)camp.dayEnd, (int)camp.dayEnd); //TODO: should be longs...
+
+					double rho = stats.getCost(); //TODO: Find out why this is 0...
+					int t = (int)camp.dayEnd;
+
+					labelledList.add(new RegressionTuple(delta,rho,t));
+				} catch (Exception e) {
+					System.out.println("Generating list: " + e.toString());
+				}
 			}
 		}
 
-		private void sortLabelledList() {
+		/**
+		 * Sorts the list based on distance from regression tuple a
+		 * @param a the regression tuple to compare distances from when sorting
+		 */
+		private void sortLabelledList(RegressionTuple a) {
+			sortingTuple = a; //Moves a to class variable so it can be used when comparing tuples in the list sort
 
+			//Sort list using compare to from regression tuple class
+			try {
+				Collections.sort(labelledList);
+			} catch (Exception e) {
+				System.out.println("Failed sorting list: " + e.toString());
+			}
 		}
 
 		private double getDist(RegressionTuple a, RegressionTuple b) {
@@ -1428,7 +1547,7 @@ public class testAdNetwork extends Agent {
 			return modulus*Math.pow(alpha,exponent);
 		}
 
-		private class RegressionTuple {
+		private class RegressionTuple implements Comparable<RegressionTuple> {
 			double delta;
 			double rho;
 			int t;
@@ -1450,6 +1569,20 @@ public class testAdNetwork extends Agent {
 					exponent = getT() - b.getT();
 				}
 				return modulus*Math.pow(alpha,exponent);
+			}
+
+			@Override
+			public int compareTo(RegressionTuple b) {
+				double distFromNewTuple = getDist(sortingTuple);
+				double distFromB = getDist(b);
+				int compared;
+
+				if (distFromNewTuple == distFromB)		{ compared = 0; }
+				else if (distFromNewTuple < distFromB) 	{ compared = -1;}
+				else {compared = +1; }
+
+				return  compared;
+
 			}
 
 			public double getDelta() {
