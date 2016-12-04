@@ -7,6 +7,7 @@ import se.sics.tasim.aw.Agent;
 import se.sics.tasim.aw.Message;
 import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
+
 import tau.tac.adx.ads.properties.AdType;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
@@ -124,8 +125,8 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = 		false;
-	private boolean ucs_printing = 			true;
-	private boolean contract_printing = 	true;
+	private boolean ucs_printing = 			false;
+	private boolean contract_printing = 	false;
 	private boolean impressions_printing = 	false;
 	private boolean costs_printing = 		false;
 
@@ -165,6 +166,8 @@ public class testAdNetwork extends Agent {
 	private static double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
 
 	private PIP PIPredictor;
+	
+	private Map<Integer, Pair<Double, Double>> PI_to_profit;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -178,6 +181,8 @@ public class testAdNetwork extends Agent {
 		imps_previous_results = new HashMap<>(); // -1 is loss, 0 if none, +1 if win
 
 		PIPredictor = new PIP();
+		
+		PI_to_profit = new HashMap<>();
 	}
 
 	@Override
@@ -281,6 +286,7 @@ public class testAdNetwork extends Agent {
 		 */
 		if (verbose_printing) { System.out.println("Day " + day + ": Allocated campaign - " + campaignData); }
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
+		
 	}
 
 	/**
@@ -420,7 +426,7 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) { System.out.println("Day " + day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
 				+ " at price " + notificationMessage.getPrice()
-				+ " Quality Score is: " + notificationMessage.getQualityScore()); }
+				+ " Quality Score is: " + notificationMessage.getQualityScore()); }	
 	}
 
 	/**
@@ -593,6 +599,22 @@ public class testAdNetwork extends Agent {
 					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
 					+ cstats.getCost());
 				System.out.println("ID: " + cmpId + " - Seg: " + myCampaigns.get(cmpId).targetSegment + " - Seg pop: " + PIPredictor.getPop(myCampaigns.get(cmpId).targetSegment, day, day));
+			}
+			
+			for (Integer i : PI_to_profit.keySet()){
+				if (i == cmpId){
+					CampaignData c = myCampaigns.get(i);
+					double original_PI = PI_to_profit.get(i).first;
+					System.out.println("~BUDGET: " + c.budget);
+					System.out.println("~~COST: " + cstats.getCost());
+					PI_to_profit.put(i, new Pair<Double, Double>(original_PI, c.budget - cstats.getCost()));
+				}
+			}
+		}
+		
+		for (Integer i : PI_to_profit.keySet()){
+			if(PI_to_profit.get(i).second != 0){
+			System.out.println("Campaign: " + i + ", Initial Price Index: " + PI_to_profit.get(i).first + ", Total profit: " + PI_to_profit.get(i).second);
 			}
 		}
 	}
@@ -1098,10 +1120,12 @@ public class testAdNetwork extends Agent {
 		long dayStart;
 		long dayEnd;
 		Set<MarketSegment> targetSegment;
+		int id;
 		
 		double price_index;
 
 		public ContractBidder(CampaignOpportunityMessage com) {
+			id = com.getId();
 			dayStart = com.getDayStart();
 			dayEnd = com.getDayEnd();
 			reachImps = com.getReachImps();
@@ -1111,6 +1135,7 @@ public class testAdNetwork extends Agent {
 		
 		public long getContractBid(){
 			System.out.println("***PRICE INDEX***: " + price_index);
+			PI_to_profit.put(id, new Pair<Double, Double>(price_index, (double)0.0));
 			if (price_index > price_index_threshold){
 				if (contract_printing) { System.out.println("PRICE INDEX HIGH at " + price_index + ". BIDDING HIGHEST VALID BID."); }
 				return highestValidBid();
@@ -1420,6 +1445,60 @@ public class testAdNetwork extends Agent {
 			//System.out.println("Seg: " + S.toString() + " - pop: " + pop);
 			return pop;
 		}
+	}
+	
+class Pair<A, B> {
+	    private A first;
+	    private B second;
+
+	    public Pair(A first, B second) {
+	        super();
+	        this.first = first;
+	        this.second = second;
+	    }
+
+	    public int hashCode() {
+	        int hashFirst = first != null ? first.hashCode() : 0;
+	        int hashSecond = second != null ? second.hashCode() : 0;
+
+	        return (hashFirst + hashSecond) * hashSecond + hashFirst;
+	    }
+
+	    public boolean equals(Object other) {
+	        if (other instanceof Pair) {
+	            Pair otherPair = (Pair) other;
+	            return 
+	            ((  this.first == otherPair.first ||
+	                ( this.first != null && otherPair.first != null &&
+	                  this.first.equals(otherPair.first))) &&
+	             (  this.second == otherPair.second ||
+	                ( this.second != null && otherPair.second != null &&
+	                  this.second.equals(otherPair.second))) );
+	        }
+
+	        return false;
+	    }
+
+	    public String toString()
+	    { 
+	           return "(" + first + ", " + second + ")"; 
+	    }
+
+	    public A getFirst() {
+	        return first;
+	    }
+
+	    public void setFirst(A first) {
+	        this.first = first;
+	    }
+
+	    public B getSecond() {
+	        return second;
+	    }
+
+	    public void setSecond(B second) {
+	        this.second = second;
+	    }
 	}
 }
 
