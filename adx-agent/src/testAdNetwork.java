@@ -273,7 +273,7 @@ public class testAdNetwork extends Agent {
 		currCampaign = campaignData;
 		genCampaignQueries(currCampaign);
 
-		imps_competing_indicies.put(currCampaign.id, 2.0);
+		imps_competing_indicies.put(currCampaign.id, IMP_COMPETING_INDEX_MAX);
 		imps_previous_results.put(currCampaign.id, 0); //ie no results yet
 
 		//Initialise coeff means
@@ -286,7 +286,6 @@ public class testAdNetwork extends Agent {
 		 */
 		if (verbose_printing) { System.out.println("Day " + day + ": Allocated campaign - " + campaignData); }
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
-		
 	}
 
 	/**
