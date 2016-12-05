@@ -545,7 +545,12 @@ public class testAdNetwork extends Agent {
 //					impressionLimit = 0;
 //				}
 
-				double budgetLimit = thisCampaign.budget/thisCampaign.impsTogo();
+				double budgetLimit = (thisCampaign.budget)/(thisCampaign.dayEnd-thisCampaign.dayStart);
+				System.out.println("BUDGET LIMIT: " + budgetLimit);
+				System.out.println("CAMPAIGN BUDGET: " + thisCampaign.budget);
+				System.out.println("IMPS TO GO: " + thisCampaign.impsTogo());
+				System.out.println("COST: " + thisCampaign.stats.getCost());
+				
 				bidBundle.setCampaignDailyLimit(thisCampaign.id,
 						(int) impressionLimit, budgetLimit);
 
@@ -1327,10 +1332,7 @@ public class testAdNetwork extends Agent {
 
 			if (camp.impsTogo() != 0) {
 				//Return bid per mille imps
-				double finalBid = (double) bid / camp.impsTogo() * 1000 * profitCoeff;
-				if (finalBid > camp.impsTogo()) {
-					finalBid = camp.impsTogo();
-				}
+				double finalBid = (bid / ((double) camp.impsTogo())) * 1000.0 * profitCoeff;
 
 				return finalBid;
 			} else {
@@ -1357,13 +1359,10 @@ public class testAdNetwork extends Agent {
 
 			double bid = 0;
 			double budget = camp.budget;
+			double price_index = PIPredictor.getPop(camp.targetSegment, day + 1, day+1);
 
 			if (adv) {
-				if (day < 4) {
-					bid = budget * PIPredictor.getPop(camp.targetSegment, day+1, day+1);
-				} else {
-					bid = budget * PIPredictor.getPop(camp.targetSegment, day + 1, day+1);
-				}
+					bid = budget * price_index;
 			} else {
 				bid = budget * budgetCoeff;
 			}
@@ -1382,7 +1381,7 @@ public class testAdNetwork extends Agent {
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1) {
-				bid = budget * PIPredictor.getPop(camp.targetSegment, day+1, day+1)*2;
+				bid = budget * price_index * 2;
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
 
