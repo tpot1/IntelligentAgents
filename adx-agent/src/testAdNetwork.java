@@ -545,24 +545,51 @@ public class testAdNetwork extends Agent {
 						double totalPopSize = 0;
 						double maxBid = 0;
 
-						for (Set<MarketSegment> segs : MarketSegment.marketSegments()) {
-							if (segs.size() == 1) {
-								totalPopSize += getSegmentPopularity(segs);
+						List<Set<MarketSegment>> usefulPopSegs = new ArrayList<>();
+
+						//Get total pop
+						Set<MarketSegment> popSet = new HashSet<>();
+						popSet.add(MarketSegment.FEMALE);
+						totalPopSize = totalPopSize + getSegmentPopularity(popSet);
+						popSet.clear();
+						popSet.add(MarketSegment.MALE);
+						totalPopSize = totalPopSize + getSegmentPopularity(popSet);
+
+						try {
+							for (Integer campid : myCampaigns.keySet()) {
+								if (myCampaigns.get(campid).dayEnd >= day) {
+									usefulPopSegs.add(myCampaigns.get(campid).targetSegment);
+									double segBid = new ImpressionsBidder(myCampaigns.get(campid)).getImpressionBid();
+									if (segBid > maxBid) {
+										maxBid = segBid;
+									}
+								}
+							}
+						} catch (Exception e) {
+							System.out.println("Looping camps: " + e.toString());
+						}
+
+						int significantSize = 3;
+						Set<Set<MarketSegment>> sigSet = new HashSet<>();
+
+						//Gets the set of segments with the lowest number of segments.
+						//TODO: Change this to not underestimate... ie have F AND  MO etc
+						for (Set<MarketSegment> seg : usefulPopSegs) {
+							if (seg.size() == significantSize) {
+								sigSet.add(seg);
+							} else if (seg.size() < significantSize) {
+								sigSet.clear();
+								sigSet.add(seg);
 							}
 						}
 
-						for (Integer campid : myCampaigns.keySet()) {
-							if (myCampaigns.get(campid).dayEnd >= day) {
-								usefullPopulationSize += getSegmentPopularity(myCampaigns.get(campid).targetSegment);
-								double segBid = new ImpressionsBidder(myCampaigns.get(campid)).getImpressionBid();
-								if (segBid > maxBid) { maxBid = segBid; }
-							}
+						for (Set<MarketSegment> segs : sigSet) {
+							usefullPopulationSize = usefullPopulationSize + getSegmentPopularity(segs);
 						}
-//TODO: Work out how to make this between 0 and 1. Currently have overlap in segments when adding up etc
+
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
 
 						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid;
-						System.out.println("Max: " + maxBid + " - Empty: " + emptyBid + " - Total Pop: " + totalPopSize);
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
