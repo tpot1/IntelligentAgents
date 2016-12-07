@@ -532,17 +532,17 @@ public class testAdNetwork extends Agent {
 						//update the rbid here with reserve info?
 						bid = impsBidder.getImpressionBid();
 
-						if (query.getAdType() == AdType.text) {
-							bid = bid/thisCampaign.videoCoef;
-						} else {
-							bid = bid * thisCampaign.videoCoef;
-						}
-
-						if (query.getDevice() == Device.mobile) {
-							bid = bid * thisCampaign.mobileCoef;
-						} else {
-							bid = bid / thisCampaign.mobileCoef;
-						}
+//						if (query.getAdType() == AdType.text) {
+//							bid = bid/thisCampaign.videoCoef;
+//						} else {
+//							bid = bid * thisCampaign.videoCoef;
+//						}
+//
+//						if (query.getDevice() == Device.mobile) {
+//							bid = bid * thisCampaign.mobileCoef;
+//						} else {
+//							bid = bid / thisCampaign.mobileCoef;
+//						}
 
 						AdxQuery emptySeg = query.clone();
 						emptySeg.setMarketSegments(new HashSet<MarketSegment>());
@@ -596,7 +596,7 @@ public class testAdNetwork extends Agent {
 
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
 
-						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 2;
+						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 10;
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
@@ -626,8 +626,6 @@ public class testAdNetwork extends Agent {
 				
 				bidBundle.setCampaignDailyLimit(thisCampaign.id,
 						(int) impressionLimit, budgetLimit);
-
-
 
 				if (verbose_printing) {
 					System.out.println("Day " + day + ": Updated " + entCount
