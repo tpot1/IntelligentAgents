@@ -147,7 +147,7 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 	
-	private double competing_index = 2.0;
+	private double competing_index = 4.0;
 	private static double COMPETING_INDEX_MAX = 4.0;
 	private static double GREED = 1.2;
 	private static double UCSScaler = 0.2;
@@ -167,7 +167,7 @@ public class testAdNetwork extends Agent {
 
 	private PIP PIPredictor;
 	
-	private Map<Integer, Pair<Double, Double>> PI_to_profit;
+	private Map<Attributes, Double> attributes_to_profit;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -182,7 +182,14 @@ public class testAdNetwork extends Agent {
 
 		PIPredictor = new PIP();
 		
-		PI_to_profit = new HashMap<>();
+		attributes_to_profit = new TreeMap<Attributes, Double>(
+				new Comparator<Attributes>(){
+					@Override
+					public int compare(Attributes a1, Attributes a2) {
+						return a1.day - a2.day;
+					}
+				}
+		);
 	}
 
 	@Override
@@ -606,20 +613,20 @@ public class testAdNetwork extends Agent {
 				System.out.println("ID: " + cmpId + " - Seg: " + myCampaigns.get(cmpId).targetSegment + " - Seg pop: " + PIPredictor.getPop(myCampaigns.get(cmpId).targetSegment, day, day));
 			}
 			
-			for (Integer i : PI_to_profit.keySet()){
-				if (i == cmpId){
-					CampaignData c = myCampaigns.get(i);
-					double original_PI = PI_to_profit.get(i).first;
-					System.out.println("~BUDGET: " + c.budget);
-					System.out.println("~~COST: " + cstats.getCost());
-					PI_to_profit.put(i, new Pair<Double, Double>(original_PI, c.budget - cstats.getCost()));
+			for (Attributes a : attributes_to_profit.keySet()){
+				if (a.id == cmpId){
+					CampaignData c = myCampaigns.get(cmpId);
+					double profit = c.budget - cstats.getCost();
+					attributes_to_profit.put(a, profit);
 				}
 			}
 		}
 		
-		for (Integer i : PI_to_profit.keySet()){
-			if(PI_to_profit.get(i).second != 0){
-			System.out.println("Campaign: " + i + ", Initial Price Index: " + PI_to_profit.get(i).first + ", Total profit: " + PI_to_profit.get(i).second);
+		if(costs_printing) {
+			for (Attributes a : attributes_to_profit.keySet()){
+				if(attributes_to_profit.get(a) != 0){
+					System.out.println("Campaign: " + a.id + ", [Day: " + a.day + ", PI: " + a.price_index + ", CI: " + a.competing_index + ", Reach: " + a.totalReach + ", Mobile Coef: " + a.mobileCoeff + ", Video Coef: " + a.videoCoeff + "] -> Profit per impression: " + attributes_to_profit.get(a)/a.totalReach);
+				}
 			}
 		}
 	}
@@ -1120,12 +1127,16 @@ public class testAdNetwork extends Agent {
 		private double quality_threshold = 0.8;
 		private double price_index_threshold = 1.0;
 		
+		private double budget_constant = 0.01;
+		
 		/* campaign attributes as set by server */
 		Long reachImps;
 		long dayStart;
 		long dayEnd;
 		Set<MarketSegment> targetSegment;
 		int id;
+		double mobileCoeff;
+		double videoCoeff;
 		
 		double price_index;
 
@@ -1135,12 +1146,13 @@ public class testAdNetwork extends Agent {
 			dayEnd = com.getDayEnd();
 			reachImps = com.getReachImps();
 			targetSegment = com.getTargetSegment();
+			mobileCoeff = com.getMobileCoef();
+			videoCoeff = com.getVideoCoef();
 			price_index = PIPredictor.getPop(targetSegment, (int) dayStart, (int) dayEnd);
 		}
 		
 		public long getContractBid(){
 			System.out.println("***PRICE INDEX***: " + price_index);
-			PI_to_profit.put(id, new Pair<Double, Double>(price_index, (double)0.0));
 			if (price_index > price_index_threshold){
 				if (contract_printing) { System.out.println("PRICE INDEX HIGH at " + price_index + ". BIDDING HIGHEST VALID BID."); }
 				return highestValidBid();
@@ -1151,12 +1163,13 @@ public class testAdNetwork extends Agent {
 			}
 			else{
 				if (contract_printing) { System.out.println("DEFAULT - BIDDING PRIVATE VALUE"); }
+				attributes_to_profit.put(new Attributes(id, day, price_index, competing_index, reachImps, mobileCoeff, videoCoeff), 0.0);
 				return privateValueBid();
 			}
 		}
 		
 		public long privateValueBid(){
-			long privateValue = (long) ((price_index * (double) reachImps) / competing_index);
+			long privateValue = (long) (((price_index+budget_constant) * (double) reachImps) / competing_index);
 			long highestBid = highestValidBid();
 			long lowestBid = lowestValidBid();
 			
@@ -1446,58 +1459,29 @@ public class testAdNetwork extends Agent {
 		}
 	}
 	
-class Pair<A, B> {
-	    private A first;
-	    private B second;
-
-	    public Pair(A first, B second) {
-	        super();
-	        this.first = first;
-	        this.second = second;
+class Attributes implements Comparable<Attributes>{
+		public int id; 
+		public int day;
+	    public double price_index;
+	    public double competing_index;
+	    public double mobileCoeff;
+	    public double videoCoeff;
+	    public Long totalReach;
+	    
+	    public Attributes(int id, int day, double PI, double CI, Long reach, double mobileCoeff, double videoCoeff) {
+	    	this.id = id;
+	    	this.day = day;
+	    	this.price_index = PI;
+	    	this.competing_index = CI;
+	    	this.totalReach = reach;
+	    	this.mobileCoeff = mobileCoeff;
+	    	this.videoCoeff = videoCoeff;
 	    }
 
-	    public int hashCode() {
-	        int hashFirst = first != null ? first.hashCode() : 0;
-	        int hashSecond = second != null ? second.hashCode() : 0;
-
-	        return (hashFirst + hashSecond) * hashSecond + hashFirst;
-	    }
-
-	    public boolean equals(Object other) {
-	        if (other instanceof Pair) {
-	            Pair otherPair = (Pair) other;
-	            return 
-	            ((  this.first == otherPair.first ||
-	                ( this.first != null && otherPair.first != null &&
-	                  this.first.equals(otherPair.first))) &&
-	             (  this.second == otherPair.second ||
-	                ( this.second != null && otherPair.second != null &&
-	                  this.second.equals(otherPair.second))) );
-	        }
-
-	        return false;
-	    }
-
-	    public String toString()
-	    { 
-	           return "(" + first + ", " + second + ")"; 
-	    }
-
-	    public A getFirst() {
-	        return first;
-	    }
-
-	    public void setFirst(A first) {
-	        this.first = first;
-	    }
-
-	    public B getSecond() {
-	        return second;
-	    }
-
-	    public void setSecond(B second) {
-	        this.second = second;
-	    }
+		@Override
+		public int compareTo(Attributes otherAttribute) {
+			return this.day - otherAttribute.day;
+		}   
 	}
 }
 
