@@ -525,9 +525,44 @@ public class testAdNetwork extends Agent {
 						//update the rbid here with reserve info?
 						bid = impsBidder.getImpressionBid();
 
+						if (query.getAdType() == AdType.text) {
+							bid = bid/thisCampaign.videoCoef;
+						} else {
+							bid = bid * thisCampaign.videoCoef;
+						}
+
+						if (query.getDevice() == Device.mobile) {
+							bid = bid * thisCampaign.mobileCoef;
+						} else {
+							bid = bid / thisCampaign.mobileCoef;
+						}
+
 						AdxQuery emptySeg = query.clone();
 						emptySeg.setMarketSegments(new HashSet<MarketSegment>());
+
 						double emptyBid = 0.00002;
+						double usefullPopulationSize = 0;
+						double totalPopSize = 0;
+						double maxBid = 0;
+
+						for (Set<MarketSegment> segs : MarketSegment.marketSegments()) {
+							if (segs.size() == 1) {
+								totalPopSize += getSegmentPopularity(segs);
+							}
+						}
+
+						for (Integer campid : myCampaigns.keySet()) {
+							if (myCampaigns.get(campid).dayEnd >= day) {
+								usefullPopulationSize += getSegmentPopularity(myCampaigns.get(campid).targetSegment);
+								double segBid = new ImpressionsBidder(myCampaigns.get(campid)).getImpressionBid();
+								if (segBid > maxBid) { maxBid = segBid; }
+							}
+						}
+//TODO: Work out how to make this between 0 and 1. Currently have overlap in segments when adding up etc
+						usefullPopulationSize = usefullPopulationSize/totalPopSize;
+
+						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid;
+						System.out.println("Max: " + maxBid + " - Empty: " + emptyBid + " - Total Pop: " + totalPopSize);
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
@@ -1365,7 +1400,7 @@ public class testAdNetwork extends Agent {
 			double price_index = PIPredictor.getPop(camp.targetSegment, day + 1, day+1);
 
 			if (adv) {
-					bid = budget * price_index;
+				bid = budget * price_index;
 			} else {
 				bid = budget * budgetCoeff;
 			}
@@ -1375,7 +1410,6 @@ public class testAdNetwork extends Agent {
 			} else {
 				bid = bid * IMP_COMPETING_INDEX_MIN;
 			}
-
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1 && day < 55) {
