@@ -525,33 +525,40 @@ public class testAdNetwork extends Agent {
 						//update the rbid here with reserve info?
 						bid = impsBidder.getImpressionBid();
 
+						AdxQuery emptySeg = query.clone();
+						emptySeg.setMarketSegments(new HashSet<MarketSegment>());
+						double emptyBid = 0.00002;
+
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
+						bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
+
 						if (false) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
 				}
 				if(impressions_printing) {
 					System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
-					System.out.println("ID: " + thisCampaign.id + " - Budget: " + thisCampaign.budget + " - Current cost: " + thisCampaign.stats.getCost());
+					System.out.println("ID: " + thisCampaign.id + " - Budget Today: " + thisCampaign.budget/(thisCampaign.dayEnd-thisCampaign.dayStart) + " - Current cost: " + thisCampaign.stats.getCost());
 					System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
 				}
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
 				double impressionLimit = thisCampaign.impsTogo();
-//				if (thisCampaign.impsTogo() == 0) {
-//					impressionLimit = thisCampaign.reachImps*1.2;
-//				} else if (thisCampaign.impsTogo() < 0) {
-//					impressionLimit = 0;
-//				}
 
 				double budgetLimit = (thisCampaign.budget)/(thisCampaign.dayEnd-thisCampaign.dayStart);
-				System.out.println("BUDGET LIMIT: " + budgetLimit);
-				System.out.println("CAMPAIGN BUDGET: " + thisCampaign.budget);
-				System.out.println("IMPS TO GO: " + thisCampaign.impsTogo());
-				System.out.println("COST: " + thisCampaign.stats.getCost());
+				if (imps_competing_indicies.get(thisCampaign.id) > 2.5) {
+					budgetLimit = budgetLimit*1.2;
+				}
+
+//				System.out.println("BUDGET LIMIT: " + budgetLimit);
+//				System.out.println("CAMPAIGN BUDGET: " + thisCampaign.budget);
+//				System.out.println("IMPS TO GO: " + thisCampaign.impsTogo());
+//				System.out.println("COST: " + thisCampaign.stats.getCost());
 				
 				bidBundle.setCampaignDailyLimit(thisCampaign.id,
 						(int) impressionLimit, budgetLimit);
+
+
 
 				if (verbose_printing) {
 					System.out.println("Day " + day + ": Updated " + entCount
@@ -1340,9 +1347,6 @@ public class testAdNetwork extends Agent {
 		}
 
 		public double getBudget() {
-			//Low value coefficients
-			long low_budget = 500;
-			long low_reach = 500;
 
 			double comp_index = -1;
 
@@ -1366,20 +1370,15 @@ public class testAdNetwork extends Agent {
 				bid = budget * budgetCoeff;
 			}
 
-			bid = bid * comp_index;
+			if (day < 55) {
+				bid = bid * comp_index;
+			} else {
+				bid = bid * IMP_COMPETING_INDEX_MIN;
+			}
 
-			//If low budget and reach, set bid to max per impression
-//			if (budget < low_budget && camp.reachImps < low_reach) {
-//				bid = 0.001*budget;
-//				if (impressions_printing) { System.out.println("Low budget and Low reach. Bidding max per impression.");}
-//			}
-
-//			if (day < 3) {
-//				bid = 0.001*budget;
-//			}
 
 			//If short duration and not close to required reach, double bid
-			if (dur == 1 && fractionImpsToGo > 0.1) {
+			if (dur == 1 && fractionImpsToGo > 0.1 && day < 55) {
 				bid = budget * price_index * 2;
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
