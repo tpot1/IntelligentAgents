@@ -596,7 +596,7 @@ public class testAdNetwork extends Agent {
 
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
 
-						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid;
+						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 2;
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
