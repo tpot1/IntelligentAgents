@@ -147,10 +147,12 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 	
-	private double competing_index = 4.0;
-	private static double COMPETING_INDEX_MAX = 4.0;
-	private static double GREED = 1.2;
-	private static double UCSScaler = 0.2;
+	private double competing_index = 5.0;
+	private static double COMPETING_INDEX_MAX = 5.0;
+	private static double CONTRACT_GREED_LOSE = 1.15;
+	private static double CONTRACT_GREED_WIN = 1.2;
+	private static double UCSScaleUp = 0.2;
+	private static double UCSScaleDown = 0.3;
 	private long previous_campaign_bid = 0;
 
 	private Map<Integer, Double> imps_competing_indicies;
@@ -377,7 +379,7 @@ public class testAdNetwork extends Agent {
 			
 			// If we won legit (when the the winning bid is NOT the same as our bid - it will be second-place's bid), lower the competing index
 			if(notificationMessage.getCostMillis() != previous_campaign_bid){
-				competing_index = competing_index/GREED;
+				competing_index = competing_index/CONTRACT_GREED_WIN;
 				if (contract_printing) { System.out.println("WE WON LEGIT. Competing Index = " + competing_index); }
 			}
 			else{
@@ -399,7 +401,7 @@ public class testAdNetwork extends Agent {
 		}
 		else {
 			// We lost, so increase the competing index
-			competing_index = (competing_index * GREED > COMPETING_INDEX_MAX) ? COMPETING_INDEX_MAX : competing_index * GREED;
+			competing_index = (competing_index * CONTRACT_GREED_LOSE > COMPETING_INDEX_MAX) ? COMPETING_INDEX_MAX : competing_index * CONTRACT_GREED_LOSE;
 			if (contract_printing) { System.out.println("WE LOST. Competing Index = " + competing_index); }
 		}
 
@@ -567,6 +569,9 @@ public class testAdNetwork extends Agent {
 								if (myCampaigns.get(campid).dayEnd >= day) {
 									usefulPopSegs.add(myCampaigns.get(campid).targetSegment);
 									double segBid = new ImpressionsBidder(myCampaigns.get(campid)).getImpressionBid();
+									// TODO - maybe use the mean max bid here, rather than the highest one, since there is an
+									// equal chance of the impression belonging to any segment - its not guaranteed to belong 
+									// to the most expensive one, so most of the time we will be over-paying
 									if (segBid > maxBid) {
 										maxBid = segBid;
 									}
@@ -733,8 +738,7 @@ public class testAdNetwork extends Agent {
 		day = 0;
 		bidBundle = new AdxBidBundle();
 
-		/* initial bid between 0.1 and 0.2 */
-		ucsBid = 0.2 + random.nextDouble()/10.0;
+		ucsBid = 0.15;
 		prevUcsBid = ucsBid;
 
 		myCampaigns = new HashMap<Integer, CampaignData>();
@@ -1193,8 +1197,6 @@ public class testAdNetwork extends Agent {
 		private double quality_threshold = 0.8;
 		private double price_index_threshold = 1.0;
 		
-		private double budget_constant = 0.01;
-		
 		/* campaign attributes as set by server */
 		Long reachImps;
 		long dayStart;
@@ -1235,7 +1237,7 @@ public class testAdNetwork extends Agent {
 		}
 		
 		public long privateValueBid(){
-			long privateValue = (long) (((price_index+budget_constant) * (double) reachImps) / competing_index);
+			long privateValue = (long) ((price_index * (double) reachImps) / competing_index);
 			long highestBid = highestValidBid();
 			long lowestBid = lowestValidBid();
 			
@@ -1278,13 +1280,14 @@ public class testAdNetwork extends Agent {
 		}
 		
 		public double getUCSBid(){			
-			if (previousLevel > 0.9){
+			if(ucs_printing) { System.out.println("UCS LEVEL: " + previousLevel); }
+			if (previousLevel > 0.81){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO HIGH! Lowering bid"); }
-				return previousBid / (1 + UCSScaler); 
+				return previousBid / (1 + UCSScaleDown); 
 			}
-			else if ((previousLevel < 0.81) && shouldIncreaseLevel()){
+			else if ((previousLevel < 0.729) && shouldIncreaseLevel()){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO LOW! Raising bid"); }
-				return (1 + UCSScaler) * previousBid;
+				return (1 + UCSScaleUp) * previousBid;
 			}
 			else if(this.minReach > 0.0){
 				if(ucs_printing) { System.out.println("UCS LEVEL PERFECT! Maintaining bid"); }
@@ -1299,7 +1302,7 @@ public class testAdNetwork extends Agent {
 		// Returns true or false, based on the expected value of increasing UCS bid
 		private boolean shouldIncreaseLevel(){			
 			double prev_util = (minReach / (previousBid*1000.0));
-			double new_util = 20.0/3.0*((1.0+UCSScaler)/getUtilityOfIncrement());
+			double new_util = 20.0/3.0*((1.0+UCSScaleUp)/getUtilityOfIncrement());
 			if(ucs_printing) { 
 				System.out.println("Previous Util: " + prev_util); 
 				System.out.println("Utility of increment: " + new_util);
@@ -1313,7 +1316,7 @@ public class testAdNetwork extends Agent {
 		}
 			
 		public double integration_function(double r){
-			return (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaler)*previousBid);
+			return (r*(impressionUnitPrice - (0.9*impressionUnitPrice)) - (1.0 + UCSScaleUp)*previousBid);
 		}
 		
 		public double integrate(double a, double b) {
@@ -1357,20 +1360,30 @@ public class testAdNetwork extends Agent {
 			ArrayList<CampaignData> checkedCampaigns = new ArrayList<CampaignData>();
 			
 			double totalDemand = 0;
-			double totalSupply = 0;
+			double totalPopulation = 0;
 			for (MarketSegment s : targetSegments){
 				for (CampaignData otherCampaign: allCampaigns){
 					if (otherCampaign.targetSegment.contains(s) && !checkedCampaigns.contains(otherCampaign)){
-						totalDemand += (double) otherCampaign.impsTogo();
+						if (otherCampaign.dayStart >= day && otherCampaign.dayEnd - day > 0){
+							totalDemand += ((double) otherCampaign.reachImps / ( (double) otherCampaign.dayEnd - (double) otherCampaign.dayStart));
+						}
 						checkedCampaigns.add(otherCampaign);
 					}
 				}
 				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
 				marketSet.add(s);
-				totalSupply += MarketSegment.marketSegmentSize(marketSet);				
+				totalPopulation += MarketSegment.marketSegmentSize(marketSet);		
+				System.out.println("SEGMENT: " + s.name() + ", SIZE: " + MarketSegment.marketSegmentSize(marketSet));
 			}
 			
+			double totalSupply = expectedImpOpsFromPop(totalPopulation);
+			
 			return (totalDemand / totalSupply);
+		}
+		
+		private double expectedImpOpsFromPop(double populationSize){
+
+			return populationSize + (0.3 * populationSize) + (0.3 * 0.3 * populationSize) + (0.3 * 0.3 * 0.3 * populationSize) + (0.3 * 0.3 * 0.3 * 0.3 * populationSize) + (0.3 * 0.3 * 0.3 * 0.3 * 0.3 * populationSize);
 		}
 		
 		// Returns the total impressions still needed across all current campaigns
