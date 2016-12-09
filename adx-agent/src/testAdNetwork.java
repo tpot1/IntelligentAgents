@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,7 +129,7 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = 		false;
-	private boolean ucs_printing = 			false;
+	private boolean ucs_printing = 			true;
 	private boolean contract_printing = 	false;
 	private boolean impressions_printing = 	false;
 	private boolean costs_printing = 		false;
@@ -146,30 +150,36 @@ public class testAdNetwork extends Agent {
 
 	private double meanVidCoeff;
 	private double meanMobCoeff;
+
+	private static String constant_file_location = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
 	
 	private double competing_index = 5.0;
-	private static double COMPETING_INDEX_MAX = 5.0;
-	private static double CONTRACT_GREED_LOSE = 1.15;
-	private static double CONTRACT_GREED_WIN = 1.2;
-	private static double UCSScaleUp = 0.2;
-	private static double UCSScaleDown = 0.3;
+	private double COMPETING_INDEX_MAX = 5.0;
+	private double CONTRACT_GREED_LOSE = 1.15;
+	private double CONTRACT_GREED_WIN = 1.2;
+	private double UCSScaleUp = 0.2;
+	private double UCSScaleDown = 0.3;
 	private long previous_campaign_bid = 0;
+
+	private double quality_threshold = 0.8;
+	private double price_index_threshold = 1.0;
 
 	private Map<Integer, Double> imps_competing_indicies;
 	private Map<Integer, Integer> imps_previous_results;
-	private static double IMP_GREED_LOSE = 1.3;
-    private static double IMP_GREED_WIN = 1.6;
-	private static double IMP_COMPETING_INDEX_DEFAULT = 1.0;
-	private static double IMP_COMPETING_INDEX_MAX = 2.5;
-	private static double IMP_COMPETING_INDEX_MIN = 0.2;
-	private static double IMP_RESULT_MODIFIER_LOSE_LOSE = +0.3;
-	private static double IMP_RESULT_MODIFIER_WIN_WIN = -0.2;
-	private static double IMP_RESULT_MODIFIER_WIN_LOSE = +0.3;
-	private static double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
+	private double IMP_GREED_LOSE = 1.3;
+    private double IMP_GREED_WIN = 1.6;
+	private double IMP_COMPETING_INDEX_DEFAULT = 1.0;
+	private double IMP_COMPETING_INDEX_MAX = 2.5;
+	private double IMP_COMPETING_INDEX_MIN = 0.2;
+	private double IMP_RESULT_MODIFIER_LOSE_LOSE = +0.3;
+	private double IMP_RESULT_MODIFIER_WIN_WIN = -0.2;
+	private double IMP_RESULT_MODIFIER_WIN_LOSE = +0.3;
+	private double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
 
 	private PIP PIPredictor;
 	
 	private Map<Attributes, Double> attributes_to_profit;
+	private Map<String,String> starting_constant_maps;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -183,6 +193,7 @@ public class testAdNetwork extends Agent {
 		imps_previous_results = new HashMap<>(); // -1 is loss, 0 if none, +1 if win
 
 		PIPredictor = new PIP();
+		starting_constant_maps = new HashMap<>();
 		
 		attributes_to_profit = new TreeMap<Attributes, Double>(
 				new Comparator<Attributes>(){
@@ -192,6 +203,10 @@ public class testAdNetwork extends Agent {
 					}
 				}
 		);
+
+		readConstantFile();
+		storeStartingConstants();
+
 	}
 
 	@Override
@@ -603,9 +618,14 @@ public class testAdNetwork extends Agent {
 
 						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 10;
 
+						double completionFraction  = ((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
+
+						double popWeight = 1+(double)pop*completionFraction/(thisCampaign.dayEnd+1 - day);//+1 to avoid divide by 0 and since it shouldnt change much
+						System.out.println("CampID: " + thisCampaign.id + " - Comp fraction:" + completionFraction + " - Pop: " + pop + " - Final Weight:" + popWeight);
+
 						//Weight the bids based on popularity of the publisher
-						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
-						bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
+						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
+						bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
 
 						if (false) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
@@ -872,6 +892,70 @@ public class testAdNetwork extends Agent {
 			}
 		}
 	}
+
+	private boolean readConstantFile() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(constant_file_location));
+			try {
+
+				String line = br.readLine();
+
+				while (line != null) {
+					String[] const_name_value = line.split(":");
+
+					starting_constant_maps.put(const_name_value[0],const_name_value[1]);
+
+					line = br.readLine();
+				}
+
+			} catch (IOException ioe) {
+				System.out.println("ERROR: IO EXCEPTION" + ioe.toString());
+				return false;
+			} finally {
+				br.close();
+				return true;
+			}
+		} catch (FileNotFoundException fnf) {
+			System.out.println("ERROR: COULD NOT FIND CONSTANT FILE!");
+			return false;
+		} catch (Exception e) {
+			System.out.println("ERROR: Reading constant file." + e.toString());
+			return false;
+		}
+	}
+
+	private void storeStartingConstants() {
+		try {
+			competing_index = 		Double.parseDouble(starting_constant_maps.get("competing_index"));
+			COMPETING_INDEX_MAX = 	Double.parseDouble(starting_constant_maps.get("competing_index_max"));
+			CONTRACT_GREED_LOSE = 	Double.parseDouble(starting_constant_maps.get("contract_greed_lose"));
+			CONTRACT_GREED_WIN 	= 	Double.parseDouble(starting_constant_maps.get("contract_greed_win"));
+
+			UCSScaleUp 			= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_up"));
+			UCSScaleDown 		= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_down"));
+
+			quality_threshold 		= Double.parseDouble(starting_constant_maps.get("contract_quality_threshold"));
+			price_index_threshold 	= Double.parseDouble(starting_constant_maps.get("contract_price_index_threshold"));
+
+			IMP_GREED_LOSE 	= Double.parseDouble(starting_constant_maps.get("imp_greed_lose"));
+			IMP_GREED_WIN 	= Double.parseDouble(starting_constant_maps.get("imp_greed_win"));
+			IMP_COMPETING_INDEX_DEFAULT 	= Double.parseDouble(starting_constant_maps.get("imp_competing_index_default"));
+			IMP_COMPETING_INDEX_MAX 		= Double.parseDouble(starting_constant_maps.get("imp_competing_index_max"));
+			IMP_COMPETING_INDEX_MIN 		= Double.parseDouble(starting_constant_maps.get("imp_competing_index_min"));
+			IMP_RESULT_MODIFIER_LOSE_LOSE 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_lose_lose"));
+			IMP_RESULT_MODIFIER_WIN_WIN 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_lose_win"));
+			IMP_RESULT_MODIFIER_WIN_LOSE 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_win_lose"));
+			IMP_RESULT_MODIFIER_LOSE_WIN 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_win_win"));
+
+			for (String key : starting_constant_maps.keySet()) {
+				System.out.println("Key: " + key + " - Val: " + starting_constant_maps.get(key) + " - Parsed: " + Double.parseDouble(starting_constant_maps.get(key)));
+			}
+		} catch (NumberFormatException nfe) {
+			System.out.println("ERROR: Number format exception when parsing start consts.");
+		}
+	}
+
+
 
 	/**
 	 * Determines how many running campaigns clash with the given campaign and by how much
@@ -1193,9 +1277,6 @@ public class testAdNetwork extends Agent {
 	
 	
 	private class ContractBidder {
-		
-		private double quality_threshold = 0.8;
-		private double price_index_threshold = 1.0;
 		
 		/* campaign attributes as set by server */
 		Long reachImps;
