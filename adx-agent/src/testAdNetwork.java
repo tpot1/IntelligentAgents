@@ -549,10 +549,11 @@ public class testAdNetwork extends Agent {
 						AdxQuery emptySeg = query.clone();
 						emptySeg.setMarketSegments(new HashSet<MarketSegment>());
 
-						double emptyBid = 0.00002;
 						double usefullPopulationSize = 0;
 						double totalPopSize = 0;
-						double maxBid = 0;
+						
+						double maxBidTotal = 0;
+						double numSegments = 0;
 
 						List<Set<MarketSegment>> usefulPopSegs = new ArrayList<>();
 
@@ -569,16 +570,17 @@ public class testAdNetwork extends Agent {
 								if (myCampaigns.get(campid).dayEnd >= day) {
 									usefulPopSegs.add(myCampaigns.get(campid).targetSegment);
 									double segBid = new ImpressionsBidder(myCampaigns.get(campid)).getImpressionBid();
-									// TODO - maybe use the mean max bid here, rather than the highest one, since there is an
-									// equal chance of the impression belonging to any segment - its not guaranteed to belong 
-									// to the most expensive one, so most of the time we will be over-paying
-									if (segBid > maxBid) {
-										maxBid = segBid;
-									}
+									maxBidTotal += segBid;
+									numSegments += 1;
 								}
 							}
 						} catch (Exception e) {
 							System.out.println("Looping camps: " + e.toString());
+						}
+						
+						double maxBid = 0.0;
+						if(maxBidTotal > 0.0 && numSegments > 0.0){
+							maxBid = (maxBidTotal / numSegments);
 						}
 
 						int significantSize = 3;
@@ -600,8 +602,11 @@ public class testAdNetwork extends Agent {
 						}
 
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
-
-						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 10;
+						
+						double emptyBid = 0.00002;
+						if(maxBid > 0){
+							emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 10;
+						}					
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, pop, thisCampaign.budget);
@@ -1254,12 +1259,12 @@ public class testAdNetwork extends Agent {
 		
 		public long lowestValidBid(){
 			// Lower bound Reserve price is 0.1$ CPM
-			return (long) ((0.1 * (double) reachImps)/currQuality) + 1;
+			return (long) Math.ceil((0.1 * (double) reachImps)/currQuality);
 		}
 		
 		public long highestValidBid(){
 			 // Upper bound Reserve price is 1$ CPM (i.e the total number of impressions)
-			 return (long) ((double) reachImps * currQuality);
+			 return (long) Math.floor((double) reachImps * currQuality);
 
 		}
 	}
@@ -1270,6 +1275,8 @@ public class testAdNetwork extends Agent {
 		double previousLevel;
 		double minReach;
 		double impressionUnitPrice;
+		double UCS_MAX = 0.81;
+		double UCS_MIN = 0.729;
 		
 		public UCSBidder(double previousBid, double previousLevel){
 			this.previousBid = previousBid;
@@ -1281,11 +1288,11 @@ public class testAdNetwork extends Agent {
 		
 		public double getUCSBid(){			
 			if(ucs_printing) { System.out.println("UCS LEVEL: " + previousLevel); }
-			if (previousLevel > 0.81){
+			if (previousLevel > UCS_MAX){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO HIGH! Lowering bid"); }
 				return previousBid / (1 + UCSScaleDown); 
 			}
-			else if ((previousLevel < 0.729) && shouldIncreaseLevel()){
+			else if ((previousLevel < UCS_MIN) && shouldIncreaseLevel()){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO LOW! Raising bid"); }
 				return (1 + UCSScaleUp) * previousBid;
 			}
