@@ -461,12 +461,7 @@ public class testAdNetwork extends Agent {
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
 
-		/*
-		 * A random bid, fixed for all queries of the campaign
-		 * Note: bidding per 1000 imps (CPM) - no more than average budget
-		 * revenue per imp
-		 */
-		double bid; // XXX impressions bid
+		double bid;
 
 		//Loop over all of our running campaigns
 		for (int campKey : myCampaigns.keySet()) {
@@ -489,16 +484,9 @@ public class testAdNetwork extends Agent {
 
 				int entCount = 0;
 
-				//TODO: Determine how to handle the empty market segment calls when the ucs service doesnt give us answer
-
 				for (AdxQuery query : thisCampaign.campaignQueries) { //all possible targets  for each publisher
 					if (thisCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
-					/*
-					 * among matching entries with the same campaign id, the AdX
-					 * randomly chooses an entry according to the designated
-					 * weight. by setting a constant weight 1, we create a
-					 * uniform probability over active campaigns
-					 */
+
 						if (query.getDevice() == Device.pc) {
 							if (query.getAdType() == AdType.text) {
 								entCount++;
@@ -521,7 +509,7 @@ public class testAdNetwork extends Agent {
 									//Get current website reserve and pop
 									if (pubKey != null) {
 										if (pubKey.getPublisherName().equals(publisherStr)) {
-											reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
+											//reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
 											pop = pubReport.getEntry(pubKey).getPopularity();
 										}
 									}
