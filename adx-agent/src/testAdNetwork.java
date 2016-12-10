@@ -154,7 +154,7 @@ public class testAdNetwork extends Agent {
 	private static String constant_file_location = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
 	
 	private double competing_index = 5.0;
-	private double COMPETING_INDEX_MAX = 5.0;
+	private double COMPETING_INDEX_MAX = 8.0;
 	private double CONTRACT_GREED_LOSE = 1.15;
 	private double CONTRACT_GREED_WIN = 1.2;
 	private double UCSScaleUp = 0.2;
