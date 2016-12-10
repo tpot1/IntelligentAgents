@@ -129,9 +129,9 @@ public class testAdNetwork extends Agent {
 	 */
 	private AdxPublisherReport pubReport;
 	private boolean verbose_printing = 		false;
-	private boolean ucs_printing = 			true;
+	private boolean ucs_printing = 			false;
 	private boolean contract_printing = 	false;
-	private boolean impressions_printing = 	true;
+	private boolean impressions_printing = 	false;
 	private boolean costs_printing = 		false;
 
 	/**
@@ -152,7 +152,7 @@ public class testAdNetwork extends Agent {
 	private double meanMobCoeff;
 
 	private static String constant_file_location = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
-	
+
 	private double competing_index = 5.0;
 	private double COMPETING_INDEX_MAX = 8.0;
 	private double CONTRACT_GREED_LOSE = 1.15;
@@ -196,7 +196,7 @@ public class testAdNetwork extends Agent {
 
 		PIPredictor = new PIP();
 		starting_constant_maps = new HashMap<>();
-		
+
 		attributes_to_profit = new TreeMap<Attributes, Double>(
 				new Comparator<Attributes>(){
 					@Override
@@ -479,17 +479,11 @@ public class testAdNetwork extends Agent {
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
 
-		/*
-		 * A random bid, fixed for all queries of the campaign
-		 * Note: bidding per 1000 imps (CPM) - no more than average budget
-		 * revenue per imp
-		 */
-		double bid; // XXX impressions bid
+		double bid;
 
 		//Loop over all of our running campaigns
 		for (int campKey : myCampaigns.keySet()) {
 			CampaignData thisCampaign = myCampaigns.get(campKey);
-			System.out.println("ID: " + thisCampaign.id + " - Seg Pop: " + PIPredictor.getPop(thisCampaign.targetSegment,day+1,day+1));
 			if (thisCampaign.dayEnd < day) {
 				//Inactive campaign
 				continue;
@@ -510,12 +504,7 @@ public class testAdNetwork extends Agent {
 
 				for (AdxQuery query : thisCampaign.campaignQueries) { //all possible targets  for each publisher
 					if (thisCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
-					/*
-					 * among matching entries with the same campaign id, the AdX
-					 * randomly chooses an entry according to the designated
-					 * weight. by setting a constant weight 1, we create a
-					 * uniform probability over active campaigns
-					 */
+
 						if (query.getDevice() == Device.pc) {
 							if (query.getAdType() == AdType.text) {
 								entCount++;
@@ -538,7 +527,7 @@ public class testAdNetwork extends Agent {
 									//Get current website reserve and pop
 									if (pubKey != null) {
 										if (pubKey.getPublisherName().equals(publisherStr)) {
-											reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
+											//reservePrice = pubReport.getEntry(pubKey).getReservePriceBaseline();
 											pop = pubReport.getEntry(pubKey).getPopularity();
 										}
 									}
@@ -569,7 +558,9 @@ public class testAdNetwork extends Agent {
 						double emptyBid = 0.00002;
 						double usefullPopulationSize = 0;
 						double totalPopSize = 0;
-						double maxBid = 0;
+
+						double maxBidTotal = 0;
+						double numSegments = 0;
 
 						List<Set<MarketSegment>> usefulPopSegs = new ArrayList<>();
 
@@ -586,16 +577,17 @@ public class testAdNetwork extends Agent {
 								if (myCampaigns.get(campid).dayEnd >= day) {
 									usefulPopSegs.add(myCampaigns.get(campid).targetSegment);
 									double segBid = new ImpressionsBidder(myCampaigns.get(campid)).getImpressionBid();
-									// TODO - maybe use the mean max bid here, rather than the highest one, since there is an
-									// equal chance of the impression belonging to any segment - its not guaranteed to belong 
-									// to the most expensive one, so most of the time we will be over-paying
-									if (segBid > maxBid) {
-										maxBid = segBid;
-									}
+									maxBidTotal += segBid;
+									numSegments += 1;
 								}
 							}
 						} catch (Exception e) {
 							System.out.println("Looping camps: " + e.toString());
+						}
+
+						double maxBid = 0.0;
+						if(maxBidTotal > 0.0 && numSegments > 0.0){
+							maxBid = (maxBidTotal / numSegments);
 						}
 
 						int significantSize = 3;
@@ -618,8 +610,11 @@ public class testAdNetwork extends Agent {
 
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
 
-						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / IMP_EMPTY_BID_SCALING;
 
+						if (maxBid > 0) {
+                            emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / IMP_EMPTY_BID_SCALING;
+
+                        }
 						double completionFraction  = ((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
 
 						double popWeight = pop;//1+(double)pop*completionFraction/(thisCampaign.dayEnd+1 - day);//+1 to avoid divide by 0 and since it shouldnt change much
@@ -1290,7 +1285,7 @@ public class testAdNetwork extends Agent {
 	
 	
 	private class ContractBidder {
-		
+
 		/* campaign attributes as set by server */
 		Long reachImps;
 		long dayStart;
@@ -1354,12 +1349,12 @@ public class testAdNetwork extends Agent {
 		
 		public long lowestValidBid(){
 			// Lower bound Reserve price is 0.1$ CPM
-			return (long) ((0.1 * (double) reachImps)/currQuality) + 1;
+			return (long) Math.ceil((0.1 * (double) reachImps)/currQuality);
 		}
 		
 		public long highestValidBid(){
 			 // Upper bound Reserve price is 1$ CPM (i.e the total number of impressions)
-			 return (long) ((double) reachImps * currQuality);
+			 return (long) Math.floor((double) reachImps * currQuality);
 
 		}
 	}
@@ -1370,7 +1365,9 @@ public class testAdNetwork extends Agent {
 		double previousLevel;
 		double minReach;
 		double impressionUnitPrice;
-		
+		double UCS_MAX = 0.81;
+		double UCS_MIN = 0.729;
+
 		public UCSBidder(double previousBid, double previousLevel){
 			this.previousBid = previousBid;
 			this.previousLevel = previousLevel;
@@ -1381,11 +1378,11 @@ public class testAdNetwork extends Agent {
 		
 		public double getUCSBid(){			
 			if(ucs_printing) { System.out.println("UCS LEVEL: " + previousLevel); }
-			if (previousLevel > 0.81){
+			if (previousLevel > UCS_MAX){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO HIGH! Lowering bid"); }
 				return previousBid / (1 + UCSScaleDown); 
 			}
-			else if ((previousLevel < 0.729) && shouldIncreaseLevel()){
+			else if ((previousLevel < UCS_MIN) && shouldIncreaseLevel()){
 				if(ucs_printing) { System.out.println("UCS LEVEL TOO LOW! Raising bid"); }
 				return (1 + UCSScaleUp) * previousBid;
 			}
@@ -1472,7 +1469,7 @@ public class testAdNetwork extends Agent {
 				}
 				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
 				marketSet.add(s);
-				totalPopulation += MarketSegment.marketSegmentSize(marketSet);		
+				totalPopulation += MarketSegment.marketSegmentSize(marketSet);
 			}
 			
 			double totalSupply = expectedImpOpsFromPop(totalPopulation);
