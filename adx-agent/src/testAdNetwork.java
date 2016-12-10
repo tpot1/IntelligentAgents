@@ -159,7 +159,11 @@ public class testAdNetwork extends Agent {
 	private double CONTRACT_GREED_WIN = 1.2;
 	private double UCSScaleUp = 0.2;
 	private double UCSScaleDown = 0.3;
+    private double UCS_MAX = 0.81;
+    private double UCS_MIN = 0.729;
 	private long previous_campaign_bid = 0;
+
+	//UCS MIN AND MAX
 
 	private double quality_threshold = 0.95;
 	private double price_index_threshold = 1.0;
@@ -939,6 +943,8 @@ public class testAdNetwork extends Agent {
 
 			UCSScaleUp 			= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_up"));
 			UCSScaleDown 		= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_down"));
+            UCS_MAX = Double.parseDouble(starting_constant_maps.get("ucs_max"));
+            UCS_MIN = Double.parseDouble(starting_constant_maps.get("ucs_min"));
 
 			quality_threshold 		= Double.parseDouble(starting_constant_maps.get("contract_quality_threshold"));
 			price_index_threshold 	= Double.parseDouble(starting_constant_maps.get("contract_price_index_threshold"));
@@ -1365,8 +1371,7 @@ public class testAdNetwork extends Agent {
 		double previousLevel;
 		double minReach;
 		double impressionUnitPrice;
-		double UCS_MAX = 0.81;
-		double UCS_MIN = 0.729;
+
 
 		public UCSBidder(double previousBid, double previousLevel){
 			this.previousBid = previousBid;
