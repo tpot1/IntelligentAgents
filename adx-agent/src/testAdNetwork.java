@@ -153,8 +153,8 @@ public class testAdNetwork extends Agent {
 
 	private static String constant_file_location = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
 
-	private double competing_index = 5.0;
-	private double COMPETING_INDEX_MAX = 8.0;
+	private double competing_index = 20.0;
+	private double COMPETING_INDEX_MAX = 20.0;
 	private double CONTRACT_GREED_LOSE = 1.15;
 	private double CONTRACT_GREED_WIN = 1.2;
 	private double UCSScaleUp = 0.2;
@@ -162,8 +162,6 @@ public class testAdNetwork extends Agent {
     private double UCS_MAX = 0.81;
     private double UCS_MIN = 0.729;
 	private long previous_campaign_bid = 0;
-
-	//UCS MIN AND MAX
 
 	private double quality_threshold = 0.95;
 	private double price_index_threshold = 1.0;
@@ -543,18 +541,38 @@ public class testAdNetwork extends Agent {
 
 						//update the rbid here with reserve info?
 						bid = impsBidder.getImpressionBid();
+						double coeficient = 0.0;
 
-//						if (query.getAdType() == AdType.text) {
-//							bid = bid/thisCampaign.videoCoef;
-//						} else {
-//							bid = bid * thisCampaign.videoCoef;
-//						}
-//
-//						if (query.getDevice() == Device.mobile) {
-//							bid = bid * thisCampaign.mobileCoef;
-//						} else {
-//							bid = bid / thisCampaign.mobileCoef;
-//						}
+						if (impressions_printing) { System.out.println("\nORIGINAL IMPRESSION BID: " + bid); }
+
+						if (query.getAdType() == AdType.text) {
+							if (impressions_printing) { System.out.println("TEXT opportunity - scaling bid DOWN"); }
+							coeficient -= thisCampaign.videoCoef;
+						} else {
+							if (impressions_printing) { System.out.println("VIDEO opportunity - scaling bid UP"); }
+							coeficient += thisCampaign.videoCoef;
+						}
+
+						if (query.getDevice() == Device.mobile) {
+							if (impressions_printing) { System.out.println("MOBILE opportunity - scaling bid UP"); }
+							coeficient += thisCampaign.mobileCoef;
+						} else {
+							if (impressions_printing) { System.out.println("DESKTOP opportunity - scaling bid DOWN"); }
+							coeficient -= thisCampaign.mobileCoef;
+						}
+
+						double MAX_COEF = 6.0;
+						double MIN_COEF = -6.0;
+
+						/*if(coeficient > 0.0){
+							bid = bid * (1 + (coeficient/MAX_COEF));
+						}
+						else*/
+						if(coeficient < 0.0){
+							bid = bid / (1 + (coeficient/MIN_COEF));
+						}
+
+						if (impressions_printing) { System.out.println("FINAL IMPRESSION BID: " + bid + "\n"); }
 
 						AdxQuery emptySeg = query.clone();
 						emptySeg.setMarketSegments(new HashSet<MarketSegment>());
@@ -1452,7 +1470,6 @@ public class testAdNetwork extends Agent {
 				for (MarketSegment targetSegment : myCampaign.targetSegment){
 					if(!targetSegments.contains(targetSegment)){
 						targetSegments.add(targetSegment);
-						System.out.println(targetSegment.name());
 					}	
 				}
 			}
@@ -1474,7 +1491,8 @@ public class testAdNetwork extends Agent {
 				}
 				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
 				marketSet.add(s);
-				totalPopulation += MarketSegment.marketSegmentSize(marketSet);
+				totalPopulation += MarketSegment.marketSegmentSize(marketSet);		
+
 			}
 			
 			double totalSupply = expectedImpOpsFromPop(totalPopulation);
