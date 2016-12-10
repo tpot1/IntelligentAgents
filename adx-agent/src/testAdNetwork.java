@@ -131,7 +131,7 @@ public class testAdNetwork extends Agent {
 	private boolean verbose_printing = 		false;
 	private boolean ucs_printing = 			true;
 	private boolean contract_printing = 	false;
-	private boolean impressions_printing = 	false;
+	private boolean impressions_printing = 	true;
 	private boolean costs_printing = 		false;
 
 	/**
@@ -161,7 +161,7 @@ public class testAdNetwork extends Agent {
 	private double UCSScaleDown = 0.3;
 	private long previous_campaign_bid = 0;
 
-	private double quality_threshold = 0.8;
+	private double quality_threshold = 0.95;
 	private double price_index_threshold = 1.0;
 
 	private Map<Integer, Double> imps_competing_indicies;
@@ -175,6 +175,8 @@ public class testAdNetwork extends Agent {
 	private double IMP_RESULT_MODIFIER_WIN_WIN = -0.2;
 	private double IMP_RESULT_MODIFIER_WIN_LOSE = +0.3;
 	private double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
+
+	private double IMP_EMPTY_BID_SCALING = 10;
 
 	private PIP PIPredictor;
 	
@@ -310,6 +312,7 @@ public class testAdNetwork extends Agent {
 		 */
 		if (verbose_printing) { System.out.println("Day " + day + ": Allocated campaign - " + campaignData); }
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
+		postedCampaigns.add(campaignData);
 	}
 
 	/**
@@ -486,6 +489,7 @@ public class testAdNetwork extends Agent {
 		//Loop over all of our running campaigns
 		for (int campKey : myCampaigns.keySet()) {
 			CampaignData thisCampaign = myCampaigns.get(campKey);
+			System.out.println("ID: " + thisCampaign.id + " - Seg Pop: " + PIPredictor.getPop(thisCampaign.targetSegment,day+1,day+1));
 			if (thisCampaign.dayEnd < day) {
 				//Inactive campaign
 				continue;
@@ -503,8 +507,6 @@ public class testAdNetwork extends Agent {
 					&& (dayBiddingFor <= thisCampaign.dayEnd)) {
 
 				int entCount = 0;
-
-				//TODO: Determine how to handle the empty market segment calls when the ucs service doesnt give us answer
 
 				for (AdxQuery query : thisCampaign.campaignQueries) { //all possible targets  for each publisher
 					if (thisCampaign.impsTogo() - entCount > 0) { //Only bid for as many impressions as is needed
@@ -616,12 +618,16 @@ public class testAdNetwork extends Agent {
 
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
 
-						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / 10;
+						emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / IMP_EMPTY_BID_SCALING;
 
 						double completionFraction  = ((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
 
-						double popWeight = 1+(double)pop*completionFraction/(thisCampaign.dayEnd+1 - day);//+1 to avoid divide by 0 and since it shouldnt change much
-						System.out.println("CampID: " + thisCampaign.id + " - Comp fraction:" + completionFraction + " - Pop: " + pop + " - Final Weight:" + popWeight);
+						double popWeight = pop;//1+(double)pop*completionFraction/(thisCampaign.dayEnd+1 - day);//+1 to avoid divide by 0 and since it shouldnt change much
+
+						double budgetLimitQuery = (thisCampaign.budget)/(thisCampaign.dayEnd-thisCampaign.dayStart);
+						if (bid > budgetLimitQuery) {
+							bid = budgetLimitQuery-budgetLimitQuery/100;
+						}
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
@@ -639,7 +645,12 @@ public class testAdNetwork extends Agent {
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
 				double impressionLimit = thisCampaign.impsTogo();
 
-				double budgetLimit = (thisCampaign.budget)/(thisCampaign.dayEnd-thisCampaign.dayStart);
+				double budgetLimit;
+				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart);
+				if (thisCampaign.dayEnd-thisCampaign.dayStart > 5) {
+					budgetLimit = (thisCampaign.budget)/(double)5;
+				}
+
 				if (imps_competing_indicies.get(thisCampaign.id) > 2.5) {
 					budgetLimit = budgetLimit*1.2;
 				}
@@ -946,6 +957,8 @@ public class testAdNetwork extends Agent {
 			IMP_RESULT_MODIFIER_WIN_WIN 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_lose_win"));
 			IMP_RESULT_MODIFIER_WIN_LOSE 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_win_lose"));
 			IMP_RESULT_MODIFIER_LOSE_WIN 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_win_win"));
+
+			IMP_EMPTY_BID_SCALING = Double.parseDouble(starting_constant_maps.get("imp_empty_bid_scaling"));
 
 			for (String key : starting_constant_maps.keySet()) {
 				System.out.println("Key: " + key + " - Val: " + starting_constant_maps.get(key) + " - Parsed: " + Double.parseDouble(starting_constant_maps.get(key)));
@@ -1301,19 +1314,25 @@ public class testAdNetwork extends Agent {
 		}
 		
 		public long getContractBid(){
+			double short_dur_coeff = 1.0;
 			System.out.println("***PRICE INDEX***: " + price_index);
+
+			if (dayEnd - dayStart == 2) {
+				short_dur_coeff = 1.5;
+			}
+
 			if (price_index > price_index_threshold){
 				if (contract_printing) { System.out.println("PRICE INDEX HIGH at " + price_index + ". BIDDING HIGHEST VALID BID."); }
 				return highestValidBid();
 			}
 			else if (currQuality < quality_threshold){
 				if (contract_printing) { System.out.println("QUALITY LOW at " + currQuality + ". BIDDING LOWEST VALID BID."); }
-				return lowestValidBid();
+				return highestValidBid();
 			}
-			else{
+			else {
 				if (contract_printing) { System.out.println("DEFAULT - BIDDING PRIVATE VALUE"); }
 				attributes_to_profit.put(new Attributes(id, day, price_index, competing_index, reachImps, mobileCoeff, videoCoeff), 0.0);
-				return privateValueBid();
+				return (long)((double)privateValueBid()*short_dur_coeff);
 			}
 		}
 		
@@ -1454,7 +1473,6 @@ public class testAdNetwork extends Agent {
 				Set<MarketSegment> marketSet = new HashSet<MarketSegment>();
 				marketSet.add(s);
 				totalPopulation += MarketSegment.marketSegmentSize(marketSet);		
-				System.out.println("SEGMENT: " + s.name() + ", SIZE: " + MarketSegment.marketSegmentSize(marketSet));
 			}
 			
 			double totalSupply = expectedImpOpsFromPop(totalPopulation);
@@ -1530,6 +1548,10 @@ public class testAdNetwork extends Agent {
 			double bid = 0;
 			double budget = camp.budget;
 			double price_index = PIPredictor.getPop(camp.targetSegment, day + 1, day+1);
+
+			if (price_index == 0.0) {
+				price_index = 0.01;
+			}
 
 			if (adv) {
 				bid = budget * price_index;
