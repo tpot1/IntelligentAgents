@@ -1,4 +1,4 @@
-competing_index:10.0
+competing_index:20.0
 competing_index_max:20.0
 contract_greed_lose:1.15
 contract_greed_win:1.2
@@ -11,10 +11,11 @@ ucs_min:0.729
 imp_greed_lose:1.6
 imp_greed_win:1.6
 imp_competing_index_default:1.0
-imp_competing_index_max:3.5
-imp_competing_index_min:0.2
+imp_competing_index_max:2.5
+imp_competing_index_min:0.1
 imp_result_modifier_lose_lose:0.3
 imp_result_modifier_lose_win:-0.2
 imp_result_modifier_win_lose:0.3
 imp_result_modifier_win_win:-0.2
-imp_empty_bid_scaling:10
+imp_empty_bid_scaling:10000
+imp_empty_bid_on_off:1.0

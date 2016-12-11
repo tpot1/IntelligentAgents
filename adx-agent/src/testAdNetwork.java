@@ -13,7 +13,6 @@ import se.sics.tasim.props.SimulationStatus;
 import se.sics.tasim.props.StartInfo;
 
 import tau.tac.adx.ads.properties.AdType;
-import tau.tac.adx.demand.Campaign;
 import tau.tac.adx.demand.CampaignStats;
 import tau.tac.adx.devices.Device;
 import tau.tac.adx.props.AdxBidBundle;
@@ -180,6 +179,7 @@ public class testAdNetwork extends Agent {
 	private double IMP_RESULT_MODIFIER_LOSE_WIN = -0.2;
 
 	private double IMP_EMPTY_BID_SCALING = 10;
+	private double IMP_EMPTY_BID_ON_OFF = 0.0;
 
 	private PIP PIPredictor;
 	
@@ -316,32 +316,6 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) { System.out.println("Day " + day + ": Allocated campaign - " + campaignData); }
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
 		postedCampaigns.add(campaignData);
-
-		addPseudoCamps();
-	}
-
-	private void addPseudoCamps() {
-
-		Set<MarketSegment> seg1 = MarketSegment.marketSegments().get(0);
-		Set<MarketSegment> seg2 = MarketSegment.marketSegments().get(1);
-		Set<MarketSegment> seg3 = MarketSegment.marketSegments().get(2);
-		Set<MarketSegment> seg4 = MarketSegment.marketSegments().get(3);
-		Set<MarketSegment> seg5 = MarketSegment.marketSegments().get(4);
-		Set<MarketSegment> seg6 = MarketSegment.marketSegments().get(5);
-
-		CampaignData p1 = new CampaignData(1,(long)(0.5*5*MarketSegment.marketSegmentSize(seg1)),0,5,seg1);
-		CampaignData p2 = new CampaignData(2,(long)(0.5*5*MarketSegment.marketSegmentSize(seg2)),0,5,seg2);
-		CampaignData p3 = new CampaignData(3,(long)(0.5*5*MarketSegment.marketSegmentSize(seg3)),0,5,seg3);
-		CampaignData p4 = new CampaignData(4,(long)(0.5*5*MarketSegment.marketSegmentSize(seg4)),0,5,seg4);
-		CampaignData p5 = new CampaignData(5,(long)(0.5*5*MarketSegment.marketSegmentSize(seg5)),0,5,seg5);
-		CampaignData p6 = new CampaignData(6,(long)(0.5*5*MarketSegment.marketSegmentSize(seg6)),0,5,seg6);
-
-		postedCampaigns.add(p1);
-		postedCampaigns.add(p2);
-		postedCampaigns.add(p3);
-		postedCampaigns.add(p4);
-		postedCampaigns.add(p5);
-		postedCampaigns.add(p6);
 	}
 
 	/**
@@ -458,8 +432,6 @@ public class testAdNetwork extends Agent {
 		//Stores our current quality rating
 		currQuality = notificationMessage.getQualityScore();
 
-		System.out.println("Curr Quality: " + currQuality);
-
 		//Update ucs bid history with new result
 		ucsTracker.handleUCSBid(day, notificationMessage);
 
@@ -507,6 +479,8 @@ public class testAdNetwork extends Agent {
 
 		int dayBiddingFor = day + 1;
 
+		System.out.println("Curr Quality: " + currQuality);
+
 		int pop = 1; //defaults to 1 if no pop value found
 		double reservePrice = 0.0;
 
@@ -515,7 +489,6 @@ public class testAdNetwork extends Agent {
 		//Loop over all of our running campaigns
 		for (int campKey : myCampaigns.keySet()) {
 			CampaignData thisCampaign = myCampaigns.get(campKey);
-			System.out.println("Camp ID: " + thisCampaign.id + " - Day End: " + thisCampaign.dayEnd + " - Day: " + day);
 			if (thisCampaign.dayEnd < day) {
 				//Inactive campaign
 				continue;
@@ -594,14 +567,6 @@ public class testAdNetwork extends Agent {
 						double MAX_COEF = 6.0;
 						double MIN_COEF = -6.0;
 
-						/*if(coeficient > 0.0){
-							bid = bid * (1 + (coeficient/MAX_COEF));
-						}
-						else*/
-//						if(coeficient < 0.0){
-//							bid = bid / (1 + (coeficient/MIN_COEF));
-//						}
-
 						if (impressions_printing) { System.out.println("FINAL IMPRESSION BID: " + bid + "\n"); }
 
 						AdxQuery emptySeg = query.clone();
@@ -663,66 +628,46 @@ public class testAdNetwork extends Agent {
 						usefullPopulationSize = usefullPopulationSize/totalPopSize;
 
 						if (maxBid > 0) {
-                            emptyBid = usefullPopulationSize*usefullPopulationSize * maxBid / IMP_EMPTY_BID_SCALING;
+                            emptyBid = IMP_EMPTY_BID_ON_OFF*usefullPopulationSize*usefullPopulationSize * maxBid / IMP_EMPTY_BID_SCALING;
                         }
 
 						double popWeight = 1;//1+(double)pop*completionFraction/(thisCampaign.dayEnd+1 - day);//+1 to avoid divide by 0 and since it shouldnt change much
 
-						double budgetLimitQuery = (thisCampaign.budget)/(thisCampaign.dayEnd-thisCampaign.dayStart);
-
-						double completionFractionImps  = 1-((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
-						if ((thisCampaign.dayEnd == (day+2) || thisCampaign.dayEnd == (day+1)) && completionFractionImps < 0.85){
-//							if (budgetLimitQuery < impsBidder.getImpressionBid()) {
-//								budgetLimitQuery = impsBidder.getImpressionBid();
-//							}
-//							double remBudget = thisCampaign.budget - myCampaignStatsHistory.get(thisCampaign.id).getCost();
-//							budgetLimitQuery = remBudget*1.2;
-//							bid = budgetLimitQuery-budgetLimitQuery/100;
-							emptyBid = emptyBid*IMP_EMPTY_BID_SCALING;
-							System.out.println("Giving entire remaining budget: " + bid);
-						}
-						if (bid > budgetLimitQuery) {
-							bid = budgetLimitQuery-budgetLimitQuery/100;
-						}
-
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
-						bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
-
+						if (IMP_EMPTY_BID_ON_OFF == 1.0 && (thisCampaign.dayEnd - day > 2)) {
+							bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
+						}
 						if (false) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
 					}
 				}
 				if(true) {
-					System.out.println("ID: " + thisCampaign.id + " - Seg POP: " + PIPredictor.getPop(thisCampaign.targetSegment, day+1,day+1));
 					System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
 					System.out.println("ID: " + thisCampaign.id + " - Budget Today: " + thisCampaign.budget/(thisCampaign.dayEnd-thisCampaign.dayStart) + " - Current cost: " + thisCampaign.stats.getCost());
 					System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
+					System.out.println("ID: " + thisCampaign.id + " - CI: " + imps_competing_indicies.get(thisCampaign.id));
 				}
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
 				double impressionLimit = thisCampaign.impsTogo();
 
 				double budgetLimit;
-				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*imps_competing_indicies.get(thisCampaign.id)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart);
+				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart);
 				if (thisCampaign.dayEnd-thisCampaign.dayStart > 5) {
-					budgetLimit = (thisCampaign.budget)/(double)5*imps_competing_indicies.get(thisCampaign.id);
+					budgetLimit = (thisCampaign.budget)/(double)5;
 				}
 
-				double completionFraction  = 1-((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
-				System.out.println("Camp ID: " + thisCampaign.id + " - Comp frac: " + completionFraction + " - imps2go: " + thisCampaign.impsTogo() + " - reach: " + thisCampaign.reachImps);
+				budgetLimit = budgetLimit*1.2;
 
-				if ((thisCampaign.dayEnd == (day+1) || thisCampaign.dayEnd == (day + 2)) && completionFraction < 0.7) {
-					System.out.println("ID: "+ thisCampaign.id  + " - Actually letting the bidder calc bid due to not enough imps and final day");
-					budgetLimit = 100;
+				double completionFraction = 1 - ((double)thisCampaign.impsTogo()/thisCampaign.reachImps);
+
+				System.out.println("Completion frac: " + completionFraction);
+
+				if (thisCampaign.dayEnd == day+1 && completionFraction < 0.8) {
+					budgetLimit = budgetLimit * 1.2;
 				}
-
-//				System.out.println("BUDGET LIMIT: " + budgetLimit);
-//				System.out.println("CAMPAIGN BUDGET: " + thisCampaign.budget);
-//				System.out.println("IMPS TO GO: " + thisCampaign.impsTogo());
-//				System.out.println("COST: " + thisCampaign.stats.getCost());
 				
-				bidBundle.setCampaignDailyLimit(thisCampaign.id,
-						(int) impressionLimit, budgetLimit);
+				bidBundle.setCampaignDailyLimit(thisCampaign.id, (int) impressionLimit, budgetLimit);
 
 				if (verbose_printing) {
 					System.out.println("Day " + day + ": Updated " + entCount
@@ -743,11 +688,6 @@ public class testAdNetwork extends Agent {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
 			sendMessage(adxAgentAddress, bidBundle);
 		}
-	}
-
-	private double impScalingFunction(long duration) {
-		double value = -1/8*duration + 18/8;
-		return value;
 	}
 
 	/**
@@ -778,7 +718,7 @@ public class testAdNetwork extends Agent {
 					+ cstats.getTargetedImps() + " tgtImps "
 					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
 					+ cstats.getCost());
-				System.out.println("ID: " + cmpId + " - Seg: " + myCampaigns.get(cmpId).targetSegment + " - Seg pop: " + PIPredictor.getPop(myCampaigns.get(cmpId).targetSegment, day+1, day+1));
+				System.out.println("ID: " + cmpId + " - Seg: " + myCampaigns.get(cmpId).targetSegment + " - Seg pop: " + PIPredictor.getPop(myCampaigns.get(cmpId).targetSegment, day, day));
 			}
 			
 			for (Attributes a : attributes_to_profit.keySet()){
@@ -1027,6 +967,7 @@ public class testAdNetwork extends Agent {
 			IMP_RESULT_MODIFIER_LOSE_WIN 	= Double.parseDouble(starting_constant_maps.get("imp_result_modifier_win_win"));
 
 			IMP_EMPTY_BID_SCALING = Double.parseDouble(starting_constant_maps.get("imp_empty_bid_scaling"));
+			IMP_EMPTY_BID_ON_OFF = Double.parseDouble(starting_constant_maps.get("imp_empty_bid_on_off"));
 
 			for (String key : starting_constant_maps.keySet()) {
 				System.out.println("Key: " + key + " - Val: " + starting_constant_maps.get(key) + " - Parsed: " + Double.parseDouble(starting_constant_maps.get(key)));
@@ -1301,14 +1242,6 @@ public class testAdNetwork extends Agent {
 		CampaignStats stats;
 		double budget;
 
-		public CampaignData(int id, long reachImps, long dayStart, long dayEnd, Set<MarketSegment> targetSegment) {
-			this.reachImps = reachImps;
-			this.dayStart = dayStart;
-			this.dayEnd = dayEnd;
-			this.targetSegment = targetSegment;
-			this.id = id;
-		}
-
 		public CampaignData(InitialCampaignMessage icm) {
 			reachImps = icm.getReachImps();
 			dayStart = icm.getDayStart();
@@ -1394,7 +1327,7 @@ public class testAdNetwork extends Agent {
 			System.out.println("***PRICE INDEX***: " + price_index);
 
 			if (dayEnd - dayStart == 2) {
-				short_dur_coeff = 1.5;
+				short_dur_coeff = 2.0;
 			}
 
 			if (price_index > price_index_threshold){
@@ -1588,7 +1521,7 @@ public class testAdNetwork extends Agent {
 
 		//Determines the fraction of the required impressions currently reached in campaign camp
 		private double getContractCompletionFraction() {
-			return (1-camp.impsTogo()/camp.reachImps);
+			return (1-(double)camp.impsTogo()/(double)camp.reachImps);
 		}
 
 		//Determines bid value based on price index
@@ -1631,7 +1564,12 @@ public class testAdNetwork extends Agent {
 			}
 
 			if (adv) {
-				bid = budget * price_index * impScalingFunction(camp.dayEnd - camp.dayStart);
+				if (dur > 2) {
+					bid = budget * price_index / (dur - 2);
+				} else {
+					bid = budget * price_index / dur;
+				}
+
 			} else {
 				bid = budget * budgetCoeff;
 			}
@@ -1643,7 +1581,7 @@ public class testAdNetwork extends Agent {
 			}
 
 			//If short duration and not close to required reach, double bid
-			if (dur == 1 && fractionImpsToGo > 0.1 && day < 55) {
+			if (dur == 0 && fractionImpsToGo > 0.1 && day < 55) {
 				bid = budget * price_index * 2;
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
