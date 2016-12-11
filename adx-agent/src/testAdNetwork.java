@@ -635,7 +635,7 @@ public class testAdNetwork extends Agent {
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
-						if (IMP_EMPTY_BID_ON_OFF == 1.0 && (thisCampaign.dayEnd - day > 2)) {
+						if (IMP_EMPTY_BID_ON_OFF == 1.0 && (thisCampaign.dayEnd - day > 2) && (day > 4)) {
 							bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
 						}
 						if (false) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
@@ -649,7 +649,7 @@ public class testAdNetwork extends Agent {
 				}
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
-				double impressionLimit = thisCampaign.impsTogo();
+				double impressionLimit = thisCampaign.impsTogo()*2;
 
 				double budgetLimit;
 				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart);
@@ -1521,7 +1521,7 @@ public class testAdNetwork extends Agent {
 
 		//Determines the fraction of the required impressions currently reached in campaign camp
 		private double getContractCompletionFraction() {
-			return (1-(double)camp.impsTogo()/(double)camp.reachImps);
+			return (1-((double)camp.impsTogo()/(double)camp.reachImps));
 		}
 
 		//Determines bid value based on price index
@@ -1581,8 +1581,8 @@ public class testAdNetwork extends Agent {
 			}
 
 			//If short duration and not close to required reach, double bid
-			if (dur == 0 && fractionImpsToGo > 0.1 && day < 55) {
-				bid = budget * price_index * 2;
+			if (dur == 1 && fractionImpsToGo > 0.1 && day < 55) {
+				bid = budget * price_index * 2 * comp_index;
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
 
