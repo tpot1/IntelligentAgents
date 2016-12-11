@@ -8,7 +8,7 @@ TACAA_HOME=`pwd`
 echo $TACAA_HOME
 echo $CLASSPATH
 
-java -cp "lib/*" tau.tac.adx.agentware.Main -config config/aw-2.conf > 10_5_01.txt
+java -cp "lib/*" tau.tac.adx.agentware.Main -config config/aw-1.conf >> 11_dec_log_2.txt
 
 pause
 
