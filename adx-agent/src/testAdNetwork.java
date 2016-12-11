@@ -668,7 +668,7 @@ public class testAdNetwork extends Agent {
 
 						//Weight the bids based on popularity of the publisher
 						bidBundle.addQuery(query, bid, new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
-						if (IMP_EMPTY_BID_ON_OFF == 1.0 && (thisCampaign.dayEnd - day > 2) && (day > 4)) {
+						if (IMP_EMPTY_BID_ON_OFF == 1.0 && (thisCampaign.dayEnd - day > 2)) {
 							bidBundle.addQuery(emptySeg,emptyBid,new Ad(null), thisCampaign.id, (int)popWeight, thisCampaign.budget);
 						}
 						if (false) {System.out.println("day: " + day + " - camp id: " + thisCampaign.id + " - bid: " + bid + " - site: " + query.getPublisher());}
@@ -677,7 +677,7 @@ public class testAdNetwork extends Agent {
 				if(true) {
 					System.out.println("ID: " + thisCampaign.id + " - Seg POP: " + PIPredictor.getPop(thisCampaign.targetSegment, day+1,day+1));
 					System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
-					System.out.println("ID: " + thisCampaign.id + " - Budget Today: " + thisCampaign.budget/(thisCampaign.dayEnd-thisCampaign.dayStart) + " - Current cost: " + thisCampaign.stats.getCost());
+					System.out.println("ID: " + thisCampaign.id + " - Budget Today: " + (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*imps_competing_indicies.get(thisCampaign.id)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart) + " - Current cost: " + thisCampaign.stats.getCost());
 					System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
 					System.out.println("ID: " + thisCampaign.id + " - CI: " + imps_competing_indicies.get(thisCampaign.id));
 				}
