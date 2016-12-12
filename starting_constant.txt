@@ -20,3 +20,4 @@ imp_result_modifier_win_lose:0.3
 imp_result_modifier_win_win:-0.2
 imp_empty_bid_scaling:10000
 imp_empty_bid_on_off:1.0
+bid_high_on_two_day_campaigns:0.0

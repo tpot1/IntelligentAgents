@@ -152,8 +152,10 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 
-	private static String constant_file_location = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
-
+	private static String constant_file_location_matt = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
+	private static String constant_file_location_tom = "C:\\Users\\Tom\\Documents\\4thYear\\IntelligentAgents\\adx\\starting_constant.txt";
+	private static String constant_file_location = constant_file_location_tom;
+	
 	private double competing_index = 20.0;
 	private double COMPETING_INDEX_MAX = 20.0;
 	private double CONTRACT_GREED_LOSE = 1.15;
@@ -184,6 +186,8 @@ public class testAdNetwork extends Agent {
 
 	private double IMP_EMPTY_BID_SCALING = 10;
 	private double IMP_EMPTY_BID_ON_OFF = 0.0;
+	
+	private double BID_HIGH_ON_TWO_DAY_CAMPAIGNS = 1.0;
 
 	private PIP PIPredictor;
 	
@@ -1024,6 +1028,8 @@ public class testAdNetwork extends Agent {
 
 			IMP_EMPTY_BID_SCALING = Double.parseDouble(starting_constant_maps.get("imp_empty_bid_scaling"));
 			IMP_EMPTY_BID_ON_OFF = Double.parseDouble(starting_constant_maps.get("imp_empty_bid_on_off"));
+			
+			BID_HIGH_ON_TWO_DAY_CAMPAIGNS = Double.parseDouble(starting_constant_maps.get("bid_high_on_two_day_campaigns"));
 
 			for (String key : starting_constant_maps.keySet()) {
 				System.out.println("Key: " + key + " - Val: " + starting_constant_maps.get(key) + " - Parsed: " + Double.parseDouble(starting_constant_maps.get(key)));
@@ -1403,7 +1409,7 @@ public class testAdNetwork extends Agent {
 			double coeff = 1.0;
 			System.out.println("CAMPAIGN: " + id + ", ***PRICE INDEX***: " + price_index);
 
-			if (dayEnd - dayStart == 2) {
+			if (dayEnd - dayStart == 2 && BID_HIGH_ON_TWO_DAY_CAMPAIGNS == 1) {
 				coeff += 0.5;
 			}
 
