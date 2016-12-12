@@ -1034,9 +1034,9 @@ public class testAdNetwork extends Agent {
 			
 			BID_HIGH_ON_TWO_DAY_CAMPAIGNS = Double.parseDouble(starting_constant_maps.get("bid_high_on_two_day_campaigns"));
 
-			for (String key : starting_constant_maps.keySet()) {
-				System.out.println("Key: " + key + " - Val: " + starting_constant_maps.get(key) + " - Parsed: " + Double.parseDouble(starting_constant_maps.get(key)));
-			}
+//			for (String key : starting_constant_maps.keySet()) {
+//				System.out.println("Key: " + key + " - Val: " + starting_constant_maps.get(key) + " - Parsed: " + Double.parseDouble(starting_constant_maps.get(key)));
+//			}
 		} catch (NumberFormatException nfe) {
 			System.out.println("ERROR: Number format exception when parsing start consts.");
 		}
