@@ -163,6 +163,7 @@ public class testAdNetwork extends Agent {
     private double UCS_MAX = 0.81;
     private double UCS_MIN = 0.729;
 	private long previous_campaign_bid = 0;
+	private int campaignConflictThreshold = 5000;
 
 	private int initialCampId;
 
@@ -1001,6 +1002,7 @@ public class testAdNetwork extends Agent {
 			COMPETING_INDEX_MAX = 	Double.parseDouble(starting_constant_maps.get("competing_index_max"));
 			CONTRACT_GREED_LOSE = 	Double.parseDouble(starting_constant_maps.get("contract_greed_lose"));
 			CONTRACT_GREED_WIN 	= 	Double.parseDouble(starting_constant_maps.get("contract_greed_win"));
+			campaignConflictThreshold = Integer.parseInt(starting_constant_maps.get("campaign_conflict_threshold"));
 
 			UCSScaleUp 			= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_up"));
 			UCSScaleDown 		= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_down"));
@@ -1385,7 +1387,6 @@ public class testAdNetwork extends Agent {
 		
 		double price_index;
 
-		int campaignConflictThreshold = 5000;
 
 		public ContractBidder(CampaignOpportunityMessage com) {
 			id = com.getId();
@@ -1638,7 +1639,7 @@ public class testAdNetwork extends Agent {
 
 		public double getBudget() {
 
-			double comp_index = -1;
+			double comp_index = 1;
 
 			try {
 				comp_index = imps_competing_indicies.get(camp.id);

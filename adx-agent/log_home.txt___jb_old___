@@ -14,510 +14,1524 @@ Key: ucs_min - Val: 0.729 - Parsed: 0.729
 Key: imp_greed_lose - Val: 1.4 - Parsed: 1.4
 Key: imp_competing_index_default - Val: 1.0 - Parsed: 1.0
 Key: ucs_scale_up - Val: 0.2 - Parsed: 0.2
+Key: campaign_conflict_threshold - Val: 7500 - Parsed: 7500.0
 Key: imp_greed_win - Val: 1.3 - Parsed: 1.3
 Key: imp_result_modifier_lose_lose - Val: 0.3 - Parsed: 0.3
 Key: contract_greed_win - Val: 1.2 - Parsed: 1.2
 Key: contract_quality_threshold - Val: 0.95 - Parsed: 0.95
 Key: imp_competing_index_max - Val: 3.0 - Parsed: 3.0
 UNKNOWN Message Received: edu.umich.eecs.tac.props.AdvertiserInfo@bc76a1c1
-CAMPAIGN: 1058912737, ***PRICE INDEX***: 0.2921305259539658
+CAMPAIGN: 286465527, ***PRICE INDEX***: 0.20721069763049593
 Day 0 :BankStatus[0.000000]
 Day 0 : Simulation Status Received
 Curr Quality: 1.0
-Camp ID: 992572521 - Day End: 5 - Day: 0
-ID: 992572521 - Seg POP: 1.758648123164828
-ID: 992572521 - bid: 4.220755495595587
-ID: 992572521 - Budget Today: 4.77 - Current cost: 0.0
-ID: 992572521 - Reach: 9540 - Imps2Go: 9540
-ID: 992572521 - CI: 3.0
-Camp ID: 992572521 - Comp frac: 0.0 - imps2go: 9540 - reach: 9540
+Camp ID: 1111962541 - Day End: 5 - Day: 0
+ID: 1111962541 - Seg POP: 1.5109122369989498
+ID: 1111962541 - bid: 1.20872978959916
+ID: 1111962541 - Budget Today: 3.2535 - Current cost: 0.0
+ID: 1111962541 - Reach: 6507 - Imps2Go: 6507
+ID: 1111962541 - CI: 3.0
+Camp ID: 1111962541 - Comp frac: 0.0 - imps2go: 6507 - reach: 6507
 Completion frac: 0.0
 Curr Quality: 1.0
-CAMPAIGN: 1685244430, ***PRICE INDEX***: 0.33412928827444954
-Day 1 :BankStatus[-0.088137]
+CAMPAIGN: 1602694901, ***PRICE INDEX***: 0.5516779732726423
+Day 1 :BankStatus[-0.085311]
 Day 1 : Simulation Status Received
 Curr Quality: 1.0
-Camp ID: 992572521 - Day End: 5 - Day: 1
-ID: 992572521 - Seg POP: 2.2318290435503356
-ID: 992572521 - bid: 5.356389704520804
-ID: 992572521 - Budget Today: 4.77 - Current cost: 0.0
-ID: 992572521 - Reach: 9540 - Imps2Go: 9540
-ID: 992572521 - CI: 3.0
-Camp ID: 992572521 - Comp frac: 0.0 - imps2go: 9540 - reach: 9540
+Camp ID: 1111962541 - Day End: 5 - Day: 1
+ID: 1111962541 - Seg POP: 1.956555801331333
+ID: 1111962541 - bid: 1.5652446410650664
+ID: 1111962541 - Budget Today: 3.2535 - Current cost: 0.0
+ID: 1111962541 - Reach: 6507 - Imps2Go: 6507
+ID: 1111962541 - CI: 3.0
+Camp ID: 1111962541 - Comp frac: 0.0 - imps2go: 6507 - reach: 6507
 Completion frac: 0.0
-Day 2: Updating campaign 992572521 stats: 2091.75851944635 tgtImps 1953.0013626265516 nonTgtImps. Cost of imps is 0.0
-ID: 992572521 - Seg: [YOUNG, LOW_INCOME] - Seg pop: 2.2318290435503356
-Campaign ID added: 1685244430
+Day 2: Updating campaign 1111962541 stats: 960.4833718227178 tgtImps 1577.6620150663882 nonTgtImps. Cost of imps is 0.0
+ID: 1111962541 - Seg: [OLD, MALE] - Seg pop: 1.956555801331333
+Campaign ID added: 1602694901
 Curr Quality: 1.0
-CAMPAIGN: 324242679, ***PRICE INDEX***: 0.6132136907753721
-Day 2 :BankStatus[-0.208062]
-ID: 992572521 - New Imps: 2092
-ID: 1685244430 - New Imps: 0
-ID: 992572521 - Not enough imps gained. Raising: 3.0
-ID: 1685244430 - Not enough imps gained. Raising: 1.4
+CAMPAIGN: 245920456, ***PRICE INDEX***: 0.2642965572493761
+Day 2 :BankStatus[-0.219183]
+ID: 1602694901 - New Imps: 0
+ID: 1111962541 - New Imps: 961
+ID: 1602694901 - Not enough imps gained. Raising: 1.4
+ID: 1111962541 - Not enough imps gained. Raising: 3.0
 Day 2 : Simulation Status Received
 Curr Quality: 1.0
-Camp ID: 992572521 - Day End: 5 - Day: 2
-ID: 992572521 - Seg POP: 3.1358027140703117
-ID: 992572521 - bid: 9.639814573221518
-ID: 992572521 - Budget Today: 4.77 - Current cost: 0.0
-ID: 992572521 - Reach: 9540 - Imps2Go: 7448
-ID: 992572521 - CI: 3.0
-Camp ID: 992572521 - Comp frac: 0.21928721174004195 - imps2go: 7448 - reach: 9540
-Completion frac: 0.21928721174004195
-Camp ID: 1685244430 - Day End: 12 - Day: 2
-ID: 1685244430 - Seg POP: 2.576476403089306
-ID: 1685244430 - bid: 0.36544352399320135
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 6625
-ID: 1685244430 - CI: 1.4
-Camp ID: 1685244430 - Comp frac: 0.0 - imps2go: 6625 - reach: 6625
+Camp ID: 1602694901 - Day End: 7 - Day: 2
+ID: 1602694901 - Seg POP: 2.4914598651960786
+ID: 1602694901 - bid: 0.5316858382034051
+ID: 1602694901 - Budget Today: 1.6695 - Current cost: 0.0
+ID: 1602694901 - Reach: 17524 - Imps2Go: 17524
+ID: 1602694901 - CI: 1.4
+Camp ID: 1602694901 - Comp frac: 0.0 - imps2go: 17524 - reach: 17524
 Completion frac: 0.0
-Day 3: Updating campaign 992572521 stats: 5202.488503255278 tgtImps 7932.153335385078 nonTgtImps. Cost of imps is 2.1681335979600127
-ID: 992572521 - Seg: [YOUNG, LOW_INCOME] - Seg pop: 3.1358027140703117
-Campaign ID added: 324242679
+Camp ID: 1111962541 - Day End: 5 - Day: 2
+ID: 1111962541 - Seg POP: 3.208539531391552
+ID: 1111962541 - bid: 3.011607173568674
+ID: 1111962541 - Budget Today: 3.2535 - Current cost: 0.0
+ID: 1111962541 - Reach: 6507 - Imps2Go: 5546
+ID: 1111962541 - CI: 3.0
+Camp ID: 1111962541 - Comp frac: 0.14768710619333025 - imps2go: 5546 - reach: 6507
+Completion frac: 0.14768710619333025
+Day 3: Updating campaign 1111962541 stats: 2538.835715214288 tgtImps 10294.899469702577 nonTgtImps. Cost of imps is 0.0
+ID: 1111962541 - Seg: [OLD, MALE] - Seg pop: 3.208539531391552
 Curr Quality: 1.0
-CAMPAIGN: 1960506338, ***PRICE INDEX***: 0.3170282120181809
-Day 3 :BankStatus[-0.315060]
-ID: 992572521 - New Imps: 3111
-ID: 324242679 - New Imps: 0
-ID: 1685244430 - New Imps: 0
-ID: 992572521 - Enough imps gained. Lowering: 2.3076923076923075
-ID: 324242679 - Not enough imps gained. Raising: 1.4
-ID: 1685244430 - Not enough imps gained. Raising: 1.9599999999999997
+CAMPAIGN: 925856649, ***PRICE INDEX***: 1.4092394337239698
+Day 3 :BankStatus[-0.367284]
+ID: 1602694901 - New Imps: 0
+ID: 1111962541 - New Imps: 1578
+ID: 1602694901 - Not enough imps gained. Raising: 1.9599999999999997
+ID: 1111962541 - Not enough imps gained. Raising: 3.0
 Day 3 : Simulation Status Received
 Curr Quality: 1.0
-Camp ID: 992572521 - Day End: 5 - Day: 3
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 992572521 - Seg POP: 6.526614667770131
-ID: 992572521 - bid: 26.5042069905225
-ID: 992572521 - Budget Today: 4.77 - Current cost: 2.1681335979600127
-ID: 992572521 - Reach: 9540 - Imps2Go: 4337
-ID: 992572521 - CI: 2.3076923076923075
-Camp ID: 992572521 - Comp frac: 0.5453878406708595 - imps2go: 4337 - reach: 9540
-Completion frac: 0.5453878406708595
-Camp ID: 324242679 - Day End: 6 - Day: 3
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 324242679 - Seg POP: 3.7208504984202166
-Campaign won by luck - reducing impression budget
-ID: 324242679 - bid: 0.8334705116461285
-ID: 324242679 - Budget Today: 0.244 - Current cost: 0.0
-ID: 324242679 - Reach: 244 - Imps2Go: 244
-ID: 324242679 - CI: 1.4
-Camp ID: 324242679 - Comp frac: 0.0 - imps2go: 244 - reach: 244
+Camp ID: 1602694901 - Day End: 7 - Day: 3
+ID: 1602694901 - Seg POP: 4.418340773809524
+ID: 1602694901 - bid: 1.320044103800502
+ID: 1602694901 - Budget Today: 1.6695 - Current cost: 0.0
+ID: 1602694901 - Reach: 17524 - Imps2Go: 17524
+ID: 1602694901 - CI: 1.9599999999999997
+Camp ID: 1602694901 - Comp frac: 0.0 - imps2go: 17524 - reach: 17524
 Completion frac: 0.0
-Camp ID: 1685244430 - Day End: 12 - Day: 3
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 1685244430 - Seg POP: 4.02648495793657
-ID: 1685244430 - bid: 0.7995547682088106
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 6625
-ID: 1685244430 - CI: 1.9599999999999997
-Camp ID: 1685244430 - Comp frac: 0.0 - imps2go: 6625 - reach: 6625
-Completion frac: 0.0
-Day 4: Updating campaign 992572521 stats: 12899.687634417875 tgtImps 16727.088610198785 nonTgtImps. Cost of imps is 7.3116210878488666
-ID: 992572521 - Seg: [YOUNG, LOW_INCOME] - Seg pop: 6.526614667770131
-Day 4: Updating campaign 1685244430 stats: 1015.5469646847171 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
-ID: 1685244430 - Seg: [MALE, HIGH_INCOME] - Seg pop: 4.02648495793657
+Camp ID: 1111962541 - Day End: 5 - Day: 3
+ID: 1111962541 - Seg POP: 5.797515383158656
+ID: 1111962541 - bid: 7.605732378672051
+ID: 1111962541 - Budget Today: 3.2535 - Current cost: 0.0
+ID: 1111962541 - Reach: 6507 - Imps2Go: 3968
+ID: 1111962541 - CI: 3.0
+Camp ID: 1111962541 - Comp frac: 0.3901951744275396 - imps2go: 3968 - reach: 6507
+Completion frac: 0.3901951744275396
+Day 4: Updating campaign 1602694901 stats: 12456.183091242201 tgtImps 1566.3466702318728 nonTgtImps. Cost of imps is 0.0
+ID: 1602694901 - Seg: [FEMALE, LOW_INCOME] - Seg pop: 4.418340773809524
+Day 4: Updating campaign 1111962541 stats: 3821.6831745416002 tgtImps 10294.899469702577 nonTgtImps. Cost of imps is 0.17933667535389572
+ID: 1111962541 - Seg: [OLD, MALE] - Seg pop: 5.797515383158656
 Curr Quality: 1.0
-CAMPAIGN: 314158257, ***PRICE INDEX***: 0.3285937191051512
-Day 4 :BankStatus[-2.615836]
-ID: 992572521 - New Imps: 4337
-ID: 324242679 - New Imps: 0
-ID: 1685244430 - New Imps: 1016
-ID: 992572521 - Enough imps gained. Lowering: 1.7751479289940826
-ID: 324242679 - Not enough imps gained. Raising: 1.9599999999999997
-ID: 1685244430 - Enough imps gained. Lowering: 1.5076923076923074
+CAMPAIGN: 1781784942, ***PRICE INDEX***: 0.4337460317460317
+Day 4 :BankStatus[-0.518839]
+ID: 1602694901 - New Imps: 12457
+ID: 1111962541 - New Imps: 1283
+ID: 1602694901 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 1111962541 - Not enough imps gained. Raising: 3.0
 Day 4 : Simulation Status Received
 Curr Quality: 1.0
-Camp ID: 992572521 - Day End: 5 - Day: 4
-ID: 992572521 - Seg POP: 1.7366522939096545
-ID: 992572521 - bid: 2.4
-ID: 992572521 - Budget Today: 4.77 - Current cost: 7.3116210878488666
-ID: 992572521 - Reach: 9540 - Imps2Go: 0
-ID: 992572521 - CI: 1.7751479289940826
-Camp ID: 992572521 - Comp frac: 1.0 - imps2go: 0 - reach: 9540
-Completion frac: 1.0
-Camp ID: 324242679 - Day End: 6 - Day: 4
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 324242679 - Seg POP: 2.153773826722473
-Campaign won by luck - reducing impression budget
-ID: 324242679 - bid: 0.6754234720601675
-ID: 324242679 - Budget Today: 0.244 - Current cost: 0.0
-ID: 324242679 - Reach: 244 - Imps2Go: 244
-ID: 324242679 - CI: 1.9599999999999997
-Camp ID: 324242679 - Comp frac: 0.0 - imps2go: 244 - reach: 244
-Completion frac: 0.0
-Camp ID: 1685244430 - Day End: 12 - Day: 4
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 1685244430 - Seg POP: 1.980677289145031
-ID: 1685244430 - bid: 0.35734931073540094
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 5609
-ID: 1685244430 - CI: 1.5076923076923074
-Camp ID: 1685244430 - Comp frac: 0.1533584905660378 - imps2go: 5609 - reach: 6625
-Completion frac: 0.1533584905660378
-Day 5: Updating campaign 992572521 stats: 18105.082030227193 tgtImps 16727.088610198785 nonTgtImps. Cost of imps is 16.847805896871314
-ID: 992572521 - Seg: [YOUNG, LOW_INCOME] - Seg pop: 1.7366522939096545
-Day 5: Updating campaign 324242679 stats: 292.852103000305 tgtImps 2718.1141114505867 nonTgtImps. Cost of imps is 0.0
-ID: 324242679 - Seg: [OLD, FEMALE, HIGH_INCOME] - Seg pop: 2.153773826722473
-Day 5: Updating campaign 1685244430 stats: 2641.2927621664203 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
-ID: 1685244430 - Seg: [MALE, HIGH_INCOME] - Seg pop: 1.980677289145031
+Camp ID: 1602694901 - Day End: 7 - Day: 4
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1602694901 - Seg POP: 2.785526450163399
+ID: 1602694901 - bid: 2.2139892482588515
+ID: 1602694901 - Budget Today: 1.6695 - Current cost: 0.0
+ID: 1602694901 - Reach: 17524 - Imps2Go: 5067
+ID: 1602694901 - CI: 1.5076923076923074
+Camp ID: 1602694901 - Comp frac: 0.7108536863729742 - imps2go: 5067 - reach: 17524
+Completion frac: 0.7108536863729742
+Camp ID: 1111962541 - Day End: 5 - Day: 4
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1111962541 - Seg POP: 1.2954535223947783
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1111962541 - bid: 1.8853373034327312
+ID: 1111962541 - Budget Today: 3.2535 - Current cost: 0.17933667535389572
+ID: 1111962541 - Reach: 6507 - Imps2Go: 2685
+ID: 1111962541 - CI: 3.0
+Camp ID: 1111962541 - Comp frac: 0.5873674504379899 - imps2go: 2685 - reach: 6507
+Completion frac: 0.5873674504379899
+Day 5: Updating campaign 1602694901 stats: 24752.42442362257 tgtImps 4495.653832182574 nonTgtImps. Cost of imps is 0.0
+ID: 1602694901 - Seg: [FEMALE, LOW_INCOME] - Seg pop: 2.785526450163399
+Day 5: Updating campaign 1111962541 stats: 5989.133931146125 tgtImps 10294.899469702577 nonTgtImps. Cost of imps is 0.17933667535389572
+ID: 1111962541 - Seg: [OLD, MALE] - Seg pop: 1.2954535223947783
+Campaign ID added: 1781784942
 Curr Quality: 1.0
-CAMPAIGN: 350419258, ***PRICE INDEX***: 0.5036546269549487
-Day 5 :BankStatus[-7.844253]
-ID: 324242679 - New Imps: 244
-ID: 1685244430 - New Imps: 1626
-ID: 324242679 - Enough imps gained. Lowering: 1.5076923076923074
-ID: 1685244430 - Enough imps gained. Lowering: 0.1
+CAMPAIGN: 2011472566, ***PRICE INDEX***: 0.33048412698412694
+Day 5 :BankStatus[-0.778278]
+ID: 1602694901 - New Imps: 5067
+ID: 1781784942 - New Imps: 0
+ID: 1602694901 - Enough imps gained. Lowering: 0.1
+ID: 1781784942 - Not enough imps gained. Raising: 1.4
 Day 5 : Simulation Status Received
 Curr Quality: 1.0
-Camp ID: 992572521 - Day End: 5 - Day: 5
-Camp ID: 324242679 - Day End: 6 - Day: 5
-ID: 324242679 - Seg POP: 1.9925294900300927
-Campaign won by luck - reducing impression budget
-ID: 324242679 - bid: 0.4800000000000001
-ID: 324242679 - Budget Today: 0.244 - Current cost: 0.0
-ID: 324242679 - Reach: 244 - Imps2Go: 0
-ID: 324242679 - CI: 1.5076923076923074
-Camp ID: 324242679 - Comp frac: 1.0 - imps2go: 0 - reach: 244
+Camp ID: 1602694901 - Day End: 7 - Day: 5
+ID: 1602694901 - Seg POP: 5.6225643382352954
+ID: 1602694901 - bid: 0.08570528338446771
+ID: 1602694901 - Budget Today: 1.6695 - Current cost: 0.0
+ID: 1602694901 - Reach: 17524 - Imps2Go: 0
+ID: 1602694901 - CI: 0.1
+Camp ID: 1602694901 - Comp frac: 1.0 - imps2go: 0 - reach: 17524
 Completion frac: 1.0
-Camp ID: 1685244430 - Day End: 12 - Day: 5
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 1685244430 - Seg POP: 2.1343189964157707
-ID: 1685244430 - bid: 0.03596673136817136
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 3983
-ID: 1685244430 - CI: 0.1
-Camp ID: 1685244430 - Comp frac: 0.3987924528301887 - imps2go: 3983 - reach: 6625
-Completion frac: 0.3987924528301887
-Day 6: Updating campaign 992572521 stats: 18105.082030227193 tgtImps 16727.088610198785 nonTgtImps. Cost of imps is 16.847805896871314
-ID: 992572521 - Seg: [YOUNG, LOW_INCOME] - Seg pop: 2.335227362907706
-Day 6: Updating campaign 324242679 stats: 585.2583256116557 tgtImps 2718.1141114505867 nonTgtImps. Cost of imps is 0.0
-ID: 324242679 - Seg: [OLD, FEMALE, HIGH_INCOME] - Seg pop: 1.9925294900300927
-Day 6: Updating campaign 1685244430 stats: 5202.11592222197 tgtImps 12168.677411072189 nonTgtImps. Cost of imps is 0.0
-ID: 1685244430 - Seg: [MALE, HIGH_INCOME] - Seg pop: 2.1343189964157707
-Campaign ID added: 350419258
-Curr Quality: 1.16867152482123
-CAMPAIGN: 1454323176, ***PRICE INDEX***: 1.2227400725360742
-Day 6 :BankStatus[-5.326461]
-ID: 350419258 - New Imps: 0
-ID: 1685244430 - New Imps: 2561
-ID: 350419258 - Not enough imps gained. Raising: 1.4
-ID: 1685244430 - Enough imps gained. Lowering: 0.1
+Camp ID: 1111962541 - Day End: 5 - Day: 5
+Camp ID: 1781784942 - Day End: 15 - Day: 5
+ID: 1781784942 - Seg POP: 2.0317460317460316
+ID: 1781784942 - bid: 0.8424536053265336
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 0.0
+ID: 1781784942 - Reach: 18824 - Imps2Go: 18824
+ID: 1781784942 - CI: 1.4
+Camp ID: 1781784942 - Comp frac: 0.0 - imps2go: 18824 - reach: 18824
+Completion frac: 0.0
+Day 6: Updating campaign 1602694901 stats: 30832.69452255997 tgtImps 8147.195056394333 nonTgtImps. Cost of imps is 2.1584121617394527
+ID: 1602694901 - Seg: [FEMALE, LOW_INCOME] - Seg pop: 5.6225643382352954
+Day 6: Updating campaign 1111962541 stats: 9217.407293622013 tgtImps 10294.899469702577 nonTgtImps. Cost of imps is 0.17933667535389572
+ID: 1111962541 - Seg: [OLD, MALE] - Seg pop: 1.9107874344876368
+Curr Quality: 1.1265384400665552
+CAMPAIGN: 1490279757, ***PRICE INDEX***: 0.2660490484231637
+Day 6 :BankStatus[6.975896]
+ID: 1602694901 - New Imps: 0
+ID: 1781784942 - New Imps: 0
+ID: 1602694901 - Not enough imps gained. Raising: 0.13999999999999999
+ID: 1781784942 - Not enough imps gained. Raising: 1.9599999999999997
 Day 6 : Simulation Status Received
-Curr Quality: 1.16867152482123
-Camp ID: 992572521 - Day End: 5 - Day: 6
-Camp ID: 324242679 - Day End: 6 - Day: 6
-Camp ID: 350419258 - Day End: 16 - Day: 6
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 350419258 - Seg POP: 3.476246585116605
-ID: 350419258 - bid: 0.42355458049818834
-ID: 350419258 - Budget Today: 0.5295555555555556 - Current cost: 0.0
-ID: 350419258 - Reach: 21905 - Imps2Go: 21905
-ID: 350419258 - CI: 1.4
-Camp ID: 350419258 - Comp frac: 0.0 - imps2go: 21905 - reach: 21905
+Curr Quality: 1.1265384400665552
+Camp ID: 1602694901 - Day End: 7 - Day: 6
+ID: 1602694901 - Seg POP: 1.133161424291939
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1602694901 - bid: 0.16168744646343947
+ID: 1602694901 - Budget Today: 1.6695 - Current cost: 2.1584121617394527
+ID: 1602694901 - Reach: 17524 - Imps2Go: 0
+ID: 1602694901 - CI: 0.13999999999999999
+Camp ID: 1602694901 - Comp frac: 1.0 - imps2go: 0 - reach: 17524
+Completion frac: 1.0
+Camp ID: 1111962541 - Day End: 5 - Day: 6
+Camp ID: 1781784942 - Day End: 15 - Day: 6
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1781784942 - Seg POP: 2.333333333333333
+ID: 1781784942 - bid: 1.354507437314067
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 0.0
+ID: 1781784942 - Reach: 18824 - Imps2Go: 18824
+ID: 1781784942 - CI: 1.9599999999999997
+Camp ID: 1781784942 - Comp frac: 0.0 - imps2go: 18824 - reach: 18824
 Completion frac: 0.0
-Camp ID: 1685244430 - Day End: 12 - Day: 6
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-Campaign won by luck - reducing impression budget
-ID: 1685244430 - Seg POP: 2.606350806451613
-ID: 1685244430 - bid: 0.1230226906673926
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 1422
-ID: 1685244430 - CI: 0.1
-Camp ID: 1685244430 - Comp frac: 0.7853584905660378 - imps2go: 1422 - reach: 6625
-Completion frac: 0.7853584905660378
-Day 7: Updating campaign 324242679 stats: 585.2583256116557 tgtImps 2718.1141114505867 nonTgtImps. Cost of imps is 0.0
-ID: 324242679 - Seg: [OLD, FEMALE, HIGH_INCOME] - Seg pop: 2.6672480812987103
-Day 7: Updating campaign 1685244430 stats: 8604.926500491092 tgtImps 22257.52049356899 nonTgtImps. Cost of imps is 0.0
-ID: 1685244430 - Seg: [MALE, HIGH_INCOME] - Seg pop: 2.606350806451613
-Curr Quality: 1.2546952782189518
-CAMPAIGN: 1717499564, ***PRICE INDEX***: 0.6102486683968087
-Day 7 :BankStatus[-5.079765]
-ID: 350419258 - New Imps: 0
-ID: 1685244430 - New Imps: 1422
-ID: 350419258 - Not enough imps gained. Raising: 1.9599999999999997
-ID: 1685244430 - Enough imps gained. Lowering: 0.1
+Day 7: Updating campaign 1602694901 stats: 30832.69452255997 tgtImps 8147.195056394333 nonTgtImps. Cost of imps is 2.1584121617394527
+ID: 1602694901 - Seg: [FEMALE, LOW_INCOME] - Seg pop: 1.133161424291939
+Day 7: Updating campaign 1781784942 stats: 2034.2085525188897 tgtImps 7741.769908488198 nonTgtImps. Cost of imps is 0.0
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 2.333333333333333
+Campaign ID added: 1490279757
+Curr Quality: 1.1265384400665552
+CAMPAIGN: 1129709250, ***PRICE INDEX***: 0.5087460317460317
+Day 7 :BankStatus[4.700221]
+ID: 1781784942 - New Imps: 2035
+ID: 1490279757 - New Imps: 0
+ID: 1781784942 - Not enough imps gained. Raising: 2.7439999999999993
+ID: 1490279757 - Not enough imps gained. Raising: 1.4
 Day 7 : Simulation Status Received
-Curr Quality: 1.2546952782189518
-Camp ID: 992572521 - Day End: 5 - Day: 7
-Camp ID: 324242679 - Day End: 6 - Day: 7
-Camp ID: 350419258 - Day End: 16 - Day: 7
-ID: 350419258 - Seg POP: 5.1342937586856445
-ID: 350419258 - bid: 0.8758052745151469
-ID: 350419258 - Budget Today: 0.5295555555555556 - Current cost: 0.0
-ID: 350419258 - Reach: 21905 - Imps2Go: 21905
-ID: 350419258 - CI: 1.9599999999999997
-Camp ID: 350419258 - Comp frac: 0.0 - imps2go: 21905 - reach: 21905
+Curr Quality: 1.1265384400665552
+Camp ID: 1602694901 - Day End: 7 - Day: 7
+Camp ID: 1111962541 - Day End: 5 - Day: 7
+Camp ID: 1781784942 - Day End: 15 - Day: 7
+ID: 1781784942 - Seg POP: 2.742857142857143
+ID: 1781784942 - bid: 2.499326063493954
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 0.0
+ID: 1781784942 - Reach: 18824 - Imps2Go: 16789
+ID: 1781784942 - CI: 2.7439999999999993
+Camp ID: 1781784942 - Comp frac: 0.10810667233319171 - imps2go: 16789 - reach: 18824
+Completion frac: 0.10810667233319171
+Camp ID: 1490279757 - Day End: 17 - Day: 7
+ID: 1490279757 - Seg POP: 1.6305263767828022
+ID: 1490279757 - bid: 0.44932270809281055
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 20980
+ID: 1490279757 - CI: 1.4
+Camp ID: 1490279757 - Comp frac: 0.0 - imps2go: 20980 - reach: 20980
 Completion frac: 0.0
-Camp ID: 1685244430 - Day End: 12 - Day: 7
-ID: 1685244430 - Seg POP: 3.3577188940092166
-ID: 1685244430 - bid: 0.034018127119380924
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 0
-ID: 1685244430 - CI: 0.1
-Camp ID: 1685244430 - Comp frac: 1.0 - imps2go: 0 - reach: 6625
-Completion frac: 1.0
-Day 8: Updating campaign 350419258 stats: 11199.227215241255 tgtImps 10414.543656136133 nonTgtImps. Cost of imps is 0.0
-ID: 350419258 - Seg: [FEMALE, LOW_INCOME] - Seg pop: 5.1342937586856445
-Day 8: Updating campaign 1685244430 stats: 10311.946439713847 tgtImps 22257.52049356899 nonTgtImps. Cost of imps is 0.0
-ID: 1685244430 - Seg: [MALE, HIGH_INCOME] - Seg pop: 3.3577188940092166
-Curr Quality: 1.2546952782189518
-CAMPAIGN: 223495105, ***PRICE INDEX***: 2.1222087705138555
-Day 8 :BankStatus[-5.192103]
-ID: 350419258 - New Imps: 11200
-ID: 1685244430 - New Imps: 0
-ID: 350419258 - Enough imps gained. Lowering: 1.5076923076923074
-ID: 1685244430 - Not enough imps gained. Raising: 0.13999999999999999
+Day 8: Updating campaign 1602694901 stats: 30832.69452255997 tgtImps 8147.195056394333 nonTgtImps. Cost of imps is 2.1584121617394527
+ID: 1602694901 - Seg: [FEMALE, LOW_INCOME] - Seg pop: 1.3711533224400874
+Day 8: Updating campaign 1781784942 stats: 5715.026941209601 tgtImps 20976.14041766208 nonTgtImps. Cost of imps is 0.0
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 2.742857142857143
+Campaign ID added: 1129709250
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 1455601526, ***PRICE INDEX***: 2.7259041346860045
+Day 8 :BankStatus[8.783566]
+ID: 1129709250 - New Imps: 0
+ID: 1781784942 - New Imps: 3681
+ID: 1490279757 - New Imps: 0
+ID: 1129709250 - Not enough imps gained. Raising: 1.4
+ID: 1781784942 - Enough imps gained. Lowering: 2.1107692307692303
+ID: 1490279757 - Not enough imps gained. Raising: 1.9599999999999997
 Day 8 : Simulation Status Received
-Curr Quality: 1.2546952782189518
-Camp ID: 992572521 - Day End: 5 - Day: 8
-Camp ID: 324242679 - Day End: 6 - Day: 8
-Camp ID: 350419258 - Day End: 16 - Day: 8
-ID: 350419258 - Seg POP: 6.906914723253642
-ID: 350419258 - bid: 1.8544886119128412
-ID: 350419258 - Budget Today: 0.5295555555555556 - Current cost: 0.0
-ID: 350419258 - Reach: 21905 - Imps2Go: 10705
-ID: 350419258 - CI: 1.5076923076923074
-Camp ID: 350419258 - Comp frac: 0.511298790230541 - imps2go: 10705 - reach: 21905
-Completion frac: 0.511298790230541
-Camp ID: 1685244430 - Day End: 12 - Day: 8
-ID: 1685244430 - Seg POP: 5.331029185867896
-ID: 1685244430 - bid: 0.07561451328869954
-ID: 1685244430 - Budget Today: 0.18644444444444444 - Current cost: 0.0
-ID: 1685244430 - Reach: 6625 - Imps2Go: 0
-ID: 1685244430 - CI: 0.13999999999999999
-Camp ID: 1685244430 - Comp frac: 1.0 - imps2go: 0 - reach: 6625
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 8
+Camp ID: 1129709250 - Day End: 18 - Day: 8
+ID: 1129709250 - Seg POP: 4.531746031746032
+ID: 1129709250 - bid: 1.7211060809300243
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.0
+ID: 1129709250 - Reach: 15904 - Imps2Go: 15904
+ID: 1129709250 - CI: 1.4
+Camp ID: 1129709250 - Comp frac: 0.0 - imps2go: 15904 - reach: 15904
+Completion frac: 0.0
+Camp ID: 1111962541 - Day End: 5 - Day: 8
+Camp ID: 1781784942 - Day End: 15 - Day: 8
+ID: 1781784942 - Seg POP: 3.7179325999650774
+ID: 1781784942 - bid: 3.337845926689316
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 0.0
+ID: 1781784942 - Reach: 18824 - Imps2Go: 13108
+ID: 1781784942 - CI: 2.1107692307692303
+Camp ID: 1781784942 - Comp frac: 0.3036549086272843 - imps2go: 13108 - reach: 18824
+Completion frac: 0.3036549086272843
+Camp ID: 1490279757 - Day End: 17 - Day: 8
+ID: 1490279757 - Seg POP: 2.0934869254265065
+ID: 1490279757 - bid: 0.8076604704572425
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 20980
+ID: 1490279757 - CI: 1.9599999999999997
+Camp ID: 1490279757 - Comp frac: 0.0 - imps2go: 20980 - reach: 20980
+Completion frac: 0.0
+Day 9: Updating campaign 1781784942 stats: 9493.65802839943 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 0.0
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 3.7179325999650774
+Day 9: Updating campaign 1490279757 stats: 4026.690105712363 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.0934869254265065
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 862019604, ***PRICE INDEX***: 0.7202711425019178
+Day 9 :BankStatus[8.704097]
+ID: 1129709250 - New Imps: 0
+ID: 1781784942 - New Imps: 3778
+ID: 1490279757 - New Imps: 4027
+ID: 1129709250 - Not enough imps gained. Raising: 1.9599999999999997
+ID: 1781784942 - Enough imps gained. Lowering: 1.623668639053254
+ID: 1490279757 - Enough imps gained. Lowering: 1.5076923076923074
+Day 9 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 9
+Camp ID: 1129709250 - Day End: 18 - Day: 9
+ID: 1129709250 - Seg POP: 7.333333333333333
+ID: 1129709250 - bid: 3.8991643192488254
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.0
+ID: 1129709250 - Reach: 15904 - Imps2Go: 15904
+ID: 1129709250 - CI: 1.9599999999999997
+Camp ID: 1129709250 - Comp frac: 0.0 - imps2go: 15904 - reach: 15904
+Completion frac: 0.0
+Camp ID: 1111962541 - Day End: 5 - Day: 9
+Camp ID: 1781784942 - Day End: 15 - Day: 9
+ID: 1781784942 - Seg POP: 4.939720621616902
+ID: 1781784942 - bid: 4.792681814345033
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 0.0
+ID: 1781784942 - Reach: 18824 - Imps2Go: 9330
+ID: 1781784942 - CI: 1.623668639053254
+Camp ID: 1781784942 - Comp frac: 0.5043561410964725 - imps2go: 9330 - reach: 18824
+Completion frac: 0.5043561410964725
+Camp ID: 1490279757 - Day End: 17 - Day: 9
+ID: 1490279757 - Seg POP: 3.386718603108382
+ID: 1490279757 - bid: 1.2438077472585696
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 16953
+ID: 1490279757 - CI: 1.5076923076923074
+Camp ID: 1490279757 - Comp frac: 0.19194470924690177 - imps2go: 16953 - reach: 20980
+Completion frac: 0.19194470924690177
+Day 10: Updating campaign 1129709250 stats: 4910.059798132332 tgtImps 14998.266084568071 nonTgtImps. Cost of imps is 0.16722595596653989
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 7.333333333333333
+Day 10: Updating campaign 1781784942 stats: 11086.591743511195 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 0.0
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 4.939720621616902
+Day 10: Updating campaign 1490279757 stats: 8938.723146137241 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 3.386718603108382
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 1132722968, ***PRICE INDEX***: 1.0242667566351777
+Day 10 :BankStatus[8.504722]
+ID: 1129709250 - New Imps: 4911
+ID: 1781784942 - New Imps: 1593
+ID: 1490279757 - New Imps: 4912
+ID: 1129709250 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 1781784942 - Not enough imps gained. Raising: 2.2731360946745554
+ID: 1490279757 - Enough imps gained. Lowering: 0.1
+Day 10 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 10
+Camp ID: 1129709250 - Day End: 18 - Day: 10
+ID: 1129709250 - Seg POP: 2.742857142857143
+ID: 1129709250 - bid: 1.623005856873955
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.16722595596653989
+ID: 1129709250 - Reach: 15904 - Imps2Go: 10993
+ID: 1129709250 - CI: 1.5076923076923074
+Camp ID: 1129709250 - Comp frac: 0.30879024144869216 - imps2go: 10993 - reach: 15904
+Completion frac: 0.30879024144869216
+Camp ID: 1111962541 - Day End: 5 - Day: 10
+Camp ID: 1781784942 - Day End: 15 - Day: 10
+ID: 1781784942 - Seg POP: 7.514379256155055
+ID: 1781784942 - bid: 12.308536084319517
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 0.0
+ID: 1781784942 - Reach: 18824 - Imps2Go: 7737
+ID: 1781784942 - CI: 2.2731360946745554
+Camp ID: 1781784942 - Comp frac: 0.5889821504462389 - imps2go: 7737 - reach: 18824
+Completion frac: 0.5889821504462389
+Camp ID: 1490279757 - Day End: 17 - Day: 10
+ID: 1490279757 - Seg POP: 1.627537311579627
+ID: 1490279757 - bid: 0.05581827158790157
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 12041
+ID: 1490279757 - CI: 0.1
+Camp ID: 1490279757 - Comp frac: 0.4260724499523355 - imps2go: 12041 - reach: 20980
+Completion frac: 0.4260724499523355
+Day 11: Updating campaign 1129709250 stats: 9331.580284452126 tgtImps 26482.048222439968 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 2.742857142857143
+Day 11: Updating campaign 1781784942 stats: 12443.581432149083 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 1.589083536454984
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 7.514379256155055
+Day 11: Updating campaign 1490279757 stats: 11893.024245642684 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.627537311579627
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 678098992, ***PRICE INDEX***: 0.974095329188586
+Day 11 :BankStatus[8.247334]
+ID: 1129709250 - New Imps: 4421
+ID: 1781784942 - New Imps: 1357
+ID: 1490279757 - New Imps: 2955
+ID: 1129709250 - Enough imps gained. Lowering: 0.1
+ID: 1781784942 - Not enough imps gained. Raising: 3.0
+ID: 1490279757 - Enough imps gained. Lowering: 0.1
+Day 11 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 11
+Camp ID: 1129709250 - Day End: 18 - Day: 11
+ID: 1129709250 - Seg POP: 3.333333333333333
+ID: 1129709250 - bid: 0.21882734834652054
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 6572
+ID: 1129709250 - CI: 0.1
+Camp ID: 1129709250 - Comp frac: 0.5867706237424548 - imps2go: 6572 - reach: 15904
+Completion frac: 0.5867706237424548
+Camp ID: 1111962541 - Day End: 5 - Day: 11
+Camp ID: 1781784942 - Day End: 15 - Day: 11
+ID: 1781784942 - Seg POP: 11.127409638554218
+ID: 1781784942 - bid: 29.17125433395023
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 1.589083536454984
+ID: 1781784942 - Reach: 18824 - Imps2Go: 6380
+ID: 1781784942 - CI: 3.0
+Camp ID: 1781784942 - Comp frac: 0.6610709732256694 - imps2go: 6380 - reach: 18824
+Completion frac: 0.6610709732256694
+Camp ID: 1490279757 - Day End: 17 - Day: 11
+ID: 1490279757 - Seg POP: 2.0858129081924064
+ID: 1490279757 - bid: 0.09480049510974424
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 9086
+ID: 1490279757 - CI: 0.1
+Camp ID: 1490279757 - Comp frac: 0.5669208770257388 - imps2go: 9086 - reach: 20980
+Completion frac: 0.5669208770257388
+Day 12: Updating campaign 1129709250 stats: 14464.970874212238 tgtImps 35955.70723836462 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 3.333333333333333
+Day 12: Updating campaign 1781784942 stats: 14705.97265587906 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 5.346354875501948
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 11.127409638554218
+Day 12: Updating campaign 1490279757 stats: 17550.09037261103 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.0858129081924064
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 1112137412, ***PRICE INDEX***: 0.7165001125365744
+Day 12 :BankStatus[6.173586]
+ID: 1129709250 - New Imps: 5133
+ID: 1781784942 - New Imps: 2262
+ID: 1490279757 - New Imps: 5657
+ID: 1129709250 - Enough imps gained. Lowering: 0.1
+ID: 1781784942 - Enough imps gained. Lowering: 2.3076923076923075
+ID: 1490279757 - Enough imps gained. Lowering: 0.1
+Day 12 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 12
+Camp ID: 1129709250 - Day End: 18 - Day: 12
+ID: 1129709250 - Seg POP: 4.266666666666667
+ID: 1129709250 - bid: 1.279229094278434
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 1439
+ID: 1129709250 - CI: 0.1
+Camp ID: 1129709250 - Comp frac: 0.9095196177062375 - imps2go: 1439 - reach: 15904
+Completion frac: 0.9095196177062375
+Camp ID: 1111962541 - Day End: 5 - Day: 12
+Camp ID: 1781784942 - Day End: 15 - Day: 12
+ID: 1781784942 - Seg POP: 4.744878645014842
+ID: 1781784942 - bid: 14.824399870187216
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 5.346354875501948
+ID: 1781784942 - Reach: 18824 - Imps2Go: 4118
+ID: 1781784942 - CI: 2.3076923076923075
+Camp ID: 1781784942 - Comp frac: 0.781236719082023 - imps2go: 4118 - reach: 18824
+Completion frac: 0.781236719082023
+Camp ID: 1490279757 - Day End: 17 - Day: 12
+ID: 1490279757 - Seg POP: 2.804815118329236
+ID: 1490279757 - bid: 0.33778840806802024
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 3429
+ID: 1490279757 - CI: 0.1
+Camp ID: 1490279757 - Comp frac: 0.836558627264061 - imps2go: 3429 - reach: 20980
+Completion frac: 0.836558627264061
+Day 13: Updating campaign 1129709250 stats: 19028.819050130922 tgtImps 44850.65428374819 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 4.266666666666667
+Day 13: Updating campaign 1781784942 stats: 16369.643585660076 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 8.742666360434036
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 4.744878645014842
+Day 13: Updating campaign 1490279757 stats: 20718.721468141663 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.804815118329236
+Campaign ID added: 1112137412
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 595171262, ***PRICE INDEX***: 1.2664127837514934
+Day 13 :BankStatus[2.282743]
+ID: 1129709250 - New Imps: 1439
+ID: 1781784942 - New Imps: 1664
+ID: 1112137412 - New Imps: 0
+ID: 1490279757 - New Imps: 3168
+ID: 1129709250 - Not enough imps gained. Raising: 0.13999999999999999
+ID: 1781784942 - Not enough imps gained. Raising: 3.0
+ID: 1112137412 - Not enough imps gained. Raising: 1.4
+ID: 1490279757 - Enough imps gained. Lowering: 0.1
+Day 13 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 13
+Camp ID: 1129709250 - Day End: 18 - Day: 13
+ID: 1129709250 - Seg POP: 6.8
+ID: 1129709250 - bid: 0.258256338028169
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 0
+ID: 1129709250 - CI: 0.13999999999999999
+Camp ID: 1129709250 - Comp frac: 1.0 - imps2go: 0 - reach: 15904
 Completion frac: 1.0
+Camp ID: 1111962541 - Day End: 5 - Day: 13
+Camp ID: 1781784942 - Day End: 15 - Day: 13
+ID: 1781784942 - Seg POP: 9.626930330015716
+ID: 1781784942 - bid: 65.6137676967037
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 8.742666360434036
+ID: 1781784942 - Reach: 18824 - Imps2Go: 2454
+ID: 1781784942 - CI: 3.0
+Camp ID: 1781784942 - Comp frac: 0.8696345091372716 - imps2go: 2454 - reach: 18824
+Completion frac: 0.8696345091372716
+Camp ID: 1112137412 - Day End: 18 - Day: 13
+ID: 1112137412 - Seg POP: 7.588555030384875
+ID: 1112137412 - bid: 1.410544166692823
+ID: 1112137412 - Budget Today: 0.216 - Current cost: 0.0
+ID: 1112137412 - Reach: 2603 - Imps2Go: 2603
+ID: 1112137412 - CI: 1.4
+Camp ID: 1112137412 - Comp frac: 0.0 - imps2go: 2603 - reach: 2603
+Completion frac: 0.0
+Camp ID: 1490279757 - Day End: 17 - Day: 13
+ID: 1490279757 - Seg POP: 4.111158707690779
+ID: 1490279757 - bid: 6.504766666390745
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 261
+ID: 1490279757 - CI: 0.1
+Camp ID: 1490279757 - Comp frac: 0.9875595805529075 - imps2go: 261 - reach: 20980
+Completion frac: 0.9875595805529075
+Day 14: Updating campaign 1129709250 stats: 20755.974730116093 tgtImps 48492.40882641612 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 6.8
+Day 14: Updating campaign 1781784942 stats: 19849.308583982485 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 15.038345814020698
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 9.626930330015716
+Day 14: Updating campaign 1490279757 stats: 24833.978070501955 tgtImps 0.0 nonTgtImps. Cost of imps is 0.0
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 4.111158707690779
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 1549452536, ***PRICE INDEX***: 0.3236447391293551
+Day 14 :BankStatus[-1.252515]
+ID: 1129709250 - New Imps: 0
+ID: 1781784942 - New Imps: 2454
+ID: 1112137412 - New Imps: 0
+ID: 1490279757 - New Imps: 261
+ID: 1129709250 - Not enough imps gained. Raising: 0.19599999999999998
+ID: 1781784942 - Enough imps gained. Lowering: 2.3076923076923075
+ID: 1112137412 - Not enough imps gained. Raising: 1.9599999999999997
+ID: 1490279757 - Not enough imps gained. Raising: 0.13999999999999999
+Day 14 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 14
+Camp ID: 1129709250 - Day End: 18 - Day: 14
+ID: 1129709250 - Seg POP: 11.866666666666665
+ID: 1129709250 - bid: 0.6309556807511736
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 0
+ID: 1129709250 - CI: 0.19599999999999998
+Camp ID: 1129709250 - Comp frac: 1.0 - imps2go: 0 - reach: 15904
+Completion frac: 1.0
+Camp ID: 1111962541 - Day End: 5 - Day: 14
+Camp ID: 1781784942 - Day End: 15 - Day: 14
+ID: 1781784942 - Seg POP: 1.9980827658459928
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1781784942 - bid: -1.0288158708908666
+ID: 1781784942 - Budget Today: 1.5486666666666666 - Current cost: 15.038345814020698
+ID: 1781784942 - Reach: 18824 - Imps2Go: 0
+ID: 1781784942 - CI: 2.3076923076923075
+Camp ID: 1781784942 - Comp frac: 1.0 - imps2go: 0 - reach: 18824
+Completion frac: 1.0
+Camp ID: 1112137412 - Day End: 18 - Day: 14
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1112137412 - Seg POP: 6.752779653387351
+ID: 1112137412 - bid: 1.757268870723361
+ID: 1112137412 - Budget Today: 0.216 - Current cost: 0.0
+ID: 1112137412 - Reach: 2603 - Imps2Go: 2603
+ID: 1112137412 - CI: 1.9599999999999997
+Camp ID: 1112137412 - Comp frac: 0.0 - imps2go: 2603 - reach: 2603
+Completion frac: 0.0
+Camp ID: 1490279757 - Day End: 17 - Day: 14
+ID: 1490279757 - Seg POP: 6.260840845315254
+ID: 1490279757 - bid: 0.17252943611410587
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.0
+ID: 1490279757 - Reach: 20980 - Imps2Go: 0
+ID: 1490279757 - CI: 0.13999999999999999
+Camp ID: 1490279757 - Comp frac: 1.0 - imps2go: 0 - reach: 20980
+Completion frac: 1.0
+Day 15: Updating campaign 1129709250 stats: 20755.974730116093 tgtImps 48492.40882641612 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 11.866666666666665
+Day 15: Updating campaign 1112137412 stats: 3124.978266058227 tgtImps 4798.241036496973 nonTgtImps. Cost of imps is 0.0
+ID: 1112137412 - Seg: [OLD, MALE] - Seg pop: 6.752779653387351
+Day 15: Updating campaign 1781784942 stats: 22793.519522250575 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 20.572897609497826
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 1.9980827658459928
+Day 15: Updating campaign 1490279757 stats: 25148.692970061908 tgtImps 0.0 nonTgtImps. Cost of imps is 0.052261247652292876
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 6.260840845315254
+Campaign ID added: 1549452536
+Curr Quality: 1.2110511944383406
+CAMPAIGN: 1558002981, ***PRICE INDEX***: 0.24163152923396616
+Day 15 :BankStatus[-7.695222]
+ID: 1549452536 - New Imps: 0
+ID: 1129709250 - New Imps: 0
+ID: 1112137412 - New Imps: 2603
+ID: 1490279757 - New Imps: 0
+ID: 1549452536 - Not enough imps gained. Raising: 1.4
+ID: 1129709250 - Not enough imps gained. Raising: 0.2744
+ID: 1112137412 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 1490279757 - Not enough imps gained. Raising: 0.19599999999999998
+Day 15 : Simulation Status Received
+Curr Quality: 1.2110511944383406
+Camp ID: 1602694901 - Day End: 7 - Day: 15
+Camp ID: 1549452536 - Day End: 20 - Day: 15
+ID: 1549452536 - Seg POP: 6.1531140579602175
+ID: 1549452536 - bid: 0.7045872837389717
+ID: 1549452536 - Budget Today: 0.2145 - Current cost: 0.0
+ID: 1549452536 - Reach: 4196 - Imps2Go: 4196
+ID: 1549452536 - CI: 1.4
+Camp ID: 1549452536 - Comp frac: 0.0 - imps2go: 4196 - reach: 4196
+Completion frac: 0.0
+Camp ID: 1129709250 - Day End: 18 - Day: 15
+ID: 1129709250 - Seg POP: 6.4
+ID: 1129709250 - bid: 0.47640698591549296
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 0
+ID: 1129709250 - CI: 0.2744
+Camp ID: 1129709250 - Comp frac: 1.0 - imps2go: 0 - reach: 15904
+Completion frac: 1.0
+Camp ID: 1111962541 - Day End: 5 - Day: 15
+Camp ID: 1781784942 - Day End: 15 - Day: 15
+Camp ID: 1112137412 - Day End: 18 - Day: 15
+ID: 1112137412 - Seg POP: 4.909486833220797
+ID: 1112137412 - bid: 0.9827620654096665
+ID: 1112137412 - Budget Today: 0.216 - Current cost: 0.0
+ID: 1112137412 - Reach: 2603 - Imps2Go: 0
+ID: 1112137412 - CI: 1.5076923076923074
+Camp ID: 1112137412 - Comp frac: 1.0 - imps2go: 0 - reach: 2603
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 15
+ID: 1490279757 - Seg POP: 6.1531140579602175
+ID: 1490279757 - bid: 0.2373851460198042
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.052261247652292876
+ID: 1490279757 - Reach: 20980 - Imps2Go: 0
+ID: 1490279757 - CI: 0.19599999999999998
+Camp ID: 1490279757 - Comp frac: 1.0 - imps2go: 0 - reach: 20980
+Completion frac: 1.0
+Day 16: Updating campaign 1129709250 stats: 20755.974730116093 tgtImps 48492.40882641612 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 6.4
+Day 16: Updating campaign 1112137412 stats: 6251.469859175271 tgtImps 16112.93141852097 nonTgtImps. Cost of imps is 0.0
+ID: 1112137412 - Seg: [OLD, MALE] - Seg pop: 4.909486833220797
+Day 16: Updating campaign 1781784942 stats: 22793.519522250575 tgtImps 37634.01955854457 nonTgtImps. Cost of imps is 20.572897609497826
+ID: 1781784942 - Seg: [MALE, YOUNG] - Seg pop: 1.74613933996857
+Day 16: Updating campaign 1490279757 stats: 25148.692970061908 tgtImps 0.0 nonTgtImps. Cost of imps is 0.052261247652292876
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 6.1531140579602175
+Curr Quality: 1.170291624998534
+CAMPAIGN: 57953233, ***PRICE INDEX***: 0.2666666666666667
+Day 16 :BankStatus[-5.491752]
+ID: 1549452536 - New Imps: 0
+ID: 1129709250 - New Imps: 0
+ID: 1112137412 - New Imps: 0
+ID: 1490279757 - New Imps: 0
+ID: 1549452536 - Not enough imps gained. Raising: 1.9599999999999997
+ID: 1129709250 - Not enough imps gained. Raising: 0.38415999999999995
+ID: 1112137412 - Not enough imps gained. Raising: 2.1107692307692303
+ID: 1490279757 - Not enough imps gained. Raising: 0.2744
+Day 16 : Simulation Status Received
+Curr Quality: 1.170291624998534
+Camp ID: 1602694901 - Day End: 7 - Day: 16
+Camp ID: 1549452536 - Day End: 20 - Day: 16
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1549452536 - Seg POP: 1.109501105068415
+ID: 1549452536 - bid: 0.17786709422034813
+ID: 1549452536 - Budget Today: 0.2145 - Current cost: 0.0
+ID: 1549452536 - Reach: 4196 - Imps2Go: 4196
+ID: 1549452536 - CI: 1.9599999999999997
+Camp ID: 1549452536 - Comp frac: 0.0 - imps2go: 4196 - reach: 4196
+Completion frac: 0.0
+Camp ID: 1129709250 - Day End: 18 - Day: 16
+ID: 1129709250 - Seg POP: 8.0
+ID: 1129709250 - bid: 0.8337122253521125
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 0
+ID: 1129709250 - CI: 0.38415999999999995
+Camp ID: 1129709250 - Comp frac: 1.0 - imps2go: 0 - reach: 15904
+Completion frac: 1.0
+Camp ID: 1111962541 - Day End: 5 - Day: 16
+Camp ID: 1781784942 - Day End: 15 - Day: 16
+Camp ID: 1112137412 - Day End: 18 - Day: 16
+ID: 1112137412 - Seg POP: 1.1739815440018004
+ID: 1112137412 - bid: 0.3290043119742513
+ID: 1112137412 - Budget Today: 0.216 - Current cost: 0.0
+ID: 1112137412 - Reach: 2603 - Imps2Go: 0
+ID: 1112137412 - CI: 2.1107692307692303
+Camp ID: 1112137412 - Comp frac: 1.0 - imps2go: 0 - reach: 2603
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 16
+ID: 1490279757 - Seg POP: 1.109501105068415
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1490279757 - bid: 0.5845268353495948
+ID: 1490279757 - Budget Today: 1.1471111111111112 - Current cost: 0.052261247652292876
+ID: 1490279757 - Reach: 20980 - Imps2Go: 0
+ID: 1490279757 - CI: 0.2744
+Camp ID: 1490279757 - Comp frac: 1.0 - imps2go: 0 - reach: 20980
+Completion frac: 1.0
+Day 17: Updating campaign 1129709250 stats: 20755.974730116093 tgtImps 48492.40882641612 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 8.0
+Day 17: Updating campaign 1112137412 stats: 6251.469859175271 tgtImps 16112.93141852097 nonTgtImps. Cost of imps is 0.0
+ID: 1112137412 - Seg: [OLD, MALE] - Seg pop: 1.1739815440018004
+Day 17: Updating campaign 1549452536 stats: 5035.912808000244 tgtImps 6096.475145721537 nonTgtImps. Cost of imps is 0.0
+ID: 1549452536 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.109501105068415
+Day 17: Updating campaign 1490279757 stats: 25148.692970061908 tgtImps 0.0 nonTgtImps. Cost of imps is 0.052261247652292876
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.109501105068415
+Campaign ID added: 57953233
+Curr Quality: 1.170291624998534
+CAMPAIGN: 203289725, ***PRICE INDEX***: 0.3342449355432781
+Day 17 :BankStatus[-5.648797]
+ID: 1549452536 - New Imps: 4196
+ID: 57953233 - New Imps: 0
+ID: 1129709250 - New Imps: 0
+ID: 1112137412 - New Imps: 0
+ID: 1549452536 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 57953233 - Not enough imps gained. Raising: 1.4
+ID: 1129709250 - Not enough imps gained. Raising: 0.5378239999999999
+ID: 1112137412 - Not enough imps gained. Raising: 2.955076923076922
+Day 17 : Simulation Status Received
+Curr Quality: 1.170291624998534
+Camp ID: 1602694901 - Day End: 7 - Day: 17
+Camp ID: 1549452536 - Day End: 20 - Day: 17
+ID: 1549452536 - Seg POP: 1.29584792271971
+ID: 1549452536 - bid: 0.15980065517923894
+ID: 1549452536 - Budget Today: 0.2145 - Current cost: 0.0
+ID: 1549452536 - Reach: 4196 - Imps2Go: 0
+ID: 1549452536 - CI: 1.5076923076923074
+Camp ID: 1549452536 - Comp frac: 1.0 - imps2go: 0 - reach: 4196
+Completion frac: 1.0
+Camp ID: 57953233 - Day End: 22 - Day: 17
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 57953233 - Seg POP: 1.0833333333333335
+ID: 57953233 - bid: 0.7146735395189006
+ID: 57953233 - Budget Today: 1.4855 - Current cost: 0.0
+ID: 57953233 - Reach: 5044 - Imps2Go: 5044
+ID: 57953233 - CI: 1.4
+Camp ID: 57953233 - Comp frac: 0.0 - imps2go: 5044 - reach: 5044
+Completion frac: 0.0
+Camp ID: 1129709250 - Day End: 18 - Day: 17
+ID: 1129709250 - Seg POP: 0.0
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1129709250 - bid: 0.7336212616586852
+ID: 1129709250 - Budget Today: 1.1984444444444444 - Current cost: 0.5315364394084467
+ID: 1129709250 - Reach: 15904 - Imps2Go: 0
+ID: 1129709250 - CI: 0.5378239999999999
+Camp ID: 1129709250 - Comp frac: 1.0 - imps2go: 0 - reach: 15904
+Completion frac: 1.0
+Camp ID: 1111962541 - Day End: 5 - Day: 17
+Camp ID: 1781784942 - Day End: 15 - Day: 17
+Camp ID: 1112137412 - Day End: 18 - Day: 17
+ID: 1112137412 - Seg POP: 0.5
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1112137412 - bid: 0.3983096427199386
+ID: 1112137412 - Budget Today: 0.216 - Current cost: 0.0
+ID: 1112137412 - Reach: 2603 - Imps2Go: 0
+ID: 1112137412 - CI: 2.955076923076922
+Camp ID: 1112137412 - Comp frac: 1.0 - imps2go: 0 - reach: 2603
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 17
+Day 18: Updating campaign 1129709250 stats: 20755.974730116093 tgtImps 48492.40882641612 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 0.0
+Day 18: Updating campaign 1112137412 stats: 6251.469859175271 tgtImps 16112.93141852097 nonTgtImps. Cost of imps is 0.0
+ID: 1112137412 - Seg: [OLD, MALE] - Seg pop: 0.5
+Day 18: Updating campaign 1549452536 stats: 10073.10222046652 tgtImps 11025.309215055671 nonTgtImps. Cost of imps is 0.0
+ID: 1549452536 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.29584792271971
+Day 18: Updating campaign 1490279757 stats: 25148.692970061908 tgtImps 0.0 nonTgtImps. Cost of imps is 0.052261247652292876
+ID: 1490279757 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.29584792271971
+Curr Quality: 1.1506463477920956
+CAMPAIGN: 60111483, ***PRICE INDEX***: 0.26666666666666666
+Day 18 :BankStatus[0.060065]
+ID: 1549452536 - New Imps: 0
+ID: 57953233 - New Imps: 0
+ID: 1549452536 - Not enough imps gained. Raising: 2.1107692307692303
+ID: 57953233 - Not enough imps gained. Raising: 1.9599999999999997
+Day 18 : Simulation Status Received
+Curr Quality: 1.1506463477920956
+Camp ID: 1602694901 - Day End: 7 - Day: 18
+Camp ID: 1549452536 - Day End: 20 - Day: 18
+ID: 1549452536 - Seg POP: 2.119161141324592
+ID: 1549452536 - bid: 0.3658613530395127
+ID: 1549452536 - Budget Today: 0.2145 - Current cost: 0.0
+ID: 1549452536 - Reach: 4196 - Imps2Go: 0
+ID: 1549452536 - CI: 2.1107692307692303
+Camp ID: 1549452536 - Comp frac: 1.0 - imps2go: 0 - reach: 4196
+Completion frac: 1.0
+Camp ID: 57953233 - Day End: 22 - Day: 18
+ID: 57953233 - Seg POP: 1.5833333333333333
+ID: 57953233 - bid: 1.4623320116309806
+ID: 57953233 - Budget Today: 1.4855 - Current cost: 0.0
+ID: 57953233 - Reach: 5044 - Imps2Go: 5044
+ID: 57953233 - CI: 1.9599999999999997
+Camp ID: 57953233 - Comp frac: 0.0 - imps2go: 5044 - reach: 5044
+Completion frac: 0.0
+Camp ID: 1129709250 - Day End: 18 - Day: 18
+Camp ID: 1111962541 - Day End: 5 - Day: 18
+Camp ID: 1781784942 - Day End: 15 - Day: 18
+Camp ID: 1112137412 - Day End: 18 - Day: 18
+Camp ID: 1490279757 - Day End: 17 - Day: 18
+Day 19: Updating campaign 1129709250 stats: 20755.974730116093 tgtImps 48492.40882641612 nonTgtImps. Cost of imps is 0.5315364394084467
+ID: 1129709250 - Seg: [HIGH_INCOME] - Seg pop: 0.0
+Day 19: Updating campaign 57953233 stats: 6052.35712207411 tgtImps 5656.113788513691 nonTgtImps. Cost of imps is 0.0
+ID: 57953233 - Seg: [FEMALE] - Seg pop: 1.5833333333333333
+Day 19: Updating campaign 1112137412 stats: 6251.469859175271 tgtImps 16112.93141852097 nonTgtImps. Cost of imps is 0.0
+ID: 1112137412 - Seg: [OLD, MALE] - Seg pop: 0.9163403106009453
+Day 19: Updating campaign 1549452536 stats: 10073.10222046652 tgtImps 11025.309215055671 nonTgtImps. Cost of imps is 0.0
+ID: 1549452536 - Seg: [OLD, LOW_INCOME] - Seg pop: 2.119161141324592
+Campaign ID added: 60111483
+Curr Quality: 1.2544674502890283
+CAMPAIGN: 473548964, ***PRICE INDEX***: 0.33333333333333326
+Day 19 :BankStatus[6.863777]
+ID: 1549452536 - New Imps: 0
+ID: 57953233 - New Imps: 5044
+ID: 60111483 - New Imps: 0
+ID: 1549452536 - Not enough imps gained. Raising: 2.955076923076922
+ID: 57953233 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 60111483 - Not enough imps gained. Raising: 1.4
+Day 19 : Simulation Status Received
+Curr Quality: 1.2544674502890283
+Camp ID: 1602694901 - Day End: 7 - Day: 19
+Camp ID: 1549452536 - Day End: 20 - Day: 19
+ID: 1549452536 - Seg POP: 1.989619806799275
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1549452536 - bid: 0.24537654909437556
+ID: 1549452536 - Budget Today: 0.2145 - Current cost: 0.0
+ID: 1549452536 - Reach: 4196 - Imps2Go: 0
+ID: 1549452536 - CI: 2.955076923076922
+Camp ID: 1549452536 - Comp frac: 1.0 - imps2go: 0 - reach: 4196
+Completion frac: 1.0
+Camp ID: 57953233 - Day End: 22 - Day: 19
+ID: 57953233 - Seg POP: 3.0
+ID: 57953233 - bid: 2.131334106020862
+ID: 57953233 - Budget Today: 1.4855 - Current cost: 0.0
+ID: 57953233 - Reach: 5044 - Imps2Go: 0
+ID: 57953233 - CI: 1.5076923076923074
+Camp ID: 57953233 - Comp frac: 1.0 - imps2go: 0 - reach: 5044
+Completion frac: 1.0
+Camp ID: 1129709250 - Day End: 18 - Day: 19
+Camp ID: 1111962541 - Day End: 5 - Day: 19
+Camp ID: 1781784942 - Day End: 15 - Day: 19
+Camp ID: 1112137412 - Day End: 18 - Day: 19
+Camp ID: 1490279757 - Day End: 17 - Day: 19
+Camp ID: 60111483 - Day End: 24 - Day: 19
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 60111483 - Seg POP: 1.0833333333333335
+ID: 60111483 - bid: 0.11898305084745764
+ID: 60111483 - Budget Today: 0.243 - Current cost: 0.0
+ID: 60111483 - Reach: 4956 - Imps2Go: 4956
+ID: 60111483 - CI: 1.4
+Camp ID: 60111483 - Comp frac: 0.0 - imps2go: 4956 - reach: 4956
+Completion frac: 0.0
+Day 20: Updating campaign 57953233 stats: 12107.57100178892 tgtImps 9297.469526643014 nonTgtImps. Cost of imps is 0.0
+ID: 57953233 - Seg: [FEMALE] - Seg pop: 3.0
+Day 20: Updating campaign 1549452536 stats: 10073.10222046652 tgtImps 11025.309215055671 nonTgtImps. Cost of imps is 0.0
+ID: 1549452536 - Seg: [OLD, LOW_INCOME] - Seg pop: 1.989619806799275
+Campaign ID added: 473548964
+Curr Quality: 1.2544674502890283
+CAMPAIGN: 1263026927, ***PRICE INDEX***: 0.0999867829764737
+Day 20 :BankStatus[6.680043]
+ID: 57953233 - New Imps: 0
+ID: 473548964 - New Imps: 0
+ID: 60111483 - New Imps: 0
+ID: 57953233 - Not enough imps gained. Raising: 2.1107692307692303
+ID: 473548964 - Not enough imps gained. Raising: 1.4
+ID: 60111483 - Not enough imps gained. Raising: 1.9599999999999997
+Day 20 : Simulation Status Received
+Curr Quality: 1.2544674502890283
+Camp ID: 1602694901 - Day End: 7 - Day: 20
+Camp ID: 1549452536 - Day End: 20 - Day: 20
+Camp ID: 57953233 - Day End: 22 - Day: 20
+ID: 57953233 - Seg POP: 1.1999735659529474
+ID: 57953233 - bid: 1.1935208074715293
+ID: 57953233 - Budget Today: 1.4855 - Current cost: 0.0
+ID: 57953233 - Reach: 5044 - Imps2Go: 0
+ID: 57953233 - CI: 2.1107692307692303
+Camp ID: 57953233 - Comp frac: 1.0 - imps2go: 0 - reach: 5044
+Completion frac: 1.0
+Camp ID: 1129709250 - Day End: 18 - Day: 20
+Camp ID: 1111962541 - Day End: 5 - Day: 20
+Camp ID: 1781784942 - Day End: 15 - Day: 20
+Camp ID: 1112137412 - Day End: 18 - Day: 20
+Camp ID: 473548964 - Day End: 25 - Day: 20
+ID: 473548964 - Seg POP: 1.0
+ID: 473548964 - bid: 0.15859154929577465
+ID: 473548964 - Budget Today: 0.563 - Current cost: 0.0
+ID: 473548964 - Reach: 7952 - Imps2Go: 7952
+ID: 473548964 - CI: 1.4
+Camp ID: 473548964 - Comp frac: 0.0 - imps2go: 7952 - reach: 7952
+Completion frac: 0.0
+Camp ID: 1490279757 - Day End: 17 - Day: 20
+Camp ID: 60111483 - Day End: 24 - Day: 20
+ID: 60111483 - Seg POP: 1.5833333333333333
+ID: 60111483 - bid: 0.243457627118644
+ID: 60111483 - Budget Today: 0.243 - Current cost: 0.0
+ID: 60111483 - Reach: 4956 - Imps2Go: 4956
+ID: 60111483 - CI: 1.9599999999999997
+Camp ID: 60111483 - Comp frac: 0.0 - imps2go: 4956 - reach: 4956
+Completion frac: 0.0
+Day 21: Updating campaign 57953233 stats: 12107.57100178892 tgtImps 9297.469526643014 nonTgtImps. Cost of imps is 0.0
+ID: 57953233 - Seg: [FEMALE] - Seg pop: 1.1999735659529474
+Day 21: Updating campaign 1549452536 stats: 10073.10222046652 tgtImps 11025.309215055671 nonTgtImps. Cost of imps is 0.0
+ID: 1549452536 - Seg: [OLD, LOW_INCOME] - Seg pop: 0.746107427549728
+Day 21: Updating campaign 60111483 stats: 5950.285048318438 tgtImps 11037.284840777047 nonTgtImps. Cost of imps is 0.0
+ID: 60111483 - Seg: [MALE] - Seg pop: 1.5833333333333333
+Curr Quality: 1.289066817795948
+CAMPAIGN: 1136151955, ***PRICE INDEX***: 0.1321115048757325
+Day 21 :BankStatus[7.152222]
+ID: 57953233 - New Imps: 0
+ID: 473548964 - New Imps: 0
+ID: 60111483 - New Imps: 4956
+ID: 57953233 - Not enough imps gained. Raising: 2.955076923076922
+ID: 473548964 - Not enough imps gained. Raising: 1.9599999999999997
+ID: 60111483 - Enough imps gained. Lowering: 1.5076923076923074
+Day 21 : Simulation Status Received
+Curr Quality: 1.289066817795948
+Camp ID: 1602694901 - Day End: 7 - Day: 21
+Camp ID: 1549452536 - Day End: 20 - Day: 21
+Camp ID: 57953233 - Day End: 22 - Day: 21
+ID: 57953233 - Seg POP: 0.4998653821677877
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 57953233 - bid: 1.4136399682791436
+ID: 57953233 - Budget Today: 1.4855 - Current cost: 0.0
+ID: 57953233 - Reach: 5044 - Imps2Go: 0
+ID: 57953233 - CI: 2.955076923076922
+Camp ID: 57953233 - Comp frac: 1.0 - imps2go: 0 - reach: 5044
+Completion frac: 1.0
+Camp ID: 1129709250 - Day End: 18 - Day: 21
+Camp ID: 1111962541 - Day End: 5 - Day: 21
+Camp ID: 1781784942 - Day End: 15 - Day: 21
+Camp ID: 1112137412 - Day End: 18 - Day: 21
+Camp ID: 473548964 - Day End: 25 - Day: 21
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 473548964 - Seg POP: 1.3333333333333333
+ID: 473548964 - bid: 0.29603755868544596
+ID: 473548964 - Budget Today: 0.563 - Current cost: 0.0
+ID: 473548964 - Reach: 7952 - Imps2Go: 7952
+ID: 473548964 - CI: 1.9599999999999997
+Camp ID: 473548964 - Comp frac: 0.0 - imps2go: 7952 - reach: 7952
+Completion frac: 0.0
+Camp ID: 1490279757 - Day End: 17 - Day: 21
+Camp ID: 60111483 - Day End: 24 - Day: 21
+ID: 60111483 - Seg POP: 3.0
+ID: 60111483 - bid: 0.3548370273794002
+ID: 60111483 - Budget Today: 0.243 - Current cost: 0.0
+ID: 60111483 - Reach: 4956 - Imps2Go: 0
+ID: 60111483 - CI: 1.5076923076923074
+Camp ID: 60111483 - Comp frac: 1.0 - imps2go: 0 - reach: 4956
+Completion frac: 1.0
+Day 22: Updating campaign 57953233 stats: 12107.57100178892 tgtImps 9297.469526643014 nonTgtImps. Cost of imps is 0.0
+ID: 57953233 - Seg: [FEMALE] - Seg pop: 0.4998653821677877
+Day 22: Updating campaign 473548964 stats: 4048.2917006239463 tgtImps 15147.028206707108 nonTgtImps. Cost of imps is 0.0
+ID: 473548964 - Seg: [HIGH_INCOME] - Seg pop: 1.3333333333333333
+Day 22: Updating campaign 60111483 stats: 9324.791855841468 tgtImps 11037.284840777047 nonTgtImps. Cost of imps is 0.0
+ID: 60111483 - Seg: [MALE] - Seg pop: 3.0
+Campaign ID added: 1136151955
+Curr Quality: 1.289066817795948
+CAMPAIGN: 2144337186, ***PRICE INDEX***: 0.1414484126984127
+Day 22 :BankStatus[6.998705]
+ID: 1136151955 - New Imps: 0
+ID: 473548964 - New Imps: 4049
+ID: 60111483 - New Imps: 0
+ID: 1136151955 - Not enough imps gained. Raising: 1.4
+ID: 473548964 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 60111483 - Not enough imps gained. Raising: 2.1107692307692303
+Day 22 : Simulation Status Received
+Curr Quality: 1.289066817795948
+Camp ID: 1602694901 - Day End: 7 - Day: 22
+Camp ID: 1549452536 - Day End: 20 - Day: 22
+Camp ID: 57953233 - Day End: 22 - Day: 22
+Camp ID: 1129709250 - Day End: 18 - Day: 22
+Camp ID: 1111962541 - Day End: 5 - Day: 22
+Camp ID: 1136151955 - Day End: 25 - Day: 22
+ID: 1136151955 - Seg POP: 0.589288444166493
+ID: 1136151955 - bid: 0.07681745799491006
+ID: 1136151955 - Budget Today: 0.196 - Current cost: 0.0
+ID: 1136151955 - Reach: 1684 - Imps2Go: 1684
+ID: 1136151955 - CI: 1.4
+Camp ID: 1136151955 - Comp frac: 0.0 - imps2go: 1684 - reach: 1684
+Completion frac: 0.0
+Camp ID: 1781784942 - Day End: 15 - Day: 22
+Camp ID: 1112137412 - Day End: 18 - Day: 22
+Camp ID: 473548964 - Day End: 25 - Day: 22
+ID: 473548964 - Seg POP: 2.0
+ID: 473548964 - bid: 0.6959411892232797
+ID: 473548964 - Budget Today: 0.563 - Current cost: 0.0
+ID: 473548964 - Reach: 7952 - Imps2Go: 3903
+ID: 473548964 - CI: 1.5076923076923074
+Camp ID: 473548964 - Comp frac: 0.5091800804828974 - imps2go: 3903 - reach: 7952
+Completion frac: 0.5091800804828974
+Camp ID: 1490279757 - Day End: 17 - Day: 22
+Camp ID: 60111483 - Day End: 24 - Day: 22
+ID: 60111483 - Seg POP: 1.5
+ID: 60111483 - bid: 0.24838591916558014
+ID: 60111483 - Budget Today: 0.243 - Current cost: 0.0
+ID: 60111483 - Reach: 4956 - Imps2Go: 0
+ID: 60111483 - CI: 2.1107692307692303
+Camp ID: 60111483 - Comp frac: 1.0 - imps2go: 0 - reach: 4956
+Completion frac: 1.0
+Day 23: Updating campaign 57953233 stats: 12107.57100178892 tgtImps 9297.469526643014 nonTgtImps. Cost of imps is 0.0
+ID: 57953233 - Seg: [FEMALE] - Seg pop: 0.8997782477163921
+Day 23: Updating campaign 473548964 stats: 8821.283287860446 tgtImps 31931.539946231547 nonTgtImps. Cost of imps is 0.0
+ID: 473548964 - Seg: [HIGH_INCOME] - Seg pop: 2.0
+Day 23: Updating campaign 60111483 stats: 9324.791855841468 tgtImps 11037.284840777047 nonTgtImps. Cost of imps is 0.0
+ID: 60111483 - Seg: [MALE] - Seg pop: 1.5
+Curr Quality: 1.3028999854729095
+CAMPAIGN: 1842281889, ***PRICE INDEX***: 0.2773412698412699
+Day 23 :BankStatus[10.805732]
+ID: 1136151955 - New Imps: 0
+ID: 473548964 - New Imps: 3903
+ID: 60111483 - New Imps: 0
+ID: 1136151955 - Not enough imps gained. Raising: 1.9599999999999997
+ID: 473548964 - Enough imps gained. Lowering: 0.1
+ID: 60111483 - Not enough imps gained. Raising: 2.955076923076922
+Day 23 : Simulation Status Received
+Curr Quality: 1.3028999854729095
+Camp ID: 1602694901 - Day End: 7 - Day: 23
+Camp ID: 1549452536 - Day End: 20 - Day: 23
+Camp ID: 57953233 - Day End: 22 - Day: 23
+Camp ID: 1129709250 - Day End: 18 - Day: 23
+Camp ID: 1111962541 - Day End: 5 - Day: 23
+Camp ID: 1136151955 - Day End: 25 - Day: 23
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1136151955 - Seg POP: 0.5997150997150997
+ID: 1136151955 - bid: 0.10944729344729343
+ID: 1136151955 - Budget Today: 0.196 - Current cost: 0.0
+ID: 1136151955 - Reach: 1684 - Imps2Go: 1684
+ID: 1136151955 - CI: 1.9599999999999997
+Camp ID: 1136151955 - Comp frac: 0.0 - imps2go: 1684 - reach: 1684
+Completion frac: 0.0
+Camp ID: 1781784942 - Day End: 15 - Day: 23
+Camp ID: 1112137412 - Day End: 18 - Day: 23
+Camp ID: 473548964 - Day End: 25 - Day: 23
+ID: 473548964 - Seg POP: 4.0
+ID: 473548964 - bid: 0.04531187122736419
+ID: 473548964 - Budget Today: 0.563 - Current cost: 0.0
+ID: 473548964 - Reach: 7952 - Imps2Go: 0
+ID: 473548964 - CI: 0.1
+Camp ID: 473548964 - Comp frac: 1.0 - imps2go: 0 - reach: 7952
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 23
+Camp ID: 60111483 - Day End: 24 - Day: 23
+ID: 60111483 - Seg POP: 0.5555555555555556
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 60111483 - bid: 0.23535108958837775
+ID: 60111483 - Budget Today: 0.243 - Current cost: 0.0
+ID: 60111483 - Reach: 4956 - Imps2Go: 0
+ID: 60111483 - CI: 2.955076923076922
+Camp ID: 60111483 - Comp frac: 1.0 - imps2go: 0 - reach: 4956
+Completion frac: 1.0
+Day 24: Updating campaign 473548964 stats: 12616.86332886119 tgtImps 31931.539946231547 nonTgtImps. Cost of imps is 0.0
+ID: 473548964 - Seg: [HIGH_INCOME] - Seg pop: 4.0
+Day 24: Updating campaign 1136151955 stats: 2021.385005149156 tgtImps 7155.868211290373 nonTgtImps. Cost of imps is 0.0
+ID: 1136151955 - Seg: [FEMALE, OLD] - Seg pop: 0.5997150997150997
+Day 24: Updating campaign 60111483 stats: 9324.791855841468 tgtImps 11037.284840777047 nonTgtImps. Cost of imps is 0.0
+ID: 60111483 - Seg: [MALE] - Seg pop: 0.5555555555555556
+Curr Quality: 1.3028999854729095
+CAMPAIGN: 1893969968, ***PRICE INDEX***: 0.08333333333333333
+Day 24 :BankStatus[10.704990]
+ID: 1136151955 - New Imps: 1684
+ID: 473548964 - New Imps: 0
+ID: 1136151955 - Enough imps gained. Lowering: 1.5076923076923074
+ID: 473548964 - Not enough imps gained. Raising: 0.13999999999999999
+Day 24 : Simulation Status Received
+Curr Quality: 1.3028999854729095
+Camp ID: 1602694901 - Day End: 7 - Day: 24
+Camp ID: 1549452536 - Day End: 20 - Day: 24
+Camp ID: 57953233 - Day End: 22 - Day: 24
+Camp ID: 1129709250 - Day End: 18 - Day: 24
+Camp ID: 1111962541 - Day End: 5 - Day: 24
+Camp ID: 1136151955 - Day End: 25 - Day: 24
+ID: 1136151955 - Seg POP: 0.2
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 1136151955 - bid: 0.27933491686460815
+ID: 1136151955 - Budget Today: 0.196 - Current cost: 0.0
+ID: 1136151955 - Reach: 1684 - Imps2Go: 0
+ID: 1136151955 - CI: 1.5076923076923074
+Camp ID: 1136151955 - Comp frac: 1.0 - imps2go: 0 - reach: 1684
+Completion frac: 1.0
+Camp ID: 1781784942 - Day End: 15 - Day: 24
+Camp ID: 1112137412 - Day End: 18 - Day: 24
+Camp ID: 473548964 - Day End: 25 - Day: 24
+ID: 473548964 - Seg POP: 0.2
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 473548964 - bid: 0.33983903420523137
+ID: 473548964 - Budget Today: 0.563 - Current cost: 0.0
+ID: 473548964 - Reach: 7952 - Imps2Go: 0
+ID: 473548964 - CI: 0.13999999999999999
+Camp ID: 473548964 - Comp frac: 1.0 - imps2go: 0 - reach: 7952
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 24
+Camp ID: 60111483 - Day End: 24 - Day: 24
+Day 25: Updating campaign 473548964 stats: 12616.86332886119 tgtImps 31931.539946231547 nonTgtImps. Cost of imps is 0.0
+ID: 473548964 - Seg: [HIGH_INCOME] - Seg pop: 0.2
+Day 25: Updating campaign 1136151955 stats: 4042.4170029235374 tgtImps 7155.868211290373 nonTgtImps. Cost of imps is 0.0
+ID: 1136151955 - Seg: [FEMALE, OLD] - Seg pop: 0.2
+Day 25: Updating campaign 60111483 stats: 9324.791855841468 tgtImps 11037.284840777047 nonTgtImps. Cost of imps is 0.0
+ID: 60111483 - Seg: [MALE] - Seg pop: 0.625
+Curr Quality: 1.2889619263427392
+CAMPAIGN: 992320280, ***PRICE INDEX***: 0.3554994678424814
+Day 25 :BankStatus[11.326910]
+Day 25 : Simulation Status Received
+Curr Quality: 1.2889619263427392
+Camp ID: 1602694901 - Day End: 7 - Day: 25
+Camp ID: 1549452536 - Day End: 20 - Day: 25
+Camp ID: 57953233 - Day End: 22 - Day: 25
+Camp ID: 1129709250 - Day End: 18 - Day: 25
+Camp ID: 1111962541 - Day End: 5 - Day: 25
+Camp ID: 1136151955 - Day End: 25 - Day: 25
+Camp ID: 1781784942 - Day End: 15 - Day: 25
+Camp ID: 1112137412 - Day End: 18 - Day: 25
+Camp ID: 473548964 - Day End: 25 - Day: 25
+Camp ID: 1490279757 - Day End: 17 - Day: 25
+Camp ID: 60111483 - Day End: 24 - Day: 25
+Day 26: Updating campaign 473548964 stats: 12616.86332886119 tgtImps 31931.539946231547 nonTgtImps. Cost of imps is 0.0
+ID: 473548964 - Seg: [HIGH_INCOME] - Seg pop: 1.05
+Day 26: Updating campaign 1136151955 stats: 4042.4170029235374 tgtImps 7155.868211290373 nonTgtImps. Cost of imps is 0.0
+ID: 1136151955 - Seg: [FEMALE, OLD] - Seg pop: 0.25
+Campaign ID added: 992320280
+Curr Quality: 1.2921342834007912
+CAMPAIGN: 730714887, ***PRICE INDEX***: 0.25261960094411223
+Day 26 :BankStatus[12.985134]
+Day 26 : Simulation Status Received
+Curr Quality: 1.2921342834007912
+Camp ID: 1602694901 - Day End: 7 - Day: 26
+Camp ID: 1549452536 - Day End: 20 - Day: 26
+Camp ID: 57953233 - Day End: 22 - Day: 26
+Camp ID: 1129709250 - Day End: 18 - Day: 26
+Camp ID: 1111962541 - Day End: 5 - Day: 26
+Camp ID: 1136151955 - Day End: 25 - Day: 26
+Camp ID: 1781784942 - Day End: 15 - Day: 26
+Camp ID: 1112137412 - Day End: 18 - Day: 26
+Camp ID: 473548964 - Day End: 25 - Day: 26
+Camp ID: 992320280 - Day End: 31 - Day: 26
+ID: 992320280 - Seg POP: 1.1007551568597638
+ID: 992320280 - bid: 0.2768263939114335
+ID: 992320280 - Budget Today: 0.486 - Current cost: 0.0
+ID: 992320280 - Reach: 3092 - Imps2Go: 3092
+ID: 992320280 - CI: 1.0
+Camp ID: 992320280 - Comp frac: 0.0 - imps2go: 3092 - reach: 3092
+Completion frac: 0.0
+Camp ID: 1490279757 - Day End: 17 - Day: 26
+Camp ID: 60111483 - Day End: 24 - Day: 26
+Curr Quality: 1.2921342834007912
+CAMPAIGN: 69671864, ***PRICE INDEX***: 0.8667754150961341
+Day 27 :BankStatus[12.892681]
+Day 27 : Simulation Status Received
+Curr Quality: 1.2921342834007912
+Camp ID: 1602694901 - Day End: 7 - Day: 27
+Camp ID: 1549452536 - Day End: 20 - Day: 27
+Camp ID: 57953233 - Day End: 22 - Day: 27
+Camp ID: 1129709250 - Day End: 18 - Day: 27
+Camp ID: 1111962541 - Day End: 5 - Day: 27
+Camp ID: 1136151955 - Day End: 25 - Day: 27
+Camp ID: 1781784942 - Day End: 15 - Day: 27
+Camp ID: 1112137412 - Day End: 18 - Day: 27
+Camp ID: 473548964 - Day End: 25 - Day: 27
+Camp ID: 992320280 - Day End: 31 - Day: 27
+ID: 992320280 - Seg POP: 1.7262784450864124
+ID: 992320280 - bid: 0.4341378133567899
+ID: 992320280 - Budget Today: 0.486 - Current cost: 0.0
+ID: 992320280 - Reach: 3092 - Imps2Go: 3092
+ID: 992320280 - CI: 1.0
+Camp ID: 992320280 - Comp frac: 0.0 - imps2go: 3092 - reach: 3092
+Completion frac: 0.0
+Camp ID: 1490279757 - Day End: 17 - Day: 27
+Camp ID: 60111483 - Day End: 24 - Day: 27
+Day 28: Updating campaign 992320280 stats: 1560.0339296646746 tgtImps 13917.559208370774 nonTgtImps. Cost of imps is 0.0
+ID: 992320280 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 1.7262784450864124
+Curr Quality: 1.2921342834007912
+CAMPAIGN: 250067682, ***PRICE INDEX***: 0.5351784659135145
+Day 28 :BankStatus[12.721031]
+ID: 992320280 - New Imps: 1561
+ID: 992320280 - Enough imps gained. Lowering: 0.1
+Day 28 : Simulation Status Received
+Curr Quality: 1.2921342834007912
+Camp ID: 1602694901 - Day End: 7 - Day: 28
+Camp ID: 1549452536 - Day End: 20 - Day: 28
+Camp ID: 57953233 - Day End: 22 - Day: 28
+Camp ID: 1129709250 - Day End: 18 - Day: 28
+Camp ID: 1111962541 - Day End: 5 - Day: 28
+Camp ID: 1136151955 - Day End: 25 - Day: 28
+Camp ID: 1781784942 - Day End: 15 - Day: 28
+Camp ID: 1112137412 - Day End: 18 - Day: 28
+Camp ID: 473548964 - Day End: 25 - Day: 28
+Camp ID: 992320280 - Day End: 31 - Day: 28
+ID: 992320280 - Seg POP: 3.464984035274441
+ID: 992320280 - bid: 0.17598769339186188
+ID: 992320280 - Budget Today: 0.486 - Current cost: 0.0
+ID: 992320280 - Reach: 3092 - Imps2Go: 1531
+ID: 992320280 - CI: 0.1
+Camp ID: 992320280 - Comp frac: 0.5048512289780078 - imps2go: 1531 - reach: 3092
+Completion frac: 0.5048512289780078
+Camp ID: 1490279757 - Day End: 17 - Day: 28
+Camp ID: 60111483 - Day End: 24 - Day: 28
+Day 29: Updating campaign 992320280 stats: 3156.754305411914 tgtImps 25969.21728308907 nonTgtImps. Cost of imps is 0.0
+ID: 992320280 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 3.464984035274441
+Curr Quality: 1.2921342834007912
+CAMPAIGN: 956071140, ***PRICE INDEX***: 0.380128164833246
+Day 29 :BankStatus[12.643825]
+ID: 992320280 - New Imps: 1531
+ID: 992320280 - Enough imps gained. Lowering: 0.1
+Day 29 : Simulation Status Received
+Curr Quality: 1.2921342834007912
+Camp ID: 1602694901 - Day End: 7 - Day: 29
+Camp ID: 1549452536 - Day End: 20 - Day: 29
+Camp ID: 57953233 - Day End: 22 - Day: 29
+Camp ID: 1129709250 - Day End: 18 - Day: 29
+Camp ID: 1111962541 - Day End: 5 - Day: 29
+Camp ID: 1136151955 - Day End: 25 - Day: 29
+Camp ID: 1781784942 - Day End: 15 - Day: 29
+Camp ID: 1112137412 - Day End: 18 - Day: 29
+Camp ID: 473548964 - Day End: 25 - Day: 29
+Camp ID: 992320280 - Day End: 31 - Day: 29
+ID: 992320280 - Seg POP: 5.864984035274441
+ID: 992320280 - bid: 0.14749714055075697
+ID: 992320280 - Budget Today: 0.486 - Current cost: 0.0
+ID: 992320280 - Reach: 3092 - Imps2Go: 0
+ID: 992320280 - CI: 0.1
+Camp ID: 992320280 - Comp frac: 1.0 - imps2go: 0 - reach: 3092
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 29
+Camp ID: 60111483 - Day End: 24 - Day: 29
+Day 30: Updating campaign 992320280 stats: 4741.5742256486665 tgtImps 40205.75094103193 nonTgtImps. Cost of imps is 0.0
+ID: 992320280 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 5.864984035274441
+Curr Quality: 1.2921342834007912
+CAMPAIGN: 1221338297, ***PRICE INDEX***: 1.3741666421588792
+Day 30 :BankStatus[12.643825]
+ID: 992320280 - New Imps: 0
+ID: 992320280 - Not enough imps gained. Raising: 0.13999999999999999
+Day 30 : Simulation Status Received
+Curr Quality: 1.2921342834007912
+Camp ID: 1602694901 - Day End: 7 - Day: 30
+Camp ID: 1549452536 - Day End: 20 - Day: 30
+Camp ID: 57953233 - Day End: 22 - Day: 30
+Camp ID: 1129709250 - Day End: 18 - Day: 30
+Camp ID: 1111962541 - Day End: 5 - Day: 30
+Camp ID: 1136151955 - Day End: 25 - Day: 30
+Camp ID: 1781784942 - Day End: 15 - Day: 30
+Camp ID: 1112137412 - Day End: 18 - Day: 30
+Camp ID: 473548964 - Day End: 25 - Day: 30
+Camp ID: 992320280 - Day End: 31 - Day: 30
+ID: 992320280 - Seg POP: 1.647237865632628
+Only 1 day left and many imps to go. Doubling bid. 
+ID: 992320280 - bid: 0.7544631306597672
+ID: 992320280 - Budget Today: 0.486 - Current cost: 0.0
+ID: 992320280 - Reach: 3092 - Imps2Go: 0
+ID: 992320280 - CI: 0.13999999999999999
+Camp ID: 992320280 - Comp frac: 1.0 - imps2go: 0 - reach: 3092
+Completion frac: 1.0
+Camp ID: 1490279757 - Day End: 17 - Day: 30
+Camp ID: 60111483 - Day End: 24 - Day: 30
+Day 31: Updating campaign 992320280 stats: 4741.5742256486665 tgtImps 40205.75094103193 nonTgtImps. Cost of imps is 0.0
+ID: 992320280 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 1.647237865632628
+Curr Quality: 1.2921342834007912
+CAMPAIGN: 1159019336, ***PRICE INDEX***: 0.6332835708043418
+Day 31 :BankStatus[12.643825]
+Day 31 : Simulation Status Received
+Curr Quality: 1.2921342834007912
+Camp ID: 1602694901 - Day End: 7 - Day: 31
+Camp ID: 1549452536 - Day End: 20 - Day: 31
+Camp ID: 57953233 - Day End: 22 - Day: 31
+Camp ID: 1129709250 - Day End: 18 - Day: 31
+Camp ID: 1111962541 - Day End: 5 - Day: 31
+Camp ID: 1136151955 - Day End: 25 - Day: 31
+Camp ID: 1781784942 - Day End: 15 - Day: 31
+Camp ID: 1112137412 - Day End: 18 - Day: 31
+Camp ID: 473548964 - Day End: 25 - Day: 31
+Camp ID: 992320280 - Day End: 31 - Day: 31
+Camp ID: 1490279757 - Day End: 17 - Day: 31
+Camp ID: 60111483 - Day End: 24 - Day: 31
+Day 32: Updating campaign 992320280 stats: 4741.5742256486665 tgtImps 40205.75094103193 nonTgtImps. Cost of imps is 0.0
+ID: 992320280 - Seg: [HIGH_INCOME, YOUNG] - Seg pop: 2.4417845263897457
+Curr Quality: 1.258013392905216
+CAMPAIGN: 676999760, ***PRICE INDEX***: 0.12333333333333332
+Day 32 :BankStatus[13.844504]
+Day 32 : Simulation Status Received
+Curr Quality: 1.258013392905216
+Camp ID: 1602694901 - Day End: 7 - Day: 32
+Camp ID: 1549452536 - Day End: 20 - Day: 32
+Camp ID: 57953233 - Day End: 22 - Day: 32
+Camp ID: 1129709250 - Day End: 18 - Day: 32
+Camp ID: 1111962541 - Day End: 5 - Day: 32
+Camp ID: 1136151955 - Day End: 25 - Day: 32
+Camp ID: 1781784942 - Day End: 15 - Day: 32
+Camp ID: 1112137412 - Day End: 18 - Day: 32
+Camp ID: 473548964 - Day End: 25 - Day: 32
+Camp ID: 992320280 - Day End: 31 - Day: 32
+Camp ID: 1490279757 - Day End: 17 - Day: 32
+Camp ID: 60111483 - Day End: 24 - Day: 32
+Campaign ID added: 676999760
+Curr Quality: 1.258013392905216
+CAMPAIGN: 1461667295, ***PRICE INDEX***: 0.30272784610532955
+Day 33 :BankStatus[13.844504]
+Day 33 : Simulation Status Received
+Curr Quality: 1.258013392905216
+Camp ID: 1549452536 - Day End: 20 - Day: 33
+Camp ID: 57953233 - Day End: 22 - Day: 33
+Camp ID: 1111962541 - Day End: 5 - Day: 33
+Camp ID: 676999760 - Day End: 38 - Day: 33
+ID: 676999760 - Seg POP: 1.25
+ID: 676999760 - bid: 0.127696665940292
+ID: 676999760 - Budget Today: 0.293 - Current cost: 0.0
+ID: 676999760 - Reach: 4589 - Imps2Go: 4589
+ID: 676999760 - CI: 1.0
+Camp ID: 676999760 - Comp frac: 0.0 - imps2go: 4589 - reach: 4589
+Completion frac: 0.0
+Camp ID: 1136151955 - Day End: 25 - Day: 33
+Camp ID: 1112137412 - Day End: 18 - Day: 33
+Camp ID: 60111483 - Day End: 24 - Day: 33
+Camp ID: 1602694901 - Day End: 7 - Day: 33
+Camp ID: 1129709250 - Day End: 18 - Day: 33
+Camp ID: 1781784942 - Day End: 15 - Day: 33
+Camp ID: 473548964 - Day End: 25 - Day: 33
+Camp ID: 992320280 - Day End: 31 - Day: 33
+Camp ID: 1490279757 - Day End: 17 - Day: 33

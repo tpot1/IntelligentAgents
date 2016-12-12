@@ -4,6 +4,7 @@ contract_greed_lose:1.15
 contract_greed_win:1.2
 contract_quality_threshold:0.95
 contract_price_index_threshold:0.75
+campaign_conflict_threshold:7500
 ucs_scale_up:0.2
 ucs_scale_down:0.3
 ucs_max:0.9
