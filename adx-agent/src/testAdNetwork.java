@@ -186,6 +186,7 @@ public class testAdNetwork extends Agent {
 	
 	private Map<Attributes, Double> attributes_to_profit;
 	private Map<String,String> starting_constant_maps;
+	private Map<Integer, Integer> previous_imps_to_go;
 
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
@@ -200,6 +201,7 @@ public class testAdNetwork extends Agent {
 
 		PIPredictor = new PIP();
 		starting_constant_maps = new HashMap<>();
+		previous_imps_to_go = new HashMap<>();
 
 		attributes_to_profit = new TreeMap<Attributes, Double>(
 				new Comparator<Attributes>(){
@@ -317,6 +319,7 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) { System.out.println("Day " + day + ": Allocated campaign - " + campaignData); }
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
 		postedCampaigns.add(campaignData);
+		previous_imps_to_go.put(campaignData.id, campaignData.impsTogo());
 
 		addPseudoCamps(campaignMessage);
 	}
@@ -442,6 +445,8 @@ public class testAdNetwork extends Agent {
 			currCampaign = pendingCampaign;
 			genCampaignQueries(currCampaign);
 			myCampaigns.put(pendingCampaign.id, pendingCampaign);
+
+			previous_imps_to_go.put(pendingCampaign.id, pendingCampaign.impsTogo());
 
 			imps_competing_indicies.put(pendingCampaign.id, IMP_COMPETING_INDEX_DEFAULT);
 			imps_previous_results.put(pendingCampaign.id, 0);
@@ -677,7 +682,7 @@ public class testAdNetwork extends Agent {
 				if(true) {
 					System.out.println("ID: " + thisCampaign.id + " - Seg POP: " + PIPredictor.getPop(thisCampaign.targetSegment, day+1,day+1));
 					System.out.println("ID: " + thisCampaign.id + " - bid: " + impsBidder.getImpressionBid());
-					System.out.println("ID: " + thisCampaign.id + " - Budget Today: " + (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*imps_competing_indicies.get(thisCampaign.id)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart) + " - Current cost: " + thisCampaign.stats.getCost());
+					System.out.println("ID: " + thisCampaign.id + " - Budget Today: " + (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart) + " - Current cost: " + thisCampaign.stats.getCost());
 					System.out.println("ID: " + thisCampaign.id + " - Reach: " + thisCampaign.reachImps + " - Imps2Go: " + thisCampaign.impsTogo());
 					System.out.println("ID: " + thisCampaign.id + " - CI: " + imps_competing_indicies.get(thisCampaign.id));
 				}
@@ -686,9 +691,9 @@ public class testAdNetwork extends Agent {
 				double impressionLimit = thisCampaign.impsTogo()*2;
 
 				double budgetLimit;
-				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*imps_competing_indicies.get(thisCampaign.id)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart);
+				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart);
 				if (thisCampaign.dayEnd-thisCampaign.dayStart > 5) {
-					budgetLimit = (thisCampaign.budget)/(double)5*imps_competing_indicies.get(thisCampaign.id);
+					budgetLimit = (thisCampaign.budget)/(double)5*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart);
 				}
 
 				double completionFraction  = 1-((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
@@ -696,10 +701,10 @@ public class testAdNetwork extends Agent {
 
 				System.out.println("Completion frac: " + completionFraction);
 
-				if (thisCampaign.dayEnd == day+1 && completionFraction < 0.8) {
-					budgetLimit = budgetLimit * 1.2;
-				}
-				
+//				if (thisCampaign.dayEnd == day+1 && completionFraction < 0.8) {
+//					budgetLimit = budgetLimit * 1.2;
+//				}
+//
 				bidBundle.setCampaignDailyLimit(thisCampaign.id, (int) impressionLimit, budgetLimit);
 
 				if (verbose_printing) {
@@ -720,6 +725,10 @@ public class testAdNetwork extends Agent {
 		if (bidBundle != null) {
 			if (verbose_printing) { System.out.println("Day " + day + ": Sending BidBundle:" + bidBundle.toString()); }
 			sendMessage(adxAgentAddress, bidBundle);
+		}
+
+		for (Integer id : myCampaigns.keySet()) {
+			previous_imps_to_go.put(id, myCampaigns.get(id).impsTogo());
 		}
 	}
 
@@ -1071,7 +1080,7 @@ public class testAdNetwork extends Agent {
 			double comp_index = imps_competing_indicies.get(campId);
 			double prev_result = imps_previous_results.get(campId);
 
-			double result_modifier = 1;
+			double result_modifier = 0;
 
 			CampaignData camp = myCampaigns.get(campId);
 			int dur;
@@ -1081,22 +1090,22 @@ public class testAdNetwork extends Agent {
 
 			if (newImpsWon < avImpsPerDayReq) {
 			    //LOSE
-				if (prev_result == -1) {
-					result_modifier = IMP_RESULT_MODIFIER_LOSE_LOSE; //Add to greed
-				} else if (prev_result == 1) {
-					result_modifier = IMP_RESULT_MODIFIER_WIN_LOSE;
-				}
+//				if (prev_result == -1) {
+//					result_modifier = IMP_RESULT_MODIFIER_LOSE_LOSE; //Add to greed
+//				} else if (prev_result == 1) {
+//					result_modifier = IMP_RESULT_MODIFIER_WIN_LOSE;
+//				}
 				comp_index = (comp_index * (IMP_GREED_LOSE + result_modifier) > IMP_COMPETING_INDEX_MAX) ? IMP_COMPETING_INDEX_MAX : comp_index * (IMP_GREED_LOSE + result_modifier);
-				if (false) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
+				if (true) { System.out.println("ID: " + campId + " - Not enough imps gained. Raising: " + comp_index);}
 			} else {
 				//WIN
-				if (prev_result == -1) {
-					result_modifier = IMP_RESULT_MODIFIER_LOSE_WIN; //Add to greed
-				} else if (prev_result == 1) {
-					result_modifier = IMP_RESULT_MODIFIER_WIN_WIN;
-				}
+//				if (prev_result == -1) {
+//					result_modifier = IMP_RESULT_MODIFIER_LOSE_WIN; //Add to greed
+//				} else if (prev_result == 1) {
+//					result_modifier = IMP_RESULT_MODIFIER_WIN_WIN;
+//				}
 				comp_index = (comp_index / IMP_GREED_WIN < (IMP_GREED_WIN + result_modifier)) ? IMP_COMPETING_INDEX_MIN : comp_index / (IMP_GREED_WIN + result_modifier);
-				if (false) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
+				if (true) { System.out.println("ID: " + campId + " - Enough imps gained. Lowering: " + comp_index);}
 			}
 
 			imps_competing_indicies.put(campId,comp_index);
@@ -1109,29 +1118,41 @@ public class testAdNetwork extends Agent {
 		private void updateBidHistory(AdNetworkReport adnetReport) {
 			Map<Integer, Integer> newImps = new HashMap<>();
 
-			//Loop over all entries in report (see example at bottom of file)
-			for (AdNetworkKey adnetKey : adnetReport.keys()) {
-				//initialise imps to 0 for each campaign
-				if (!newImps.keySet().contains(adnetKey.getCampaignId())) {
-					newImps.put(adnetKey.getCampaignId(), 0);
-				}
+			int newImpsWon = 0;
 
-				AdNetworkReportEntry entry = adnetReport.getEntry(adnetKey);
-
-				//Update impressions won on that day
-				int newImpsWon = entry.getWinCount();
-				int sumImpsWon = newImps.get(adnetKey.getCampaignId());
-				newImps.put(adnetKey.getCampaignId(), sumImpsWon+newImpsWon);
-
-				//Find the corresponding day in bid history
-				for (ImpBidTrackingObject bid : history) {
-					if (bid.getDay() == day-1) {
-						int currImpsWon = bid.getImpsWon(adnetKey.getCampaignId());
-						bid.setImpsWon(adnetKey.getCampaignId(), currImpsWon + newImpsWon);
-					}
+			for (Integer id : myCampaigns.keySet()) {
+				if (myCampaigns.get(id).dayEnd  > day) {
+					newImpsWon = previous_imps_to_go.get(id) - myCampaigns.get(id).impsTogo();
+					System.out.println("ID: " + id + " - New Imps: " + newImpsWon);
+					newImps.put(id, newImpsWon);
 				}
 			}
 
+//
+//			//Loop over all entries in report (see example at bottom of file)
+//			for (AdNetworkKey adnetKey : adnetReport.keys()) {
+//				//initialise imps to 0 for each campaign
+//				if (!newImps.keySet().contains(adnetKey.getCampaignId())) {
+//					newImps.put(adnetKey.getCampaignId(), 0);
+//				}
+//
+//				if (newImpsWon == 0) {
+//				}
+//
+//				AdNetworkReportEntry entry = adnetReport.getEntry(adnetKey);
+//
+//				//Update impressions won on that day
+//				int sumImpsWon = newImps.get(adnetKey.getCampaignId());
+//				newImps.put(adnetKey.getCampaignId(), sumImpsWon+newImpsWon);
+//
+//				//Find the corresponding day in bid history
+//				for (ImpBidTrackingObject bid : history) {
+//					if (bid.getDay() == day-1) {
+//						int currImpsWon = bid.getImpsWon(adnetKey.getCampaignId());
+//						bid.setImpsWon(adnetKey.getCampaignId(), currImpsWon + newImpsWon);
+//					}
+//				}
+//			}
 			for (Integer campKey : newImps.keySet()) {
 				try {
 					updateImpCompeteIndex(campKey, newImps.get(campKey));
@@ -1648,7 +1669,7 @@ public class testAdNetwork extends Agent {
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1 && day < 55) {
-				bid = budget * price_index * 2 * comp_index;
+				bid = budget * IMP_COMPETING_INDEX_MAX;
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
 
