@@ -166,6 +166,7 @@ public class testAdNetwork extends Agent {
     private double UCS_MIN = 0.729;
 	private long previous_campaign_bid = 0;
 	private int campaignConflictThreshold = 5000;
+	private double triple_segment_camps_on_off = 0.0;
 
 	private int initialCampId;
 
@@ -1007,6 +1008,7 @@ public class testAdNetwork extends Agent {
 			CONTRACT_GREED_LOSE = 	Double.parseDouble(starting_constant_maps.get("contract_greed_lose"));
 			CONTRACT_GREED_WIN 	= 	Double.parseDouble(starting_constant_maps.get("contract_greed_win"));
 			campaignConflictThreshold = Integer.parseInt(starting_constant_maps.get("campaign_conflict_threshold"));
+			triple_segment_camps_on_off = Double.parseDouble(starting_constant_maps.get("triple_segment_camps_on_off"));
 
 			UCSScaleUp 			= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_up"));
 			UCSScaleDown 		= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_down"));
@@ -1413,7 +1415,7 @@ public class testAdNetwork extends Agent {
 				coeff += 0.5;
 			}
 
-			if (price_index > price_index_threshold || targetSegment.size() == 3 || campaignConflict(targetSegment)){
+			if (price_index > price_index_threshold || (targetSegment.size() == 3 && triple_segment_camps_on_off == 1.0) || campaignConflict(targetSegment)){
 				if (contract_printing) { System.out.println("BIDDING HIGHEST VALID BID. Reason: High PI? " + (price_index > price_index_threshold) + " (" + price_index + "); Segment Size 3? " + (targetSegment.size() == 3) + " (" + targetSegment.size() + "); Campaign Conflict? " + campaignConflict(targetSegment)); }
 				gambleCampaigns.add(id);
 				return highestValidBid();
