@@ -154,7 +154,7 @@ public class testAdNetwork extends Agent {
 
 	private static String constant_file_location_matt = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
 	private static String constant_file_location_tom = "C:\\Users\\Tom\\Documents\\4thYear\\IntelligentAgents\\adx\\starting_constant.txt";
-	private static String constant_file_location = constant_file_location_tom;
+	private static String constant_file_location = constant_file_location_matt;
 	
 	private double competing_index = 20.0;
 	private double COMPETING_INDEX_MAX = 20.0;
