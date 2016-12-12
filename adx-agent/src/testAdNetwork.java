@@ -164,6 +164,8 @@ public class testAdNetwork extends Agent {
     private double UCS_MIN = 0.729;
 	private long previous_campaign_bid = 0;
 
+	private int initialCampId;
+
 	private double quality_threshold = 0.95;
 	private double price_index_threshold = 1.0;
 
@@ -321,6 +323,7 @@ public class testAdNetwork extends Agent {
 		if (verbose_printing) { System.out.println("Day " + day + ": Allocated campaign - " + campaignData); }
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
 		postedCampaigns.add(campaignData);
+		initialCampId = campaignData.id;
 		previous_imps_to_go.put(campaignData.id, campaignData.impsTogo());
 
 		addPseudoCamps(campaignMessage);
@@ -334,7 +337,7 @@ public class testAdNetwork extends Agent {
 		Set<MarketSegment> seg4 = MarketSegment.marketSegments().get(3);
 		Set<MarketSegment> seg5 = MarketSegment.marketSegments().get(4);
 		Set<MarketSegment> seg6 = MarketSegment.marketSegments().get(5);
-		Set<MarketSegment> mirrorSegment = campaignMessage.getTargetSegment();
+//		Set<MarketSegment> mirrorSegment = campaignMessage.getTargetSegment();
 
 		CampaignData p1 = new CampaignData(1,(long)(0.5*5*MarketSegment.marketSegmentSize(seg1)),0,5,seg1);
 		CampaignData p2 = new CampaignData(2,(long)(0.5*5*MarketSegment.marketSegmentSize(seg2)),0,5,seg2);
@@ -342,7 +345,7 @@ public class testAdNetwork extends Agent {
 		CampaignData p4 = new CampaignData(4,(long)(0.5*5*MarketSegment.marketSegmentSize(seg4)),0,5,seg4);
 		CampaignData p5 = new CampaignData(5,(long)(0.5*5*MarketSegment.marketSegmentSize(seg5)),0,5,seg5);
 		CampaignData p6 = new CampaignData(6,(long)(0.5*5*MarketSegment.marketSegmentSize(seg6)),0,5,seg6);
-		CampaignData mirrorData = new CampaignData(7, (long)campaignMessage.getReachImps(),0,5,mirrorSegment);
+//		CampaignData mirrorData = new CampaignData(7, (long)campaignMessage.getReachImps(),0,5,mirrorSegment);
 
 		postedCampaigns.add(p1);
 		postedCampaigns.add(p2);
@@ -350,7 +353,7 @@ public class testAdNetwork extends Agent {
 		postedCampaigns.add(p4);
 		postedCampaigns.add(p5);
 		postedCampaigns.add(p6);
-		postedCampaigns.add(mirrorData);
+//		postedCampaigns.add(mirrorData);
 	}
 
 	/**
@@ -690,13 +693,14 @@ public class testAdNetwork extends Agent {
 				}
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
+
 				double impressionLimit = thisCampaign.impsTogo()*1.2;
 				double thisCI = imps_competing_indicies.get(thisCampaign.id);
 
 				double budgetLimit;
 				budgetLimit = (thisCampaign.budget);///(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*1.1;
 				if (thisCampaign.dayEnd-thisCampaign.dayStart > 6) {
-					budgetLimit = (thisCampaign.budget)/(double)5;
+					budgetLimit = (thisCampaign.budget);
 				}
 
 				double completionFraction  = 1-((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
@@ -1673,8 +1677,14 @@ public class testAdNetwork extends Agent {
 
 			//If short duration and not close to required reach, double bid
 			if (dur == 1 && fractionImpsToGo > 0.1 && day < 55) {
-				bid = budget * IMP_COMPETING_INDEX_MAX;
-				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
+				bid = (budget-myCampaignStatsHistory.get(camp.id).getCost()) * IMP_COMPETING_INDEX_MAX;
+				if (true) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
+		}
+
+			if (camp.id == initialCampId) {
+				if (bid > 5) {
+					bid = bid / 3;
+				}
 			}
 
 			if (gambleCampaigns.contains(camp.id)){
