@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -167,6 +164,7 @@ public class testAdNetwork extends Agent {
 	private long previous_campaign_bid = 0;
 	private int campaignConflictThreshold = 5000;
 	private double triple_segment_camps_on_off = 0.0;
+	private int two_day_reach_threshold = 7500;
 
 	private int initialCampId;
 
@@ -1009,6 +1007,7 @@ public class testAdNetwork extends Agent {
 			CONTRACT_GREED_WIN 	= 	Double.parseDouble(starting_constant_maps.get("contract_greed_win"));
 			campaignConflictThreshold = Integer.parseInt(starting_constant_maps.get("campaign_conflict_threshold"));
 			triple_segment_camps_on_off = Double.parseDouble(starting_constant_maps.get("triple_segment_camps_on_off"));
+			two_day_reach_threshold = Integer.parseInt(starting_constant_maps.get("two_day_reach_threshold"));
 
 			UCSScaleUp 			= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_up"));
 			UCSScaleDown 		= 	Double.parseDouble(starting_constant_maps.get("ucs_scale_down"));
@@ -1411,7 +1410,7 @@ public class testAdNetwork extends Agent {
 			double coeff = 1.0;
 			System.out.println("CAMPAIGN: " + id + ", ***PRICE INDEX***: " + price_index);
 
-			if (dayEnd - dayStart == 2 && BID_HIGH_ON_TWO_DAY_CAMPAIGNS == 1) {
+			if (dayEnd - dayStart == 2 && (BID_HIGH_ON_TWO_DAY_CAMPAIGNS == 1 || day <= 5) && reachImps > two_day_reach_threshold) {
 				coeff += 0.5;
 			}
 
