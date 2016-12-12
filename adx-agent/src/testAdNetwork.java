@@ -690,12 +690,13 @@ public class testAdNetwork extends Agent {
 				}
 
 				//Attempt to get the agent to continue bidding at 100% completion to get the extra profit and quality
-				double impressionLimit = thisCampaign.impsTogo()*2;
+				double impressionLimit = thisCampaign.impsTogo()*1.2;
+				double thisCI = imps_competing_indicies.get(thisCampaign.id);
 
 				double budgetLimit;
-				budgetLimit = (thisCampaign.budget)/(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart);
-				if (thisCampaign.dayEnd-thisCampaign.dayStart > 5) {
-					budgetLimit = (thisCampaign.budget)/(double)5*impScalingFunction(thisCampaign.dayEnd - thisCampaign.dayStart);
+				budgetLimit = (thisCampaign.budget);///(double)(thisCampaign.dayEnd-thisCampaign.dayStart)*1.1;
+				if (thisCampaign.dayEnd-thisCampaign.dayStart > 6) {
+					budgetLimit = (thisCampaign.budget)/(double)5;
 				}
 
 				double completionFraction  = 1-((double)thisCampaign.impsTogo()/(double)thisCampaign.reachImps);
@@ -703,9 +704,9 @@ public class testAdNetwork extends Agent {
 
 				System.out.println("Completion frac: " + completionFraction);
 
-//				if (thisCampaign.dayEnd == day+1 && completionFraction < 0.8) {
-//					budgetLimit = budgetLimit * 1.2;
-//				}
+				if ((thisCampaign.dayEnd == day+1&& completionFraction < 0.8) || (thisCampaign.dayEnd == day+2&& completionFraction < 0.6) ) {
+					budgetLimit = budgetLimit * 1.2;
+				}
 //
 				bidBundle.setCampaignDailyLimit(thisCampaign.id, (int) impressionLimit, budgetLimit);
 
@@ -1655,9 +1656,9 @@ public class testAdNetwork extends Agent {
 
 			if (adv) {
 				if (dur > 2) {
-					bid = budget * price_index / (dur - 2);
+					bid = budget * price_index;// / (dur - 2);
 				} else {
-					bid = budget * price_index / dur;
+					bid = budget * price_index;// / dur;
 				}
 
 			} else {
