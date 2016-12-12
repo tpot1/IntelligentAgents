@@ -152,7 +152,7 @@ public class testAdNetwork extends Agent {
 	private double meanVidCoeff;
 	private double meanMobCoeff;
 
-	private static String constant_file_location = "C:\\Users\\Matt\\IntelligentAgents\\starting_constant.txt";
+	private static String constant_file_location = "C:\\Users\\Tom\\Documents\\4thYear\\IntelligentAgents\\adx\\starting_constant.txt";
 
 	private double competing_index = 20.0;
 	private double COMPETING_INDEX_MAX = 20.0;
@@ -186,7 +186,9 @@ public class testAdNetwork extends Agent {
 	
 	private Map<Attributes, Double> attributes_to_profit;
 	private Map<String,String> starting_constant_maps;
-
+	
+	private ArrayList<Integer> gambleCampaigns;
+	
 	public testAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
 		postedCampaigns = new ArrayList<CampaignData>();
@@ -212,6 +214,8 @@ public class testAdNetwork extends Agent {
 
 		readConstantFile();
 		storeStartingConstants();
+		
+		gambleCampaigns = new ArrayList<Integer>();
 
 	}
 
@@ -1372,7 +1376,7 @@ public class testAdNetwork extends Agent {
 		
 		public long getContractBid(){
 			double coeff = 1.0;
-			System.out.println("***PRICE INDEX***: " + price_index);
+			System.out.println("CAMPAIGN: " + id + ", ***PRICE INDEX***: " + price_index);
 
 			if (dayEnd - dayStart == 2) {
 				coeff += 0.5;
@@ -1380,6 +1384,7 @@ public class testAdNetwork extends Agent {
 
 			if (price_index > price_index_threshold || targetSegment.size() == 3 || campaignConflict(targetSegment)){
 				if (contract_printing) { System.out.println("BIDDING HIGHEST VALID BID. Reason: High PI? " + (price_index > price_index_threshold) + " (" + price_index + "); Segment Size 3? " + (targetSegment.size() == 3) + " (" + targetSegment.size() + "); Campaign Conflict? " + campaignConflict(targetSegment)); }
+				gambleCampaigns.add(id);
 				return highestValidBid();
 			}
 			else if (currQuality < quality_threshold){
@@ -1596,7 +1601,7 @@ public class testAdNetwork extends Agent {
 			double bid = 0.0;
 
 			bid = getBudget();
-
+			
 			if (camp.impsTogo() != 0) {
 				//Return bid per mille imps
 				double finalBid = (bid / ((double) camp.impsTogo())) * 1000.0 * profitCoeff;
@@ -1652,6 +1657,11 @@ public class testAdNetwork extends Agent {
 				if (impressions_printing) { System.out.println("Only 1 day left and many imps to go. Doubling bid. ");}
 			}
 
+			if (gambleCampaigns.contains(camp.id)){
+				System.out.println("Campaign won by luck - reducing impression budget");
+				bid = bid / 5.0;
+			}
+			
 			return bid;
 		}
 	}
